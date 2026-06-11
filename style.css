@@ -5,22 +5,49 @@ body {
     height: 100vh;
     font-family: sans-serif;
     overflow: hidden;
+    position: relative;
+    background: #1a1a2e;
+}
+
+.bg-geometric {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #1a1a2e;
+    overflow: hidden;
+}
+
+.geometric-shape {
+    position: absolute;
+    border: 2px solid rgba(255, 153, 0, 0.2);
+    animation: float 20s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+    50% { transform: translateY(-80px) rotate(180deg); opacity: 0.6; }
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, #4a6fa5 0%, #6b8cbb 100%);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    backdrop-filter: blur(10px);
     padding: 10px 30px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     min-height: 60px;
+    flex-wrap: wrap;
 }
 
 .navbar-brand {
     display: flex;
     align-items: center;
     gap: 15px;
+    flex-wrap: wrap;
 }
 
 .navbar-logo {
@@ -29,6 +56,7 @@ body {
     background: white;
     padding: 5px;
     border-radius: 5px;
+    object-fit: contain;
 }
 
 .navbar-title {
@@ -54,7 +82,7 @@ body {
 .nav-btn {
     background: rgba(255, 255, 255, 0.2);
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     width: 45px;
     height: 45px;
     border-radius: 8px;
@@ -87,7 +115,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: white;
+    background: linear-gradient(135deg, #2a2a3e 0%, #1a1a2e 100%);
 }
 
 #india-map {
@@ -104,8 +132,8 @@ body {
     min-width: 300px;
     display: flex;
     flex-direction: column;
-    border-left: 2px solid #ddd;
-    background: #f9f9f9;
+    border-left: 2px solid #333;
+    background: linear-gradient(180deg, #1f1f2e 0%, #2a2a3e 100%);
 }
 
 /* The State Paths */
@@ -122,11 +150,23 @@ body {
     cursor: pointer;
 }
 
+/* Union Territory styling */
+.union-territory {
+    fill: #fff0e1 !important; /* Darker shade for UTs */
+}
+
+.union-territory:hover,
+.union-territory:focus {
+    fill: #2ecc71 !important;
+    stroke: #27ae60 !important;
+    stroke-width: 2 !important;
+}
+
 #state-visual {
     flex: 0 0 55%;
     display: flex;
     flex-direction: column;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 2px solid #333;
     padding: 15px;
     position: relative;
 }
@@ -135,7 +175,7 @@ body {
     margin: 0 0 10px 0;
     font-size: 18px;
     font-weight: 600;
-    color: #333;
+    color: #fff;
     text-align: left;
     align-self: flex-start;
 }
@@ -145,11 +185,17 @@ body {
     height: 100%;
     flex: 1;
     background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 432 / 488;
+    object-fit: contain;
 }
 
 #preview-path {
     stroke: #27ae60;
     stroke-width: 2;
+    vector-effect: non-scaling-stroke;
 }
 
 #no-data-badge {
@@ -175,11 +221,12 @@ body {
 }
 
 .detail-box {
-    background: white;
+    background: linear-gradient(135deg, #2a2a3e 0%, #1f1f2e 100%);
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     width: 100%;
+    color: #fff;
 }
 
 .detail-box p {
@@ -190,5 +237,90 @@ body {
 
 .detail-box strong {
     font-weight: 600;
-    color: #333;
+    color: #ff9900;
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .navbar-subtitle {
+        display: none;
+    }
+    
+    #right-panel {
+        width: 250px;
+        min-width: 250px;
+    }
+    
+    #india-map {
+        width: 90%;
+        height: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    #left-panel {
+        height: 60%;
+    }
+    
+    #right-panel {
+        width: 100%;
+        min-width: 100%;
+        height: 40%;
+        border-left: none;
+        border-top: 2px solid #ddd;
+    }
+    
+    #state-visual {
+        flex: 0 0 50%;
+    }
+    
+    #state-details {
+        flex: 0 0 50%;
+        padding: 10px;
+    }
+    
+    .navbar {
+        padding: 10px 15px;
+    }
+    
+    .navbar-title {
+        font-size: 18px;
+    }
+    
+    .navbar-logo {
+        height: 35px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand {
+        gap: 8px;
+    }
+    
+    .navbar-title {
+        font-size: 16px;
+    }
+    
+    .navbar-logo {
+        height: 30px;
+    }
+    
+    .nav-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    #state-visual h2 {
+        font-size: 16px;
+    }
+    
+    .detail-box p {
+        font-size: 12px;
+    }
 }

@@ -1,3 +1,15 @@
+// List of Union Territories
+const unionTerritories = [
+  'Andaman_and_Nicobar_Islands',
+  'Chandigarh',
+  'Dadra_and_Nagar_Haveli_and_Daman_and_Diu',
+  'Delhi',
+  'Jammu_and_Kashmir',
+  'Ladakh',
+  'Lakshadweep',
+  'Puducherry'
+];
+
 // Small dataset for states. Expand or replace with API calls as needed.
 const stateData = {
   
@@ -37,7 +49,7 @@ const stateData = {
   Jammu_and_Kashmir: { name: 'Jammu and Kashmir', capital: 'Srinagar (Summer), Jammu (Winter)', area: '55,538 km²', population: '13 Million' },
   Ladakh: { name: 'Ladakh', capital: 'Leh', area: '59,146 km²', population: '0.3 Million' },
   Lakshadweep: { name: 'Lakshadweep', capital: 'Kavaratti', area: '32 km²', population: '0.07 Million' },
-  //Puducherry: { name: 'Puducherry', capital: 'Puducherry', area: '490 km²', population: '1.5 Million' }
+  Puducherry: { name: 'Puducherry', capital: 'Puducherry', area: '490 km²', population: '1.5 Million' }
 
 };
 
@@ -130,10 +142,25 @@ function attachHandlers(rootEl) {
     });
 }
 
+// Apply darker shade to Union Territories
+function applyUnionTerritoryStyles() {
+    const mapSVG = document.getElementById('india-map');
+    if (!mapSVG) return;
+
+    unionTerritories.forEach(utId => {
+        const element = mapSVG.querySelector(`#${utId}`);
+        if (element) {
+            element.style.fill = '#d4a574'; // Darker shade
+            element.classList.add('union-territory');
+        }
+    });
+}
+
 // Attach handlers directly to inline SVG
 document.addEventListener('DOMContentLoaded', () => {
     const mapSVG = document.getElementById('india-map');
     if (mapSVG) {
         attachHandlers(mapSVG);
+        applyUnionTerritoryStyles();
     }
 });
