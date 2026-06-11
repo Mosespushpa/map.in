@@ -8,14 +8,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Animated Geometric Background -->
+    <!-- Aurora Borealis Background (Dark Theme) -->
     <div class="bg-geometric">
-        <div class="geometric-shape" style="width: 150px; height: 150px; top: 10%; left: 5%; animation-delay: 0s;"></div>
-        <div class="geometric-shape" style="width: 100px; height: 100px; top: 60%; left: 80%; animation-delay: 3s; border-radius: 50%;"></div>
-        <div class="geometric-shape" style="width: 120px; height: 120px; top: 80%; left: 10%; animation-delay: 6s; transform: rotate(45deg);"></div>
-        <div class="geometric-shape" style="width: 80px; height: 80px; top: 30%; left: 85%; animation-delay: 9s;"></div>
-        <div class="geometric-shape" style="width: 200px; height: 200px; top: 40%; left: 40%; animation-delay: 12s; border-radius: 50%;"></div>
-        <div class="geometric-shape" style="width: 90px; height: 90px; top: 15%; left: 60%; animation-delay: 15s; transform: rotate(30deg);"></div>
+        <div class="stars" id="starsContainer"></div>
+        <div class="aurora">
+            <div class="aurora-layer aurora-layer-1"></div>
+            <div class="aurora-layer aurora-layer-2"></div>
+            <div class="aurora-layer aurora-layer-3"></div>
+        </div>
+    </div>
+
+    <!-- Light Rays Background (Light Theme) -->
+    <div class="bg-light">
+        <div class="particles" id="particlesContainer"></div>
+        <div class="light-rays">
+            <div class="light-ray light-ray-1"></div>
+            <div class="light-ray light-ray-2"></div>
+            <div class="light-ray light-ray-3"></div>
+        </div>
     </div>
 
     <nav class="navbar">
@@ -133,6 +143,50 @@
 
     <script src="script.js"></script>
     <script>
+        // Generate stars for dark theme background
+        function generateStars() {
+            const starsContainer = document.getElementById('starsContainer');
+            if (!starsContainer) return;
+            
+            const starCount = 100;
+            starsContainer.innerHTML = '';
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+        
+        // Generate particles for light theme background
+        function generateParticles() {
+            const particlesContainer = document.getElementById('particlesContainer');
+            if (!particlesContainer) return;
+            
+            const particleCount = 40;
+            particlesContainer.innerHTML = '';
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 5 + 6) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Generate on load
+        window.addEventListener('DOMContentLoaded', () => {
+            generateStars();
+            generateParticles();
+        });
+        
         // Theme toggle functionality
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
@@ -158,22 +212,25 @@
             const stateDetails = document.getElementById('state-details');
             const detailBox = document.querySelector('.detail-box');
             const navbar = document.querySelector('.navbar');
+            const bgGeometric = document.querySelector('.bg-geometric');
+            const bgLight = document.querySelector('.bg-light');
             
             if (isDark) {
-                // Dark theme with gradients
+                // Dark theme with aurora
                 themeIcon.classList.remove('fa-sun');
                 themeIcon.classList.add('fa-moon');
-                document.body.style.background = '#1a1a2e';
-                document.querySelector('.bg-geometric').style.display = 'block';
+                document.body.style.background = '#0a0e27';
+                bgGeometric.style.display = 'block';
+                bgLight.style.display = 'none';
                 
                 // Navbar gradient
                 navbar.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
                 
                 // Left panel (map area) with gradient
-                leftPanel.style.background = 'linear-gradient(135deg, #2a2a3e 0%, #1a1a2e 100%)';
+                leftPanel.style.background = 'linear-gradient(135deg, rgba(42, 42, 62, 0.8) 0%, rgba(26, 26, 46, 0.8) 100%)';
                 
                 // Right panel with gradient
-                rightPanel.style.background = 'linear-gradient(180deg, #1f1f2e 0%, #2a2a3e 100%)';
+                rightPanel.style.background = 'linear-gradient(180deg, rgba(31, 31, 46, 0.9) 0%, rgba(42, 42, 62, 0.9) 100%)';
                 rightPanel.style.borderLeft = '2px solid #333';
                 
                 // State visual area
@@ -181,7 +238,7 @@
                 stateVisual.querySelector('h2').style.color = '#fff';
                 
                 // Detail box with gradient
-                detailBox.style.background = 'linear-gradient(135deg, #2a2a3e 0%, #1f1f2e 100%)';
+                detailBox.style.background = 'linear-gradient(135deg, rgba(42, 42, 62, 0.9) 0%, rgba(31, 31, 46, 0.9) 100%)';
                 detailBox.style.color = '#fff';
                 detailBox.querySelectorAll('strong').forEach(el => el.style.color = '#ff9900');
                 
@@ -193,20 +250,21 @@
                 
                 themeToggle.classList.add('active');
             } else {
-                // Light theme with gradients
+                // Light theme with flowing light rays
                 themeIcon.classList.remove('fa-moon');
                 themeIcon.classList.add('fa-sun');
-                document.body.style.background = 'white';
-                document.querySelector('.bg-geometric').style.display = 'none';
+                document.body.style.background = '#e3f2fd';
+                bgGeometric.style.display = 'none';
+                bgLight.style.display = 'block';
                 
                 // Navbar gradient for light theme
                 navbar.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
                 
                 // Left panel (map area) with gradient
-                leftPanel.style.background = 'linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%)';
+                leftPanel.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(240, 240, 240, 0.85) 100%)';
                 
                 // Right panel with gradient
-                rightPanel.style.background = 'linear-gradient(180deg, #f9f9f9 0%, #e8e8e8 100%)';
+                rightPanel.style.background = 'linear-gradient(180deg, rgba(249, 249, 249, 0.9) 0%, rgba(232, 232, 232, 0.9) 100%)';
                 rightPanel.style.borderLeft = '2px solid #ddd';
                 
                 // State visual area
@@ -214,9 +272,9 @@
                 stateVisual.querySelector('h2').style.color = '#333';
                 
                 // Detail box with gradient
-                detailBox.style.background = 'linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%)';
+                detailBox.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 245, 0.95) 100%)';
                 detailBox.style.color = '#333';
-                detailBox.querySelectorAll('strong').forEach(el => el.style.color = '#333');
+                detailBox.querySelectorAll('strong').forEach(el => el.style.color = '#ff9900');
                 
                 // State paths
                 statePaths.forEach(path => {
