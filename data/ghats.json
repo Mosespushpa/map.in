@@ -1,0 +1,52 @@
+{
+  "ghats": [
+    {
+      "id": "western_ghats",
+      "name": "Western Ghats",
+      "type": "Mountain Range",
+      "length": "1,600 km",
+      "states": ["Gujarat", "Maharashtra", "Goa", "Karnataka", "Kerala", "Tamil_Nadu"],
+      "description": "The Western Ghats, also known as Sahyadri, is a UNESCO World Heritage Site. It is one of the world's eight hottest biodiversity hotspots.",
+      "facts": ["UNESCO World Heritage Site", "One of 8 global biodiversity hotspots", "Source of major peninsular rivers", "Over 5,000 species of flowering plants"],
+      "highestPeak": "Anamudi — 2,695 m"
+    },
+    {
+      "id": "eastern_ghats",
+      "name": "Eastern Ghats",
+      "type": "Mountain Range",
+      "length": "1,750 km",
+      "states": ["Odisha", "Andhra_Pradesh", "Tamil_Nadu"],
+      "description": "The Eastern Ghats are a discontinuous range of mountains along the eastern coast of India. They are older and more eroded than the Western Ghats.",
+      "facts": ["Discontinuous mountain range", "Older than Western Ghats", "Araku Valley — coffee growing region", "Tribal heartland"],
+      "highestPeak": "Jindhagada — 1,690 m"
+    },
+    {
+      "id": "varanasi_ghats",
+      "name": "Varanasi Ghats",
+      "type": "River Ghats",
+      "count": "88 ghats",
+      "state": "Uttar_Pradesh",
+      "description": "The ghats of Varanasi are a series of steps leading down to the Ganges river. They are the spiritual heart of Hinduism.",
+      "facts": ["88 ghats along the Ganges", "Dashashwamedh Ghat — main ghat", "Manikarnika Ghat — cremation ghat", "Ganga Aarti every evening"],
+      "famousGhats": ["Dashashwamedh", "Manikarnika", "Assi", "Panchganga"]
+    },
+    {
+      "id": "rishikesh_ghats",
+      "name": "Rishikesh Ghats",
+      "type": "River Ghats",
+      "state": "Uttarakhand",
+      "description": "The ghats of Rishikesh on the Ganges are famous for yoga, meditation, and adventure sports. Rishikesh is known as the 'Yoga Capital of the World'.",
+      "facts": ["Yoga Capital of the World", "Triveni Ghat — main ghat", "Ram Jhula and Lakshman Jhula bridges", "Beatles visited Maharishi Mahesh Yogi here"],
+      "famousGhats": ["Triveni Ghat", "Swarg Ashram Ghat"]
+    },
+    {
+      "id": "haridwar_ghats",
+      "name": "Haridwar Ghats",
+      "type": "River Ghats",
+      "state": "Uttarakhand",
+      "description": "Haridwar is one of the seven holiest places in Hinduism. The Har Ki Pauri ghat is the most sacred spot where the Ganges enters the plains.",
+      "facts": ["One of 7 holiest Hindu cities", "Har Ki Pauri — most sacred ghat", "Kumbh Mela held every 12 years", "Gateway to Char Dham pilgrimage"],
+      "famousGhats": ["Har Ki Pauri", "Kushavarta Ghat"]
+    }
+  ]
+}
