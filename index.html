@@ -6,6 +6,8 @@
   <title>Map.in — Historical Geography Explorer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="components/timeline.css">
+  <link rel="stylesheet" href="components/tags.css">
 </head>
 <body class="dark">
 
@@ -30,43 +32,26 @@
     </div>
   </nav>
 
-  <!-- ── TAGS ROW ── -->
+  <!-- ── TAGS ROW — populated by components/tags.js ── -->
   <div class="tags-row" id="tagsRow"></div>
 
-  <!-- ── MAIN AREA ── -->
+  <!-- ── MAIN LAYOUT ── -->
   <div class="app-body">
 
-    <!-- LEFT: Timeline -->
-    <aside class="timeline-panel" id="timelinePanel">
-      <div class="timeline-header">
-        <span class="tl-label">Timeline</span>
-        <span class="tl-year" id="tlYear">2024</span>
-      </div>
-      <div class="timeline-track-wrap">
-        <div class="timeline-track" id="tlTrack">
-          <div class="timeline-fill" id="tlFill"></div>
-          <div class="timeline-handle" id="tlHandle" tabindex="0" role="slider"
-               aria-valuemin="1947" aria-valuemax="2024" aria-valuenow="2024">
-            <span class="handle-pip"></span>
-          </div>
-          <!-- milestones injected by JS -->
-        </div>
-      </div>
-    </aside>
+    <!-- LEFT: Timeline — populated by components/timeline.js -->
+    <div id="standaloneTimeline"></div>
 
     <!-- CENTER: Map -->
     <main class="map-area" id="mapArea">
       <div class="map-loading" id="mapLoading"><i class="fas fa-spinner fa-spin"></i></div>
       <svg id="india-map" viewBox="0 0 432 488" preserveAspectRatio="xMidYMid meet">
-        <g class="regions" id="mapRegions">
-          <!-- paths injected by loadMap() in script.js -->
-        </g>
+        <g class="regions" id="mapRegions"></g>
       </svg>
     </main>
 
   </div>
 
-  <!-- ── SIDE PANEL (bottom) ── -->
+  <!-- ── SIDE PANEL ── -->
   <section class="side-panel" id="sidePanel">
     <div class="sp-placeholder" id="spPlaceholder">
       <i class="fas fa-map-marked-alt"></i>
@@ -90,6 +75,26 @@
     </div>
   </section>
 
-  <script type="module" src="script.js"></script>
+  <!-- ── Scripts ── -->
+  <!-- 1. Core data + map logic -->
+  <script src="script.js"></script>
+  <!-- 2. Timeline-driven data engine -->
+  <script src="timeline-data.js"></script>
+  <!-- 3. Standalone components -->
+  <script src="components/timeline.js"></script>
+  <script src="components/tags.js"></script>
+  <!-- 4. Event bridges -->
+  <script>
+    // yearChanged → update map year filter + timeline engine
+    document.addEventListener('yearChanged', function (e) {
+      if (typeof setYear === 'function') setYear(e.detail);
+    });
+    // categoryChanged → update map overlays
+    document.addEventListener('categoryChanged', function (e) {
+      if (typeof currentCategory !== 'undefined') currentCategory = e.detail;
+      if (typeof applyOverlays === 'function') applyOverlays();
+    });
+  </script>
+
 </body>
 </html>

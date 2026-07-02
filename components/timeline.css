@@ -1,0 +1,120 @@
+/* components/timeline.css */
+
+.tl-root {
+  position: relative;
+  height: 100%;
+  width: 110px;
+  background: rgba(10, 14, 39, 0.92);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 24px 0;
+  overflow-y: auto;
+  scrollbar-width: none;
+  flex-shrink: 0;
+}
+
+.tl-root::-webkit-scrollbar { display: none; }
+
+/* Vertical connecting line */
+.tl-line {
+  position: absolute;
+  left: 50%;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+/* Each year row */
+.tl-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px 10px 28px;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 1;
+}
+
+.tl-item:hover {
+  background: rgba(102, 126, 234, 0.12);
+}
+
+/* Dot on the line */
+.tl-dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.tl-item:hover .tl-dot {
+  background: rgba(102, 126, 234, 0.6);
+  border-color: #667eea;
+}
+
+.tl-item.tl-active .tl-dot {
+  background: #ff9800;
+  border-color: #ff9800;
+  transform: translateX(-50%) scale(1.35);
+  box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
+}
+
+/* Year + label text */
+.tl-info {
+  display: flex;
+  flex-direction: column;
+  padding-left: 14px;
+  pointer-events: none;
+}
+
+.tl-year {
+  font-size: 12px;
+  font-weight: 700;
+  color: #aaa;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.2s;
+}
+
+.tl-label {
+  font-size: 9px;
+  color: #666;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.tl-item:hover .tl-year  { color: #fff; }
+.tl-item:hover .tl-label { color: #aaa; }
+
+.tl-item.tl-active .tl-year  { color: #ff9800; }
+.tl-item.tl-active .tl-label { color: #ffb74d; }
+
+/* Light theme */
+body.light .tl-root {
+  background: rgba(232, 234, 246, 0.95);
+  border-right-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light .tl-line { background: rgba(0, 0, 0, 0.1); }
+body.light .tl-item:hover { background: rgba(102, 126, 234, 0.1); }
+body.light .tl-dot { background: rgba(0,0,0,0.15); border-color: rgba(0,0,0,0.25); }
+body.light .tl-year  { color: #555; }
+body.light .tl-label { color: #999; }
+body.light .tl-item:hover .tl-year  { color: #1a1a2e; }
+body.light .tl-item:hover .tl-label { color: #555; }

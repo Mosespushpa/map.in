@@ -1,0 +1,99 @@
+/* components/tags.css */
+
+#tagsRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(10, 14, 39, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  overflow-x: auto;
+  flex-shrink: 0;
+  scrollbar-width: none;
+}
+
+#tagsRow::-webkit-scrollbar { display: none; }
+
+/* Pill button */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.18s, color 0.18s, border-color 0.18s, box-shadow 0.18s, transform 0.12s;
+  outline: none;
+}
+
+.tag-pill i {
+  font-size: 11px;
+  opacity: 0.8;
+}
+
+.tag-pill:hover {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: rgba(102, 126, 234, 0.45);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.tag-pill:active {
+  transform: translateY(0);
+}
+
+/* Active pill */
+.tag-pill--active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 3px 12px rgba(102, 126, 234, 0.45);
+}
+
+.tag-pill--active i {
+  opacity: 1;
+}
+
+.tag-pill--active:hover {
+  background: linear-gradient(135deg, #7b8ff5 0%, #8a5cb8 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(102, 126, 234, 0.55);
+}
+
+/* Focus ring for accessibility */
+.tag-pill:focus-visible {
+  outline: 2px solid #ff9800;
+  outline-offset: 2px;
+}
+
+/* Light theme */
+body.light #tagsRow {
+  background: rgba(232, 234, 246, 0.95);
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+body.light .tag-pill {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #555;
+}
+
+body.light .tag-pill:hover {
+  background: rgba(102, 126, 234, 0.12);
+  border-color: rgba(102, 126, 234, 0.35);
+  color: #1a1a2e;
+}
+
+body.light .tag-pill--active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: transparent;
+  color: #fff;
+}

@@ -190,127 +190,12 @@ body.light .tag-btn:hover { background: rgba(102,126,234,0.15); color: #333; }
   min-height: 0;
 }
 
-/* ── TIMELINE PANEL ── */
-.timeline-panel {
-  width: 90px;
+/* ── TIMELINE PANEL (handled by components/timeline.js + timeline.css) ── */
+#standaloneTimeline {
   flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  background: rgba(10,14,39,0.85);
-  backdrop-filter: blur(8px);
-  border-right: 1px solid rgba(255,255,255,0.07);
-  padding: 10px 0;
-  overflow: hidden;
-}
-
-body.light .timeline-panel { background: rgba(232,234,246,0.9); border-right-color: rgba(0,0,0,0.1); }
-
-.timeline-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 8px 10px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
-  gap: 2px;
-}
-
-.tl-label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
-
-.tl-year {
-  font-size: 18px;
-  font-weight: 700;
-  color: #667eea;
-  font-variant-numeric: tabular-nums;
-}
-
-body.light .tl-year { color: #5c6bc0; }
-
-.timeline-track-wrap {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding: 12px 0;
-  overflow: hidden;
-}
-
-.timeline-track {
-  position: relative;
-  width: 4px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 2px;
   height: 100%;
-  cursor: pointer;
+  overflow: hidden;
 }
-
-body.light .timeline-track { background: rgba(0,0,0,0.1); }
-
-.timeline-fill {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: linear-gradient(to bottom, #667eea, #764ba2);
-  border-radius: 2px;
-  transition: height 0.15s;
-}
-
-.timeline-handle {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 20px;
-  height: 20px;
-  background: #667eea;
-  border: 3px solid #fff;
-  border-radius: 50%;
-  cursor: grab;
-  z-index: 10;
-  transition: top 0.1s;
-  box-shadow: 0 2px 8px rgba(102,126,234,0.6);
-}
-
-.timeline-handle:active { cursor: grabbing; }
-.timeline-handle:focus { outline: 2px solid #ff9800; }
-
-.timeline-milestone {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  z-index: 5;
-}
-
-.milestone-dot {
-  width: 8px;
-  height: 8px;
-  background: rgba(255,255,255,0.3);
-  border-radius: 50%;
-  border: 1px solid rgba(255,255,255,0.5);
-  flex-shrink: 0;
-  transition: background 0.2s;
-}
-
-.timeline-milestone:hover .milestone-dot,
-.timeline-milestone.active .milestone-dot {
-  background: #ff9800;
-  border-color: #ff9800;
-}
-
-.milestone-label {
-  position: absolute;
-  left: 14px;
-  display: flex;
-  flex-direction: column;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.milestone-year { font-size: 9px; font-weight: 700; color: #aaa; }
-.milestone-name { font-size: 8px; color: #777; }
-
-.timeline-milestone.active .milestone-year { color: #ff9800; }
 
 /* ── MAP AREA ── */
 .map-area {
@@ -353,6 +238,7 @@ body.light .map-area { background: linear-gradient(135deg, rgba(232,234,246,0.9)
 
 .state:hover, .state:focus { fill: #2ecc71 !important; stroke: #27ae60 !important; stroke-width: 2 !important; }
 .state.highlighted { fill: #f39c12 !important; stroke: #e67e22 !important; stroke-width: 2.5 !important; }
+.state.year-active  { fill: #5c6bc0 !important; stroke: #7986cb !important; stroke-width: 2 !important; }
 
 body.light .state { fill: #c5cae9; stroke: #5c6bc0; }
 body.light .state:hover, body.light .state:focus { fill: #2ecc71 !important; }
