@@ -2,6 +2,7 @@
 let statesData = {};
 let riversData = [];
 let fortsData  = [];
+let ghatsData  = [];
 let currentCategory = 'states';
 let currentYear = 2024;
 let isDragging = false;
@@ -84,7 +85,16 @@ fortsData = [
   { id:'purana_qila', name:'Purana Qila', location:'Delhi', state:'Delhi', built:'16th century', builtBy:'Humayun / Sher Shah Suri', dynasty:'Mughal / Sur', type:'Imperial Fort', description:'Purana Qila is believed to be built on the site of Indraprastha, capital of the Pandavas.', facts:['Believed to be site of Indraprastha','Built by Humayun and Sher Shah Suri','Qila-i-Kuhna Mosque inside'], coordinates:[28.6100,77.2431] }
 ];
 
-// ── Part 2: Inline Timeline Milestones ──
+// ── Part 3: Inline Ghats Data ──
+let ghatsData = [
+  { id:'western_ghats', name:'Western Ghats', type:'Mountain Range', length:'1,600 km', states:['Gujarat','Maharashtra','Goa','Karnataka','Kerala','Tamil_Nadu'], description:'The Western Ghats is a UNESCO World Heritage Site and one of the world\'s eight hottest biodiversity hotspots.', facts:['UNESCO World Heritage Site','One of 8 global biodiversity hotspots','Source of major peninsular rivers','Over 5,000 species of flowering plants'], highestPeak:'Anamudi — 2,695 m' },
+  { id:'eastern_ghats', name:'Eastern Ghats', type:'Mountain Range', length:'1,750 km', states:['Odisha','Andhra_Pradesh','Tamil_Nadu'], description:'The Eastern Ghats are a discontinuous range of mountains along the eastern coast of India.', facts:['Discontinuous mountain range','Older than Western Ghats','Araku Valley — coffee growing region','Tribal heartland'], highestPeak:'Jindhagada — 1,690 m' },
+  { id:'varanasi_ghats', name:'Varanasi Ghats', type:'River Ghats', count:'88 ghats', state:'Uttar_Pradesh', description:'The ghats of Varanasi are a series of steps leading down to the Ganges river, the spiritual heart of Hinduism.', facts:['88 ghats along the Ganges','Dashashwamedh Ghat — main ghat','Manikarnika Ghat — cremation ghat','Ganga Aarti every evening'], famousGhats:['Dashashwamedh','Manikarnika','Assi','Panchganga'] },
+  { id:'rishikesh_ghats', name:'Rishikesh Ghats', type:'River Ghats', state:'Uttarakhand', description:'The ghats of Rishikesh on the Ganges are famous for yoga, meditation, and adventure sports.', facts:['Yoga Capital of the World','Triveni Ghat — main ghat','Ram Jhula and Lakshman Jhula bridges','Beatles visited Maharishi Mahesh Yogi here'], famousGhats:['Triveni Ghat','Swarg Ashram Ghat'] },
+  { id:'haridwar_ghats', name:'Haridwar Ghats', type:'River Ghats', state:'Uttarakhand', description:'Haridwar is one of the seven holiest places in Hinduism. The Har Ki Pauri ghat is the most sacred spot.', facts:['One of 7 holiest Hindu cities','Har Ki Pauri — most sacred ghat','Kumbh Mela held every 12 years','Gateway to Char Dham pilgrimage'], famousGhats:['Har Ki Pauri','Kushavarta Ghat'] }
+];
+
+// ── Part 3: Load Map from inline SVG (no fetch) ──
 milestones = [
   { year:1947, label:'Independence', description:'India gains independence from British rule on August 15, 1947. The country is partitioned into India and Pakistan.', events:['Partition of British India','Independence Day - Aug 15','Jawaharlal Nehru becomes first PM'] },
   { year:1950, label:'Republic', description:'India becomes a republic on January 26, 1950. The Constitution of India comes into effect.', events:['Constitution adopted - Jan 26','Dr. Rajendra Prasad becomes first President','Integration of princely states begins'] },

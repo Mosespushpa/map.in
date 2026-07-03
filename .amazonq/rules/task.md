@@ -1,3 +1,4 @@
+phase 1
 Implement a vertical timeline component.
 
 Requirements:
@@ -29,6 +30,7 @@ timeline.css
 
 Do not modify existing map functionality.
 
+phase 2
 Create a tag navigation system below navbar.
 
 Tags:
@@ -54,6 +56,7 @@ Modern pill-button styling.
 
 Keep existing theme design.
 
+phase 3
 Create a timeline-driven data engine.
 
 Create:
@@ -83,6 +86,7 @@ Requirements:
 
 Architecture should support future GeoJSON files.
 
+phase 4
 Create global search functionality.
 
 Search targets:
@@ -111,7 +115,7 @@ Create:
 search.js
 search.css
 
-
+phase 5
 Create river overlay layer.
 
 Major rivers:
@@ -134,6 +138,7 @@ Hover interaction.
 Information panel integration.
 Animated river glow effect.
 
+phase 6
 
 Create fort markers.
 
@@ -153,7 +158,7 @@ Clustering when zoomed out.
 Popup on click.
 Information panel integration.
 
-
+phase 7 
 Implement historical state visualization.
 
 Years:

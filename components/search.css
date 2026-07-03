@@ -1,0 +1,165 @@
+/* components/search.css */
+/* Search dropdown and result styling */
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #1f1f3a;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+body.light .search-results {
+  background: #f5f5f5;
+  border-color: rgba(102, 126, 234, 0.2);
+}
+
+/* Search result items */
+.search-result-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-item:hover,
+.search-result-item.active {
+  background-color: rgba(102, 126, 234, 0.2);
+}
+
+body.light .search-result-item:hover,
+body.light .search-result-item.active {
+  background-color: rgba(102, 126, 234, 0.1);
+}
+
+.search-result-item i {
+  color: #667eea;
+  font-size: 16px;
+  min-width: 20px;
+  margin-top: 2px;
+}
+
+.search-result-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-result-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #e0e0e0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body.light .search-result-name {
+  color: #1a1a2e;
+}
+
+.search-result-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #999;
+}
+
+body.light .search-result-meta {
+  color: #666;
+}
+
+.search-result-meta span {
+  background: rgba(102, 126, 234, 0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+body.light .search-result-meta span {
+  background: rgba(102, 126, 234, 0.08);
+}
+
+/* No results message */
+.search-no-results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 24px 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+body.light .search-no-results {
+  color: #999;
+}
+
+.search-no-results i {
+  font-size: 24px;
+  color: #667eea;
+  opacity: 0.5;
+}
+
+/* Scrollbar styling for search results */
+.search-results::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-results::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  background: rgba(102, 126, 234, 0.4);
+  border-radius: 3px;
+}
+
+.search-results::-webkit-scrollbar-thumb:hover {
+  background: rgba(102, 126, 234, 0.6);
+}
+
+/* Highlight effect for selected map items */
+.search-highlighted {
+  animation: searchHighlight 0.6s ease-out;
+}
+
+@keyframes searchHighlight {
+  0% {
+    filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.8));
+  }
+  100% {
+    filter: drop-shadow(0 0 2px rgba(102, 126, 234, 0.3));
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .search-results {
+    max-height: 300px;
+  }
+
+  .search-result-meta {
+    gap: 4px;
+  }
+
+  .search-result-meta span {
+    font-size: 11px;
+    padding: 1px 4px;
+  }
+}
+
