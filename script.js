@@ -280,6 +280,11 @@ function buildResults(q) {
   fortsData.forEach(f => {
     if (f.name.toLowerCase().includes(lq)) out.push({ id: f.id, name: f.name, type: 'Fort', icon: 'fa-chess-rook' });
   });
+  ghatsData.forEach(g => {
+  if (g.name.toLowerCase().includes(lq)) {
+    out.push({ id: g.id, name: g.name, type: 'Ghat', icon: 'fa-layer-group' });
+  }
+});
   return out.slice(0, 8);
 }
 
@@ -343,4 +348,16 @@ function init() {
   attachNavbarEvents();
 }
 
-document.addEventListener('DOMContentLoaded', init);
+// Wait for the external JSON data to load before initializing
+document.addEventListener('dataLoaded', (e) => {
+  const externalData = e.detail;
+
+  // Merge or overwrite inline data with fetched JSON data
+  if (externalData.statesData) statesData = externalData.statesData;
+  if (externalData.riversData) riversData = externalData.riversData;
+  if (externalData.fortsData) fortsData = externalData.fortsData;
+  if (externalData.ghatsData) ghatsData = externalData.ghatsData;
+  if (externalData.timelineData) milestones = externalData.timelineData;
+
+  init(); // Initialize map and UI only AFTER data is ready
+});
