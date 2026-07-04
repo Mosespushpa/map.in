@@ -207,6 +207,36 @@
 
   // ── Show River Info in Side Panel ──
   function showRiverPanel(riverId) {
+    let riverInfo = null;
+
+    // Search the primary storage loaded from external JSON pipelines
+    if (window.riversData && Array.isArray(window.riversData)) {
+      riverInfo = window.riversData.find(r => r.id === riverId);
+    }
+
+    if (!riverInfo && window.riversData && window.riversData.rivers) {
+      riverInfo = window.riversData.rivers.find(r => r.id === riverId);
+    }
+
+    // Secure operational fallback if data has not finished loading over the network
+    if (!riverInfo && RIVER_PATHS[riverId]) {
+      riverInfo = {
+        id: riverId,
+        name: RIVER_PATHS[riverId].name,
+        description: 'Major drainage and geographical river grid network of India.',
+        facts: []
+      };
+    }
+
+    // CRITICAL FIX: Pass the data to the central engine for uniform grid layouts and card generation
+    if (riverInfo && typeof window.showPanel === 'function') {
+      window.showPanel(riverInfo, 'rivers');
+    } else {
+      console.warn('[Rivers Component] Central layout engine window.showPanel is not available.');
+    }
+  }
+  // ── Show River Info in Side Panel ──
+  function showRiverPanel(riverId) {
     // Get river data from global riversData
     let riverInfo = null;
 

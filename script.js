@@ -202,13 +202,24 @@ function latLngToSVG(lat, lng) {
   return [((lng - 68) / 29) * 432, ((37 - lat) / 29) * 488];
 }
 
-// ── Part 4: Side Panel ──
+/// ── Part 4: Unified Side Panel Configuration Engine ──
 function showPanel(data, category) {
   $('spPlaceholder').classList.add('hidden');
   $('spContent').classList.remove('hidden');
   $('spTitle').textContent = data.name || data.title || '—';
   $('spSub').textContent   = getSubtitle(data, category);
   $('spDesc').textContent  = data.description || '';
+  
+  // Dynamically swap the tray header icon to match the specific data category
+  const iconWrapper = $('spIcon');
+  if (iconWrapper) {
+    const iconEl = iconWrapper.querySelector('i');
+    if (iconEl) {
+      const tagConfig = TAGS.find(t => t.id === category);
+      iconEl.className = tagConfig ? `fas ${tagConfig.icon}` : 'fas fa-map';
+    }
+  }
+
   renderStats(data);
   renderFacts(data.facts || []);
   renderEvents(data.historicalEvents || data.events || []);
@@ -217,20 +228,31 @@ function showPanel(data, category) {
 function getSubtitle(data, category) {
   if (category === 'states' || category === 'uts')
     return data.language ? `${data.language} · Formed ${data.formed}` : '';
-  if (category === 'rivers') return data.length  ? `Length: ${data.length}` : '';
-  if (category === 'forts')  return data.dynasty ? `${data.dynasty} · ${data.built}` : '';
+  if (category === 'rivers') return data.type ? `${data.type} River` : 'River Network';
+  if (category === 'forts')  return data.dynasty ? `${data.dynasty} Dynasty · ${data.built || 'Ancient'}` : 'Imperial Fort';
+  if (category === 'ghats')  return data.type ? `${data.type}` : 'Geographical Feature';
   return data.type || '';
 }
 
 function renderStats(data) {
   const stats = [];
-  if (data.capital)    stats.push(['fa-city',           'Capital',    data.capital]);
-  if (data.area)       stats.push(['fa-ruler-combined', 'Area',       data.area]);
-  if (data.population) stats.push(['fa-users',          'Population', data.population]);
-  if (data.length)     stats.push(['fa-route',          'Length',     data.length]);
-  if (data.origin)     stats.push(['fa-map-pin',        'Origin',     data.origin]);
-  if (data.builtBy)    stats.push(['fa-hammer',         'Built By',   data.builtBy]);
-  if (data.built)      stats.push(['fa-calendar',       'Built',      data.built]);
+  
+  // Dynamically assemble cards for any populated metrics across all database profiles
+  if (data.capital)     stats.push(['fa-city',           'Capital',      data.capital]);
+  if (data.area)        stats.push(['fa-ruler-combined', 'Area',         data.area]);
+  if (data.population)  stats.push(['fa-users',          'Population',   data.population]);
+  if (data.length)      stats.push(['fa-route',          'Length',       data.length]);
+  if (data.origin)      stats.push(['fa-map-pin',        'Origin',       data.origin]);
+  if (data.builtBy)     stats.push(['fa-hammer',         'Built By',     data.builtBy]);
+  if (data.built)       stats.push(['fa-calendar',       'Built Year',   data.built]);
+  if (data.location)    stats.push(['fa-location-dot',   'Location',     data.location]);
+  if (data.highestPeak) stats.push(['fa-mountain',        'Highest Peak', data.highestPeak]);
+  if (data.count)       stats.push(['fa-list-ol',        'Total Count',  data.count]);
+  
+  if (data.states && Array.isArray(data.states)) {
+    stats.push(['fa-globe', 'States Covered', data.states.join(', ')]);
+  }
+
   $('spStats').innerHTML = stats.length ? `<div class="stats-grid">${stats.map(([icon, label, val]) =>
     `<div class="stat-item"><i class="fas ${icon}"></i><div>
       <span class="stat-label">${label}</span>
@@ -258,6 +280,21 @@ function renderEvents(events) {
     </div>`;
 }
 
+// Map base mouse events context isolation fix
+function attachStateHandlers() {
+  document.querySelectorAll('.state').forEach(path => {
+    path.addEventListener('mouseenter', () => {
+      const data = statesData[path.id];
+      // CRITICAL FIX: Always pass 'states' context to prevent subtitle string layout corruption
+      if (data) showPanel(data, 'states');
+    });
+    path.addEventListener('click', () => {
+      const data = statesData[path.id];
+      if (data) showPanel(data, 'states');
+    });
+  });
+}
+
 function showMilestone(ms) {
   showPanel({ name: `${ms.year} — ${ms.label}`, description: ms.description || '', events: ms.events || [] }, 'events');
 }
@@ -267,97 +304,114 @@ function resetPanel() {
   $('spContent').classList.add('hidden');
 }
 
-// ── Part 4: Search ──
-function buildResults(q) {
-  const lq = q.toLowerCase();
-  const out = [];
-  Object.values(statesData).forEach(s => {
-    if (s.name.toLowerCase().includes(lq)) out.push({ id: s.id, name: s.name, type: 'State', icon: 'fa-map' });
-  });
-  riversData.forEach(r => {
-    if (r.name.toLowerCase().includes(lq)) out.push({ id: r.id, name: r.name, type: 'River', icon: 'fa-water' });
-  });
-  fortsData.forEach(f => {
-    if (f.name.toLowerCase().includes(lq)) out.push({ id: f.id, name: f.name, type: 'Fort', icon: 'fa-chess-rook' });
-  });
-  ghatsData.forEach(g => {
-  if (g.name.toLowerCase().includes(lq)) {
-    out.push({ id: g.id, name: g.name, type: 'Ghat', icon: 'fa-layer-group' });
-  }
-});
-  return out.slice(0, 8);
-}
+// Expose the view configuration globally so autonomous external modules can tap into it safely
+window.showPanel = showPanel;
 
-function showSearchResults(results) {
-  const el = $('searchResults');
-  if (!results.length) { el.innerHTML = ''; return; }
-  el.innerHTML = results.map(r =>
-    `<div class="search-result-item" data-id="${r.id}" data-type="${r.type}">
-      <i class="fas ${r.icon}"></i><span>${r.name}</span><small>${r.type}</small>
-    </div>`).join('');
-  el.querySelectorAll('.search-result-item').forEach(item => {
-    item.addEventListener('click', () => {
-      const id = item.dataset.id;
-      if (statesData[id]) { showPanel(statesData[id], 'states'); highlightState(id); }
-      el.innerHTML = '';
-      $('searchInput').value = item.querySelector('span').textContent;
-      $('searchBox').style.display = 'none';
-    });
-  });
-}
+// ── Part 4: Clean Standalone Search Integration ──
 
+// Expose state highlight globally for search selection usage
 function highlightState(id) {
   document.querySelectorAll('.state').forEach(p => p.classList.remove('highlighted'));
   const el = document.getElementById(id);
   if (el) el.classList.add('highlighted');
 }
 
-// ── Part 4: Navbar Events ──
+// Global Event Hub Listener for Search Results
+document.addEventListener('searchResultSelected', (e) => {
+  const result = e.detail;
+  if (!result) return;
+
+  console.log('[App Hook] Search selection received:', result);
+
+  // Synchronize with Side Panel and Map Views based on Category Type
+  if (result.type === 'state') {
+    const data = statesData[result.id];
+    if (data) {
+      showPanel(data, 'states');
+      highlightState(result.id);
+    }
+  } else if (result.type === 'river') {
+    const data = riversData.find(r => r.id === result.id);
+    if (data) showPanel(data, 'rivers');
+  } else if (result.type === 'fort') {
+    const data = fortsData.find(f => f.id === result.id);
+    if (data) showPanel(data, 'forts');
+  } else if (result.type === 'ghat') {
+    const data = ghatsData.find(g => g.id === result.id);
+    if (data) showPanel(data, 'ghats');
+  } else if (result.type === 'historical-event') {
+    showPanel({
+      name: result.label,
+      description: result.description || `Historical record for the year ${result.year}.`,
+      facts: []
+    }, 'events');
+  }
+});
+
+// ── Part 4: Navbar Layout & UI Event Bindings ──
 function attachNavbarEvents() {
-  let searchOpen = false;
-  $('searchToggleBtn').addEventListener('click', () => {
-    searchOpen = !searchOpen;
-    $('searchBox').style.display = searchOpen ? 'flex' : 'none';
-    if (searchOpen) $('searchInput').focus();
-  });
-  $('searchInput').addEventListener('input', e => {
-    const q = e.target.value.trim();
-    showSearchResults(q ? buildResults(q) : []);
-  });
-  $('searchInput').addEventListener('keydown', e => {
-    if (e.key === 'Escape') { $('searchBox').style.display = 'none'; searchOpen = false; }
-  });
-  $('searchClear').addEventListener('click', () => {
-    $('searchInput').value = '';
-    $('searchResults').innerHTML = '';
-  });
+  // Theme Toggle Logic
   $('themeToggleBtn').addEventListener('click', () => {
     isDark = !isDark;
     document.body.classList.toggle('dark', isDark);
     document.body.classList.toggle('light', !isDark);
     $('themeToggleBtn').querySelector('i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
     $('themeToggleBtn').classList.toggle('active', isDark);
+
+    // Broadcast message so auxiliary layers (like river paths) can adapt
+    document.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDark } }));
   });
+
+  // Bottom Detail Tray Close Button Trigger
   $('spClose').addEventListener('click', resetPanel);
 }
 
-// ── Part 4: Init ──
+// ── Part 4: Unified System Initialization ──
 function init() {
   loadMap();
   attachStateHandlers();
   attachNavbarEvents();
 }
 
-// Wait for the external JSON data to load before initializing
+// Intercept loaded pipeline data arrays from data-loader.js
 document.addEventListener('dataLoaded', (e) => {
   const externalData = e.detail;
 
-  // Merge or overwrite inline data with fetched JSON data
-  if (externalData.statesData) statesData = externalData.statesData;
-  if (externalData.riversData) riversData = externalData.riversData;
-  if (externalData.fortsData) fortsData = externalData.fortsData;
-  if (externalData.ghatsData) ghatsData = externalData.ghatsData;
-  if (externalData.timelineData) milestones = externalData.timelineData;
+  // FIX 1: Normalize and un-nest states object array into a clean key-value lookup dictionary
+  if (externalData.statesData) {
+    statesData = {};
+    const statesArray = Array.isArray(externalData.statesData) ? externalData.statesData : (externalData.statesData.states || []);
+    statesArray.forEach(st => {
+      statesData[st.id] = st;
+    });
+  }
 
-  init(); // Initialize map and UI only AFTER data is ready
+  // FIX 2: Normalize remaining datasets to clean arrays to prevent .find() or .forEach() exceptions
+  if (externalData.riversData) {
+    riversData = Array.isArray(externalData.riversData) ? externalData.riversData : (externalData.riversData.rivers || []);
+  }
+  if (externalData.fortsData) {
+    fortsData = Array.isArray(externalData.fortsData) ? externalData.fortsData : (externalData.fortsData.forts || []);
+  }
+  if (externalData.ghatsData) {
+    ghatsData = Array.isArray(externalData.ghatsData) ? externalData.ghatsData : (externalData.ghatsData.ghats || []);
+  }
+  if (externalData.timelineData) {
+    milestones = Array.isArray(externalData.timelineData) ? externalData.timelineData : (externalData.timelineData.timeline || externalData.timelineData.milestones || []);
+  }
+
+  // Expose clean, sanitized values onto window object for search.js to discover safely
+  window.statesData = statesData;
+  window.riversData = riversData;
+  window.fortsData = fortsData;
+  window.ghatsData = ghatsData;
+  window.milestones = milestones;
+
+  // Fire UI structural setups
+  init();
+
+  // Explicitly trigger search engine index build now that datasets match perfectly
+  if (window.SearchEngine && typeof window.SearchEngine.buildIndex === 'function') {
+    window.SearchEngine.buildIndex();
+  }
 });
