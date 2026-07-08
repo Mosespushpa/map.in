@@ -4,7 +4,7 @@ let riversData = [];
 let fortsData  = [];
 let ghatsData  = [];
 let currentCategory = 'states';
-let currentYear = 2024;
+let currentYear = 2025;
 let isDragging = false;
 let isDark = true;
 
@@ -20,7 +20,7 @@ const TAGS = [
   { id: 'events',    label: 'Historical Events', icon: 'fa-landmark' }
 ];
 
-const MIN_YEAR = 1947, MAX_YEAR = 2024;
+const MIN_YEAR = 1947, MAX_YEAR = 2025;
 let milestones = [];
 
 function $(id) { return document.getElementById(id); }
@@ -109,9 +109,20 @@ milestones = [
 
 // ── Part 3: Load Map from inline SVG (no fetch) ──
 function loadMap() {
+  console.log('[App] Loading map...');
   const seen = new Set();
   const g = $('mapRegions');
-  document.querySelectorAll('#india-map path.state, svg path.state').forEach(p => {
+  
+  if (!g) {
+    console.error('[App] mapRegions group not found in SVG!');
+    return;
+  }
+  
+  const allPaths = document.querySelectorAll('#india-map path.state, svg path.state');
+  console.log(`[App] Found ${allPaths.length} path elements with class 'state'`);
+  
+  let clonedCount = 0;
+  allPaths.forEach(p => {
     const d = p.getAttribute('d');
     if (!p.id || seen.has(p.id) || !d || d === '...' || d.trim() === '') return;
     seen.add(p.id);
@@ -121,7 +132,10 @@ function loadMap() {
     clone.setAttribute('class', 'state');
     clone.setAttribute('d', d);
     g.appendChild(clone);
+    clonedCount++;
   });
+  
+  console.log(`[App] Map loaded: ${seen.size} states found, ${clonedCount} cloned to mapRegions`);
 }
 
 // ── Part 3: Tags — delegated to tags.js via categoryChanged event ──
@@ -140,16 +154,57 @@ function setYear(year) {
 
 // ── Part 3: Map Handlers ──
 function attachStateHandlers() {
-  document.querySelectorAll('.state').forEach(path => {
+  const states = document.querySelectorAll('.state');
+  console.log(`[App] Attaching handlers to ${states.length} states`);
+  
+  if (states.length === 0) {
+    console.warn('[App] No .state elements found! Map may not be loaded yet.');
+    return;
+  }
+  
+  let handlerCount = 0;
+  states.forEach(path => {
+    // Mark that handlers are attached
+    if (path._hasHandlers) {
+      return; // Skip if already has handlers
+    }
+    
+    path._hasHandlers = true;
+    handlerCount++;
+    
     path.addEventListener('mouseenter', () => {
       const data = statesData[path.id];
-      if (data) showPanel(data, currentCategory);
+      if (data) {
+        console.log(`[App] Mouse entered state: ${path.id}`);
+        showPanel(data, currentCategory);
+      } else {
+        console.warn(`[App] No data found for state: ${path.id}`);
+      }
     });
+    
     path.addEventListener('click', () => {
       const data = statesData[path.id];
-      if (data) showPanel(data, currentCategory);
+      if (data) {
+        console.log(`[App] Clicked state: ${path.id}`);
+        showPanel(data, currentCategory);
+      }
     });
+
+    // Optional: Reset to placeholder when mouse leaves (uncomment if desired)
+    /*
+    path.addEventListener('mouseleave', () => {
+      setTimeout(() => {
+        // Only reset if not hovering another state
+        const hoveredState = document.querySelector('.state:hover');
+        if (!hoveredState) {
+          resetPanel();
+        }
+      }, 100);
+    });
+    */
   });
+  
+  console.log(`[App] State handlers attached to ${handlerCount} elements`);
 }
 
 function applyYearFilter() {
@@ -204,11 +259,25 @@ function latLngToSVG(lat, lng) {
 
 /// ── Part 4: Unified Side Panel Configuration Engine ──
 function showPanel(data, category) {
-  $('spPlaceholder').classList.add('hidden');
-  $('spContent').classList.remove('hidden');
-  $('spTitle').textContent = data.name || data.title || '—';
-  $('spSub').textContent   = getSubtitle(data, category);
-  $('spDesc').textContent  = data.description || '';
+  console.log('[showPanel] Called with:', { name: data.name, category });
+  
+  const placeholder = $('spPlaceholder');
+  const content = $('spContent');
+  const title = $('spTitle');
+  const sub = $('spSub');
+  const desc = $('spDesc');
+  
+  if (!placeholder || !content || !title) {
+    console.error('[showPanel] Side panel elements not found!');
+    return;
+  }
+  
+  placeholder.classList.add('hidden');
+  content.classList.remove('hidden');
+  
+  title.textContent = data.name || data.title || '—';
+  sub.textContent   = getSubtitle(data, category);
+  desc.textContent  = data.description || '';
   
   // Dynamically swap the tray header icon to match the specific data category
   const iconWrapper = $('spIcon');
@@ -223,6 +292,7 @@ function showPanel(data, category) {
   renderStats(data);
   renderFacts(data.facts || []);
   renderEvents(data.historicalEvents || data.events || []);
+  console.log('[showPanel] Panel updated successfully');
 }
 
 function getSubtitle(data, category) {
@@ -280,21 +350,6 @@ function renderEvents(events) {
     </div>`;
 }
 
-// Map base mouse events context isolation fix
-function attachStateHandlers() {
-  document.querySelectorAll('.state').forEach(path => {
-    path.addEventListener('mouseenter', () => {
-      const data = statesData[path.id];
-      // CRITICAL FIX: Always pass 'states' context to prevent subtitle string layout corruption
-      if (data) showPanel(data, 'states');
-    });
-    path.addEventListener('click', () => {
-      const data = statesData[path.id];
-      if (data) showPanel(data, 'states');
-    });
-  });
-}
-
 function showMilestone(ms) {
   showPanel({ name: `${ms.year} — ${ms.label}`, description: ms.description || '', events: ms.events || [] }, 'events');
 }
@@ -306,6 +361,48 @@ function resetPanel() {
 
 // Expose the view configuration globally so autonomous external modules can tap into it safely
 window.showPanel = showPanel;
+
+// DEBUG: Add global test function
+window.testSidePanel = function() {
+  console.group('=== SIDE PANEL TEST ===');
+  
+  // Test 1: Check elements
+  const elements = ['spPlaceholder', 'spContent', 'spTitle', 'spSub', 'spDesc', 'spStats', 'spFacts', 'spEvents'];
+  console.group('1. Panel Elements');
+  elements.forEach(id => {
+    const el = document.getElementById(id);
+    console.log(`${id}:`, el ? '✅ Found' : '❌ Missing');
+  });
+  console.groupEnd();
+  
+  // Test 2: Check data
+  console.group('2. Data Available');
+  console.log('statesData:', Object.keys(window.statesData || {}).length, 'states');
+  console.log('Sample:', window.statesData?.Maharashtra ? '✅ Maharashtra found' : '❌ No Maharashtra');
+  console.groupEnd();
+  
+  // Test 3: Check handlers
+  console.group('3. Event Handlers');
+  const states = document.querySelectorAll('.state');
+  const withHandlers = Array.from(states).filter(s => s._hasHandlers);
+  console.log(`States found: ${states.length}, with handlers: ${withHandlers.length}`);
+  console.groupEnd();
+  
+  // Test 4: Manual trigger
+  console.group('4. Manual Test');
+  const mhData = window.statesData?.Maharashtra;
+  if (mhData && typeof window.showPanel === 'function') {
+    console.log('Showing Maharashtra panel...');
+    window.showPanel(mhData, 'states');
+    console.log('✅ showPanel called successfully');
+  } else {
+    console.log('❌ Cannot show panel - missing data or function');
+  }
+  console.groupEnd();
+  
+  console.groupEnd();
+  return 'Test complete - check console output above';
+};
 
 // ── Part 4: Clean Standalone Search Integration ──
 
@@ -366,11 +463,21 @@ function attachNavbarEvents() {
   $('spClose').addEventListener('click', resetPanel);
 }
 
+// ── Category Change Handler ──
+document.addEventListener('categoryChanged', (e) => {
+  currentCategory = e.detail;
+  console.log('[App] Category changed to:', currentCategory);
+  applyOverlays(); // Update map overlays based on new category
+});
+
 // ── Part 4: Unified System Initialization ──
 function init() {
+  console.log('[App] Starting initialization...');
   loadMap();
   attachStateHandlers();
   attachNavbarEvents();
+  applyYearFilter(); // Apply initial year filter
+  console.log('[App] Initialization complete');
 }
 
 // Intercept loaded pipeline data arrays from data-loader.js
@@ -415,3 +522,23 @@ document.addEventListener('dataLoaded', (e) => {
     window.SearchEngine.buildIndex();
   }
 });
+
+// Fallback: Initialize with inline data if dataLoaded doesn't fire within 1 second
+setTimeout(() => {
+  // Check if already initialized (attachStateHandlers adds event listeners)
+  const testState = document.querySelector('.state');
+  if (testState && !testState._hasHandlers) {
+    console.log('[App] Using inline data fallback - JSON files not loaded');
+    // Use inline data that's already defined at top of file
+    window.statesData = statesData;
+    window.riversData = riversData;
+    window.fortsData = fortsData;
+    window.ghatsData = ghatsData;
+    window.milestones = milestones;
+    init();
+  } else if (testState && testState._hasHandlers) {
+    console.log('[App] Handlers already attached - system initialized');
+  } else {
+    console.log('[App] No state elements found - map may not be loaded');
+  }
+}, 1000);

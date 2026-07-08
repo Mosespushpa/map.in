@@ -9,16 +9,33 @@
   border-right: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 0;
   padding: 24px 0;
   overflow-y: auto;
-  scrollbar-width: none;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   flex-shrink: 0;
 }
 
-.tl-root::-webkit-scrollbar { display: none; }
+.tl-root::-webkit-scrollbar { 
+  width: 4px;
+}
+
+.tl-root::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.tl-root::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.tl-root::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
 
 /* Vertical connecting line */
 .tl-line {

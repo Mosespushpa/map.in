@@ -22,20 +22,20 @@
 
   function setActive(id) {
     active = id;
-    document.querySelectorAll('.tag-pill').forEach(btn => {
-      btn.classList.toggle('tag-pill--active', btn.dataset.tag === id);
+    document.querySelectorAll('.tag-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.tag === id);
     });
     emit(id);
   }
 
   function build(container) {
     container.innerHTML = TAGS.map(t => `
-      <button class="tag-pill${t.id === active ? ' tag-pill--active' : ''}" data-tag="${t.id}">
+      <button class="tag-btn${t.id === active ? ' active' : ''}" data-tag="${t.id}">
         <i class="fas ${t.icon}"></i>
         <span>${t.label}</span>
       </button>`).join('');
 
-    container.querySelectorAll('.tag-pill').forEach(btn => {
+    container.querySelectorAll('.tag-btn').forEach(btn => {
       btn.addEventListener('click', () => setActive(btn.dataset.tag));
     });
   }

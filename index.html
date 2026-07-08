@@ -93,35 +93,34 @@
       </svg>
     </main>
 
+    <!-- RIGHT: Information Panel -->
+    <section class="side-panel" id="sidePanel">
+      <div class="sp-placeholder" id="spPlaceholder">
+        <i class="fas fa-map-marked-alt"></i>
+        <p>Hover or click a region to explore its history</p>
+      </div>
+      <div class="sp-content hidden" id="spContent">
+        <div class="sp-header">
+          <div class="sp-icon" id="spIcon"><i class="fas fa-map"></i></div>
+          <div>
+            <h2 id="spTitle"></h2>
+            <span class="sp-sub" id="spSub"></span>
+          </div>
+          <button class="sp-close" id="spClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sp-body">
+          <p id="spDesc"></p>
+          <div id="spStats"></div>
+          <div id="spFacts"></div>
+          <div id="spEvents"></div>
+        </div>
+      </div>
+    </section>
+
   </div>
 
-  <!-- ── SIDE PANEL ── -->
-  <section class="side-panel" id="sidePanel">
-    <div class="sp-placeholder" id="spPlaceholder">
-      <i class="fas fa-map-marked-alt"></i>
-      <p>Hover or click a region to explore its history</p>
-    </div>
-    <div class="sp-content hidden" id="spContent">
-      <div class="sp-header">
-        <div class="sp-icon" id="spIcon"><i class="fas fa-map"></i></div>
-        <div>
-          <h2 id="spTitle"></h2>
-          <span class="sp-sub" id="spSub"></span>
-        </div>
-        <button class="sp-close" id="spClose"><i class="fas fa-times"></i></button>
-      </div>
-      <div class="sp-body">
-        <p id="spDesc"></p>
-        <div id="spStats"></div>
-        <div id="spFacts"></div>
-        <div id="spEvents"></div>
-      </div>
-    </div>
-  </section>
-
   <!-- ── Scripts ── -->
-   <script type="module" src="components/map.js"></script>
-  <!-- 0. Data loader -->
+  <!-- 0. Data loader (must load first) -->
   <script src="components/data-loader.js"></script>
   <!-- 1. Core data + map logic -->
   <script src="script.js"></script>
@@ -132,18 +131,11 @@
   <script src="components/tags.js"></script>
   <script src="components/search.js"></script>
   <script src="components/rivers.js"></script>
-    <script src="components/sidepanel.js"></script>
-      <script src="/timeline-data.js"></script>
   <!-- 4. Event bridges -->
   <script>
     // yearChanged → update map year filter + timeline engine
     document.addEventListener('yearChanged', function (e) {
       if (typeof setYear === 'function') setYear(e.detail);
-    });
-    // categoryChanged → update map overlays
-    document.addEventListener('categoryChanged', function (e) {
-      if (typeof currentCategory !== 'undefined') currentCategory = e.detail;
-      if (typeof applyOverlays === 'function') applyOverlays();
     });
   </script>
 

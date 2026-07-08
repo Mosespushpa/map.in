@@ -248,37 +248,47 @@ body.light .state:hover, body.light .state:focus { fill: #2ecc71 !important; }
 
 /* ── SIDE PANEL ── */
 .side-panel {
-  height: 180px;
+  width: 320px;
   flex-shrink: 0;
   background: rgba(15,15,40,0.92);
   backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-left: 1px solid rgba(255,255,255,0.08);
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-body.light .side-panel { background: rgba(232,234,246,0.95); border-top-color: rgba(0,0,0,0.1); }
+body.light .side-panel { background: rgba(232,234,246,0.95); border-left-color: rgba(0,0,0,0.1); }
 
 .sp-placeholder {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
   height: 100%;
   color: #555;
   font-size: 13px;
+  text-align: center;
+  padding: 20px;
 }
 
-.sp-placeholder i { font-size: 22px; color: #667eea; }
+.sp-placeholder i { font-size: 48px; color: #667eea; margin-bottom: 10px; }
 
-.sp-content { height: 100%; display: flex; flex-direction: column; }
+.sp-content { 
+  height: 100%; 
+  display: flex; 
+  flex-direction: column;
+  overflow: hidden;
+}
 .sp-content.hidden { display: none; }
 
 .sp-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 16px;
+  padding: 16px;
   border-bottom: 1px solid rgba(255,255,255,0.07);
   flex-shrink: 0;
 }
@@ -286,22 +296,32 @@ body.light .side-panel { background: rgba(232,234,246,0.95); border-top-color: r
 body.light .sp-header { border-bottom-color: rgba(0,0,0,0.08); }
 
 .sp-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   background: linear-gradient(135deg, #667eea, #764ba2);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 16px;
+  font-size: 18px;
   flex-shrink: 0;
 }
 
-.sp-header h2 { font-size: 16px; font-weight: 600; color: #fff; }
+.sp-header h2 { 
+  font-size: 18px; 
+  font-weight: 700; 
+  color: #fff; 
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
 body.light .sp-header h2 { color: #1a1a2e; }
 
-.sp-sub { font-size: 11px; color: #888; }
+.sp-sub { 
+  font-size: 12px; 
+  color: #888; 
+  display: block;
+}
 
 .sp-close {
   margin-left: auto;
@@ -309,58 +329,140 @@ body.light .sp-header h2 { color: #1a1a2e; }
   border: none;
   color: #666;
   cursor: pointer;
-  font-size: 14px;
-  padding: 4px;
+  font-size: 16px;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s;
 }
 
-.sp-close:hover { color: #fff; }
+.sp-close:hover { 
+  color: #fff; 
+  background: rgba(255,255,255,0.1);
+}
 
 .sp-body {
   flex: 1;
-  overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: auto;
+  padding: 16px;
   display: flex;
-  gap: 16px;
-  padding: 10px 16px;
+  flex-direction: column;
+  gap: 20px;
   scrollbar-width: thin;
   scrollbar-color: #333 transparent;
 }
 
-#spDesc { font-size: 12px; color: #aaa; min-width: 200px; max-width: 280px; flex-shrink: 0; line-height: 1.6; }
+#spDesc { 
+  font-size: 14px; 
+  color: #aaa; 
+  line-height: 1.6; 
+  margin-bottom: 8px;
+}
 body.light #spDesc { color: #555; }
 
 .stats-grid {
-  display: flex;
-  gap: 10px;
-  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 8px;
 }
 
 .stat-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   background: rgba(255,255,255,0.05);
-  border-radius: 8px;
-  padding: 8px 12px;
-  min-width: 120px;
+  border-radius: 10px;
+  padding: 12px;
+  transition: background 0.2s;
+}
+
+.stat-item:hover {
+  background: rgba(255,255,255,0.08);
 }
 
 body.light .stat-item { background: rgba(0,0,0,0.05); }
+body.light .stat-item:hover { background: rgba(0,0,0,0.08); }
 
-.stat-item i { color: #667eea; font-size: 14px; }
-.stat-label { display: block; font-size: 10px; color: #888; }
-.stat-value { display: block; font-size: 12px; font-weight: 600; color: #fff; }
+.stat-item i { color: #667eea; font-size: 16px; flex-shrink: 0; }
+.stat-item div { min-width: 0; }
+.stat-label { 
+  display: block; 
+  font-size: 10px; 
+  color: #888; 
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+.stat-value { 
+  display: block; 
+  font-size: 13px; 
+  font-weight: 600; 
+  color: #fff;
+  word-break: break-word;
+}
 body.light .stat-value { color: #1a1a2e; }
 
-.sp-section { flex-shrink: 0; min-width: 160px; }
-.sp-section h4 { font-size: 11px; color: #667eea; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.sp-section { 
+  margin-bottom: 16px;
+}
+.sp-section h4 { 
+  font-size: 12px; 
+  color: #667eea; 
+  margin-bottom: 10px; 
+  display: flex; 
+  align-items: center; 
+  gap: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
 
-.facts-list, .events-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-.facts-list li, .events-list li { font-size: 11px; color: #bbb; padding-left: 10px; position: relative; }
-.facts-list li::before, .events-list li::before { content: '•'; position: absolute; left: 0; color: #667eea; }
+.facts-list, .events-list { 
+  list-style: none; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 8px; 
+}
+.facts-list li, .events-list li { 
+  font-size: 13px; 
+  color: #bbb; 
+  padding-left: 16px; 
+  position: relative;
+  line-height: 1.5;
+}
+.facts-list li::before, .events-list li::before { 
+  content: '•'; 
+  position: absolute; 
+  left: 0; 
+  color: #667eea;
+  font-weight: bold;
+  font-size: 16px;
+}
 body.light .facts-list li, body.light .events-list li { color: #444; }
 
-.events-list li { display: flex; gap: 8px; }
-.ev-year { color: #ff9800; font-weight: 700; font-size: 11px; flex-shrink: 0; }
-.ev-text { color: #bbb; font-size: 11px; }
+.events-list li { 
+  display: flex; 
+  gap: 10px;
+  align-items: flex-start;
+  padding-left: 0;
+}
+.events-list li::before {
+  display: none;
+}
+.ev-year { 
+  color: #ff9800; 
+  font-weight: 700; 
+  font-size: 12px; 
+  flex-shrink: 0;
+  background: rgba(255,152,0,0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+  min-width: 40px;
+  text-align: center;
+}
+.ev-text { 
+  color: #bbb; 
+  font-size: 13px;
+  line-height: 1.5;
+}
 body.light .ev-text { color: #444; }

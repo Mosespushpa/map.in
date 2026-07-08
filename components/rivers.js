@@ -207,6 +207,7 @@
 
   // ── Show River Info in Side Panel ──
   function showRiverPanel(riverId) {
+    // Get river data from global riversData
     let riverInfo = null;
 
     // Search the primary storage loaded from external JSON pipelines
@@ -224,33 +225,21 @@
         id: riverId,
         name: RIVER_PATHS[riverId].name,
         description: 'Major drainage and geographical river grid network of India.',
-        facts: []
+        origin: 'Unknown',
+        type: 'River',
+        length: 'Unknown',
+        facts: [],
+        states: []
       };
     }
 
-    // CRITICAL FIX: Pass the data to the central engine for uniform grid layouts and card generation
+    // Try to use the global showPanel function if available
     if (riverInfo && typeof window.showPanel === 'function') {
       window.showPanel(riverInfo, 'rivers');
-    } else {
-      console.warn('[Rivers Component] Central layout engine window.showPanel is not available.');
-    }
-  }
-  // ── Show River Info in Side Panel ──
-  function showRiverPanel(riverId) {
-    // Get river data from global riversData
-    let riverInfo = null;
-
-    if (window.riversData && Array.isArray(window.riversData)) {
-      riverInfo = window.riversData.find(r => r.id === riverId);
+      return;
     }
 
-    if (!riverInfo) {
-      // Fallback: check gloabal states Rivers
-      if (window.riversData && window.riversData.rivers) {
-        riverInfo = window.riversData.rivers.find(r => r.id === riverId);
-      }
-    }
-
+    // Fallback: Direct DOM manipulation if showPanel is not available
     const title = document.getElementById('spTitle');
     const sub = document.getElementById('spSub');
     const desc = document.getElementById('spDesc');
@@ -258,7 +247,10 @@
     const placeholder = document.getElementById('spPlaceholder');
     const content = document.getElementById('spContent');
 
-    if (!title) return;
+    if (!title) {
+      console.warn('[Rivers Component] Side panel elements not found.');
+      return;
+    }
 
     if (placeholder) placeholder.classList.add('hidden');
     if (content) content.classList.remove('hidden');
@@ -274,7 +266,7 @@
       desc.textContent = riverInfo.description || 'A major river of India.';
     }
 
-    if (facts && riverInfo && riverInfo.facts) {
+    if (facts && riverInfo && riverInfo.facts && riverInfo.facts.length > 0) {
       facts.innerHTML = `
         <div class="sp-section">
           <h4><i class="fas fa-lightbulb"></i> Key Facts</h4>
@@ -282,6 +274,8 @@
             ${riverInfo.facts.map(f => `<li>${f}</li>`).join('')}
           </ul>
         </div>`;
+    } else {
+      facts.innerHTML = '';
     }
 
     // Add origin info if available
@@ -291,7 +285,7 @@
         <div class="river-stats">
           <p><strong>Origin:</strong> ${riverInfo.origin || 'Unknown'}</p>
           <p><strong>Type:</strong> ${riverInfo.type || 'Peninsular'}</p>
-          ${riverInfo.states ? `<p><strong>States:</strong> ${riverInfo.states.join(', ')}</p>` : ''}
+          ${riverInfo.states && riverInfo.states.length > 0 ? `<p><strong>States:</strong> ${riverInfo.states.join(', ')}</p>` : ''}
         </div>`;
     }
   }

@@ -63,8 +63,17 @@
     const container = document.getElementById('standaloneTimeline');
     if (!container) return;
     build(container);
-    // Activate first year by default
-    setActive(YEARS[0]);
+    // Activate last year (2025 - Present) by default and scroll to it
+    const lastYear = YEARS[YEARS.length - 1];
+    setActive(lastYear);
+    
+    // Scroll to the last item after a brief delay for rendering
+    setTimeout(() => {
+      const lastItem = container.querySelector(`[data-year="${lastYear}"]`);
+      if (lastItem) {
+        lastItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   }
 
   document.addEventListener('DOMContentLoaded', init);

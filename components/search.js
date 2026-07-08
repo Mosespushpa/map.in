@@ -50,149 +50,132 @@
       });
     }
 
-    // Rivers
-    try {
-      let riversArray = null;
-
-      // Try to get rivers from JSON first, then fallback to inline
-      if (window.riversData) {
-        riversArray = Array.isArray(window.riversData) ? window.riversData : (window.riversData.rivers || []);
-      }
-
-      if (riversArray && riversArray.length > 0) {
-        riversArray.forEach(river => {
-          searchIndex.push({
-            type: 'river',
-            id: river.id,
-            name: river.name,
-            label: river.name,
-            description: river.description,
-            origin: river.origin,
-            length: river.length,
-            states: river.states || [],
-            icon: 'fa-water',
-            searchText: `${river.name} ${river.origin || ''} river ${(river.states || []).join(' ')}`.toLowerCase()
-          });
+    // Rivers - normalize data structure
+    if (window.riversData) {
+      const riversArray = Array.isArray(window.riversData) 
+        ? window.riversData 
+        : (window.riversData.rivers || []);
+      
+      riversArray.forEach(river => {
+        searchIndex.push({
+          type: 'river',
+          id: river.id,
+          name: river.name,
+          label: river.name,
+          description: river.description,
+          origin: river.origin,
+          length: river.length,
+          states: river.states || [],
+          icon: 'fa-water',
+          searchText: `${river.name} ${river.origin || ''} river ${(river.states || []).join(' ')}`.toLowerCase()
         });
-      }
-    } catch (e) { console.warn('[Search] Rivers data not loaded', e); }
+      });
+    }
 
-    // Forts
-    try {
-      let fortsArray = null;
-
-      // Try to get forts from JSON first, then fallback to inline
-      if (window.fortsData) {
-        fortsArray = Array.isArray(window.fortsData) ? window.fortsData : (window.fortsData.forts || []);
-      }
-
-      if (fortsArray && fortsArray.length > 0) {
-        fortsArray.forEach(fort => {
-          searchIndex.push({
-            type: 'fort',
-            id: fort.id,
-            name: fort.name,
-            label: fort.name,
-            description: fort.description,
-            location: fort.location,
-            state: fort.state,
-            dynasty: fort.dynasty,
-            coordinates: fort.coordinates,
-            icon: 'fa-chess-rook',
-            searchText: `${fort.name} ${fort.location} ${fort.state || ''} ${fort.dynasty || ''}`.toLowerCase()
-          });
+    // Forts - normalize data structure
+    if (window.fortsData) {
+      const fortsArray = Array.isArray(window.fortsData) 
+        ? window.fortsData 
+        : (window.fortsData.forts || []);
+      
+      fortsArray.forEach(fort => {
+        searchIndex.push({
+          type: 'fort',
+          id: fort.id,
+          name: fort.name,
+          label: fort.name,
+          description: fort.description,
+          location: fort.location,
+          state: fort.state,
+          dynasty: fort.dynasty,
+          coordinates: fort.coordinates,
+          icon: 'fa-chess-rook',
+          searchText: `${fort.name} ${fort.location} ${fort.state || ''} ${fort.dynasty || ''}`.toLowerCase()
         });
-      }
-    } catch (e) { console.warn('[Search] Forts data not loaded', e); }
+      });
+    }
 
-    // Ghats
-    try {
-      let ghatsArray = null;
-
-      // Try to get ghats from JSON first, then fallback to inline
-      if (window.ghatsData) {
-        ghatsArray = Array.isArray(window.ghatsData) ? window.ghatsData : (window.ghatsData.ghats || []);
-      }
-
-      if (ghatsArray && ghatsArray.length > 0) {
-        ghatsArray.forEach(ghat => {
-          searchIndex.push({
-            type: 'ghat',
-            id: ghat.id,
-            name: ghat.name,
-            label: ghat.name,
-            description: ghat.description,
-            ghatType: ghat.type, // changed from 'type' to avoid conflict
-            states: ghat.states || [],
-            icon: 'fa-layer-group',
-            searchText: `${ghat.name} ${ghat.type || ''} ${(ghat.states || []).join(' ')}`.toLowerCase()
-          });
+    // Ghats - normalize data structure
+    if (window.ghatsData) {
+      const ghatsArray = Array.isArray(window.ghatsData) 
+        ? window.ghatsData 
+        : (window.ghatsData.ghats || []);
+      
+      ghatsArray.forEach(ghat => {
+        searchIndex.push({
+          type: 'ghat',
+          id: ghat.id,
+          name: ghat.name,
+          label: ghat.name,
+          description: ghat.description,
+          ghatType: ghat.type, // renamed to avoid conflict with search type
+          states: ghat.states || [],
+          icon: 'fa-layer-group',
+          searchText: `${ghat.name} ${ghat.type || ''} ${(ghat.states || []).join(' ')}`.toLowerCase()
         });
-      }
-    } catch (e) { console.warn('[Search] Ghats data not loaded', e); }
+      });
+    }
 
-    // Timeline Events
-    try {
-      // Try to get from TimelineEngine if available
-      if (window.TimelineEngine && typeof window.TimelineEngine.loadYear === 'function') {
-        const years = [1947, 1950, 1956, 1960, 1971, 2000, 2014, 2025];
-        years.forEach(year => {
-          const data = TimelineEngine.loadYear(year);
-          if (data) {
-            searchIndex.push({
-              type: 'historical-event',
-              id: `event-${year}`,
-              name: `${year} — ${data.label}`,
-              label: `${year} — ${data.label}`,
-              description: data.description,
-              year,
-              icon: 'fa-landmark',
-              searchText: `${year} ${data.label} ${data.description || ''}`.toLowerCase()
-            });
-
-            // Add individual events
-            (data.events || []).forEach((evt, idx) => {
-              searchIndex.push({
-                type: 'historical-event',
-                id: `event-${year}-${idx}`,
-                name: evt.event,
-                label: evt.event,
-                year: evt.year,
-                icon: 'fa-history',
-                searchText: `${evt.year || year} ${evt.event}`.toLowerCase()
-              });
-            });
-          }
-        });
-      } else if (window.milestones && Array.isArray(window.milestones)) {
-        // Fallback to inline milestones from script.js
-        window.milestones.forEach((milestone, idx) => {
+    // Timeline Events - normalize data structure
+    if (window.TimelineEngine && typeof window.TimelineEngine.loadYear === 'function') {
+      const years = [1947, 1950, 1956, 1960, 1971, 2000, 2014, 2025];
+      years.forEach(year => {
+        const data = window.TimelineEngine.loadYear(year);
+        if (data) {
           searchIndex.push({
             type: 'historical-event',
-            id: `event-${milestone.year}`,
-            name: `${milestone.year} — ${milestone.label}`,
-            label: `${milestone.year} — ${milestone.label}`,
-            description: milestone.description,
-            year: milestone.year,
+            id: `event-${year}`,
+            name: `${year} — ${data.label}`,
+            label: `${year} — ${data.label}`,
+            description: data.description,
+            year,
             icon: 'fa-landmark',
-            searchText: `${milestone.year} ${milestone.label} ${milestone.description || ''}`.toLowerCase()
+            searchText: `${year} ${data.label} ${data.description || ''}`.toLowerCase()
           });
 
           // Add individual events
-          (milestone.events || []).forEach((evt, eventIdx) => {
+          (data.events || []).forEach((evt, idx) => {
             searchIndex.push({
               type: 'historical-event',
-              id: `event-${milestone.year}-${eventIdx}`,
-              name: evt,
-              label: evt,
-              year: milestone.year,
+              id: `event-${year}-${idx}`,
+              name: evt.event || evt,
+              label: evt.event || evt,
+              year: evt.year || year,
               icon: 'fa-history',
-              searchText: `${milestone.year} ${evt}`.toLowerCase()
+              searchText: `${evt.year || year} ${evt.event || evt}`.toLowerCase()
             });
           });
+        }
+      });
+    } else if (window.milestones && Array.isArray(window.milestones)) {
+      // Fallback to inline milestones from script.js
+      window.milestones.forEach(milestone => {
+        searchIndex.push({
+          type: 'historical-event',
+          id: `event-${milestone.year}`,
+          name: `${milestone.year} — ${milestone.label}`,
+          label: `${milestone.year} — ${milestone.label}`,
+          description: milestone.description,
+          year: milestone.year,
+          icon: 'fa-landmark',
+          searchText: `${milestone.year} ${milestone.label} ${milestone.description || ''}`.toLowerCase()
         });
-      }
-    } catch (e) { console.warn('[Search] Timeline data not loaded', e); }
+
+        // Add individual events (handle both string and object formats)
+        (milestone.events || []).forEach((evt, eventIdx) => {
+          const eventText = typeof evt === 'string' ? evt : evt.event;
+          searchIndex.push({
+            type: 'historical-event',
+            id: `event-${milestone.year}-${eventIdx}`,
+            name: eventText,
+            label: eventText,
+            year: milestone.year,
+            icon: 'fa-history',
+            searchText: `${milestone.year} ${eventText}`.toLowerCase()
+          });
+        });
+      });
+    }
   }
 
   // ── Perform fuzzy search ──

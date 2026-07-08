@@ -264,17 +264,31 @@
     const desc  = document.getElementById('spDesc');
     const facts = document.getElementById('spFacts');
     const events = document.getElementById('spEvents');
+    const stats = document.getElementById('spStats');
     const placeholder = document.getElementById('spPlaceholder');
     const content     = document.getElementById('spContent');
+    const iconWrapper = document.getElementById('spIcon');
 
-    if (!title) return;
+    if (!title) {
+      console.error('[TimelineEngine] Side panel elements not found');
+      return;
+    }
 
     if (placeholder) placeholder.classList.add('hidden');
     if (content)     content.classList.remove('hidden');
 
+    // Update icon for timeline/history view
+    if (iconWrapper) {
+      const iconEl = iconWrapper.querySelector('i');
+      if (iconEl) iconEl.className = 'fas fa-landmark';
+    }
+
     title.textContent = `${data.year} — ${data.label}`;
-    if (sub)  sub.textContent  = `${data.states.length} states active`;
+    if (sub)  sub.textContent  = `${data.states.length} states in India`;
     if (desc) desc.textContent = data.description;
+    
+    // Clear stats for timeline view
+    if (stats) stats.innerHTML = '';
 
     if (facts) {
       facts.innerHTML = data.facts.length ? `
@@ -293,6 +307,9 @@
           ).join('')}</ul>
         </div>` : '';
     }
+    
+    console.log(`[TimelineEngine] Panel updated for year ${year}`);
+  }
   }
 
   // ── GeoJSON support (future) ──
