@@ -86,7 +86,7 @@ fortsData = [
 ];
 
 // ── Part 3: Inline Ghats Data ──
-let ghatsData = [
+ghatsData = [
   { id:'western_ghats', name:'Western Ghats', type:'Mountain Range', length:'1,600 km', states:['Gujarat','Maharashtra','Goa','Karnataka','Kerala','Tamil_Nadu'], description:'The Western Ghats is a UNESCO World Heritage Site and one of the world\'s eight hottest biodiversity hotspots.', facts:['UNESCO World Heritage Site','One of 8 global biodiversity hotspots','Source of major peninsular rivers','Over 5,000 species of flowering plants'], highestPeak:'Anamudi — 2,695 m' },
   { id:'eastern_ghats', name:'Eastern Ghats', type:'Mountain Range', length:'1,750 km', states:['Odisha','Andhra_Pradesh','Tamil_Nadu'], description:'The Eastern Ghats are a discontinuous range of mountains along the eastern coast of India.', facts:['Discontinuous mountain range','Older than Western Ghats','Araku Valley — coffee growing region','Tribal heartland'], highestPeak:'Jindhagada — 1,690 m' },
   { id:'varanasi_ghats', name:'Varanasi Ghats', type:'River Ghats', count:'88 ghats', state:'Uttar_Pradesh', description:'The ghats of Varanasi are a series of steps leading down to the Ganges river, the spiritual heart of Hinduism.', facts:['88 ghats along the Ganges','Dashashwamedh Ghat — main ghat','Manikarnika Ghat — cremation ghat','Ganga Aarti every evening'], famousGhats:['Dashashwamedh','Manikarnika','Assi','Panchganga'] },
