@@ -36,12 +36,7 @@ body.light {
   flex-shrink: 0;
 }
 
-.navbar-logo {
-  height: 36px;
-  background: white;
-  padding: 4px;
-  border-radius: 6px;
-}
+
 
 .navbar-title {
   font-size: 20px;
