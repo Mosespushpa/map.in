@@ -260,9 +260,9 @@ body.light .state:hover, body.light .state:focus { fill: #2ecc71 !important; }
 }
 
 body.light .side-panel { background: rgba(232,234,246,0.95); border-left-color: rgba(0,0,0,0.1); }
-
+/*
 .sp-placeholder {
-  display: flex;
+   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -274,7 +274,7 @@ body.light .side-panel { background: rgba(232,234,246,0.95); border-left-color: 
   padding: 20px;
 }
 
-.sp-placeholder i { font-size: 48px; color: #667eea; margin-bottom: 10px; }
+.sp-placeholder i { font-size: 48px; color: #667eea; margin-bottom: 10px; } */
 
 .sp-content { 
   height: 100%; 
