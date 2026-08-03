@@ -6,10 +6,10 @@
   <title>Map.in — Historical Geography Explorer</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="components/timeline.css">
   <link rel="stylesheet" href="components/tags.css">
   <link rel="stylesheet" href="components/search.css">
   <link rel="stylesheet" href="components/rivers.css">
+  <link rel="stylesheet" href="components/overlays.css">
 </head>
 <body class="dark">
 
@@ -43,10 +43,8 @@
   <!-- ── MAIN LAYOUT ── -->
   <div class="app-body">
 
-    <!-- LEFT: Timeline — populated by components/timeline.js -->
-    <div id="standaloneTimeline"></div>
-
     <!-- CENTER: Map -->
+    <main class="map-area" id="mapArea">
     <main class="map-area" id="mapArea">
       <div class="map-loading" id="mapLoading"><i class="fas fa-spinner fa-spin"></i></div>
       <svg id="india-map" viewBox="0 0 432 488" preserveAspectRatio="xMidYMid meet">
@@ -97,9 +95,10 @@
 
     <!-- RIGHT: Information Panel -->
     <section class="side-panel" id="sidePanel">
+      <div class="panel-resize-handle" id="panelResizeHandle"></div>
       <div class="sp-placeholder" id="spPlaceholder">
-        <!-- <i class="fas fa-map-marked-alt"></i> -->
-        <!-- <p>Hover or click a region to explore its history</p> -->
+        <i class="fas fa-map-marked-alt"></i>
+        <p>Hover or click a region to explore its history</p>
       </div>
       <div class="sp-content hidden" id="spContent">
         <div class="sp-header">
@@ -112,7 +111,24 @@
         </div>
         <div class="sp-body">
           <p id="spDesc"></p>
-          <div id="spStats"></div>
+          <div class="sp-content-grid">
+            <div class="sp-stats-section">
+              <div id="spStats"></div>
+            </div>
+            <div class="sp-images-section">
+              <div class="image-slider" id="spImages">
+                <div class="image-placeholder">
+                  <i class="fas fa-image"></i>
+                  <span>No images available</span>
+                </div>
+              </div>
+              <div class="image-controls" id="imageControls" style="display: none;">
+                <button class="img-btn" id="prevImg"><i class="fas fa-chevron-left"></i></button>
+                <span class="img-counter" id="imgCounter">1 / 1</span>
+                <button class="img-btn" id="nextImg"><i class="fas fa-chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
           <div id="spFacts"></div>
           <div id="spEvents"></div>
         </div>
@@ -126,20 +142,11 @@
   <script src="components/data-loader.js"></script>
   <!-- 1. Core data + map logic -->
   <script src="script.js"></script>
-  <!-- 2. Timeline-driven data engine -->
-  <script src="timeline-data.js"></script>
-  <!-- 3. Standalone components -->
-  <script src="components/timeline.js"></script>
+  <!-- 2. Standalone components -->
   <script src="components/tags.js"></script>
+  <script src="components/overlays.js"></script>
   <script src="components/search.js"></script>
   <script src="components/rivers.js"></script>
-  <!-- 4. Event bridges -->
-  <script>
-    // yearChanged → update map year filter + timeline engine
-    document.addEventListener('yearChanged', function (e) {
-      if (typeof setYear === 'function') setYear(e.detail);
-    });
-  </script>
 
 </body>
 </html>

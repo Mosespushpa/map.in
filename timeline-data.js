@@ -341,6 +341,24 @@
     const year = e.detail;
     updateMap(year);
     updateInfoPanel(year);
+    
+    // Auto-switch categories based on timeline year
+    if (year === 1947) {
+      document.dispatchEvent(new CustomEvent('categoryChanged', { detail: 'events' }));
+    }
+    
+    // Check if year matches any dynasty timeline
+    if (window.dynastiesData) {
+      const matchingDynasty = window.dynastiesData.find(d => d.timelineYear === year);
+      if (matchingDynasty && window.currentCategory === 'dynasties') {
+        // Highlight the matching dynasty
+        setTimeout(() => {
+          if (window.MapOverlays && typeof window.MapOverlays.highlightSpecificDynasty === 'function') {
+            window.MapOverlays.highlightSpecificDynasty(matchingDynasty.id);
+          }
+        }, 100);
+      }
+    }
   });
 
 })();
