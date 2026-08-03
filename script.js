@@ -701,8 +701,10 @@ function applyOverlays() {
   const svg = $('india-map');
   if (!svg) return;
   
-  // Clear existing overlays first
-  clearAllOverlays();
+  // Use MapOverlays if available for clearing overlays
+  if (window.MapOverlays) {
+    window.MapOverlays.clearAllOverlays();
+  }
   
   const g = svg.querySelector('.regions');
   
@@ -818,21 +820,6 @@ function applyOverlays() {
       });
     });
   }
-}
-
-function clearAllOverlays() {
-  const svg = $('india-map');
-  if (!svg) return;
-  
-  // Remove all overlay markers
-  svg.querySelectorAll('.overlay-marker').forEach(el => el.remove());
-  
-  // Clear all highlighting
-  document.querySelectorAll('.state').forEach(state => {
-    state.classList.remove('category-highlight', 'dynasty-highlight');
-    state.style.fill = '';
-    state.style.opacity = '';
-  });
 }
 
 function latLngToSVG(lat, lng) {
@@ -1101,44 +1088,31 @@ function attachNavbarEvents() {
   function resetToHomePage() {
     console.log('[App] Resetting to home page...');
     
-    // Reset side panel to placeholder
-    const placeholder = document.getElementById('spPlaceholder');
-    const content = document.getElementById('spContent');
-    if (placeholder && content) {
-      placeholder.classList.remove('hidden');
-      placeholder.style.display = 'flex';
-      content.classList.add('hidden');
+    // Reset side panel
+    resetPanel();
+    
+    // Reset timeline to 2025 (Present)
+    if (typeof TimelineEngine !== 'undefined') {
+      TimelineEngine.updateMap(2025);
+      TimelineEngine.updateInfoPanel(2025);
     }
     
     // Reset to States category
     currentCategory = 'states';
-    lockedState = null; // Clear any locked state
-    placeholderHidden = false; // Reset placeholder flag
+    document.dispatchEvent(new CustomEvent('categoryChanged', { detail: 'states' }));
     
-    // Reset tag selection
-    document.querySelectorAll('.tag-btn').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.tag === 'states');
-    });
-    
-    // Clear all overlays and highlights
+    // Clear all overlays
     if (window.MapOverlays) {
       window.MapOverlays.clearAllOverlays();
-    } else {
-      clearAllOverlays();
     }
     
-    // Reset all state styles
-    document.querySelectorAll('.state').forEach(s => {
-      s.classList.remove('highlighted', 'category-highlight', 'state-locked', 'dynasty-highlight', 'language-highlight', 'ut-highlight');
-      s.style.fill = '';
-      s.style.stroke = '';
-      s.style.strokeWidth = '';
-      s.style.opacity = '';
-      s.style.filter = '';
-    });
+    // Reset map filters
+    applyYearFilter();
     
-    // Reset panel width to default
-    document.documentElement.style.setProperty('--panel-width', '320px');
+    // Reset any highlighting
+    document.querySelectorAll('.state').forEach(s => {
+      s.classList.remove('highlighted', 'category-highlight');
+    });
     
     console.log('[App] Reset complete');
   }
@@ -1179,8 +1153,6 @@ document.addEventListener('categoryChanged', (e) => {
   if (typeof window.MapOverlays !== 'undefined') {
     window.MapOverlays.clearAllOverlays();
     window.MapOverlays.setCurrentMode(category);
-  } else {
-    clearAllOverlays();
   }
   
   // Set state interaction mode
@@ -1223,13 +1195,29 @@ document.addEventListener('categoryChanged', (e) => {
 // ── Part 4: Unified System Initialization ──
 function init() {
   console.log('[App] Starting initialization...');
-  loadMap();
-  attachStateHandlers();
-  attachNavbarEvents();
-  initPanelResize();  // Add panel resize functionality
-  applyYearFilter(); // Apply initial year filter
-  hideTimeline(); // Hide timeline as per requirements
-  console.log('[App] Initialization complete');
+  
+  try {
+    loadMap();
+    attachStateHandlers();
+    attachNavbarEvents();
+    initPanelResize();
+    applyYearFilter();
+    hideTimeline();
+    
+    console.log('[App] Initialization complete successfully');
+    
+    // Test basic functionality
+    setTimeout(() => {
+      const mapElement = document.getElementById('india-map');
+      const states = document.querySelectorAll('.state');
+      console.log(`[App] Map element: ${mapElement ? 'Found' : 'Missing'}`);
+      console.log(`[App] State elements: ${states.length} found`);
+      console.log(`[App] MapOverlays: ${window.MapOverlays ? 'Available' : 'Missing'}`);
+    }, 500);
+    
+  } catch (error) {
+    console.error('[App] Initialization failed:', error);
+  }
 }
 
 // Intercept loaded pipeline data arrays from data-loader.js

@@ -4,6 +4,16 @@
 
 (function() {
   
+  // Wait for dependencies to be loaded
+  if (!document.getElementById('india-map')) {
+    console.log('[Overlays] Waiting for map to load...');
+    setTimeout(() => {
+      if (document.getElementById('india-map')) {
+        console.log('[Overlays] Map found, initializing overlays...');
+      }
+    }, 1000);
+  }
+  
   // Language color mapping
   const LANGUAGE_COLORS = {
     'Hindi': '#FF6B6B',

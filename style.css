@@ -185,6 +185,13 @@ body.light .tag-btn:hover { background: rgba(102,126,234,0.15); color: #333; }
   min-height: 0;
 }
 
+/* ── TIMELINE PANEL (handled by components/timeline.js + timeline.css) ── */
+#standaloneTimeline {
+  flex-shrink: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
 /* ── MAP AREA ── */
 .map-area {
   flex: 1;

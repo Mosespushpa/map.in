@@ -123,18 +123,18 @@
   fill: #66BB6A;
 }
 
-/* Dynasty and Event selection UI */
-.dynasty-item, .event-item {
+/* Dynasty selection UI */
+.dynasty-item {
   transition: all 0.2s ease;
   border: 2px solid transparent !important;
 }
 
-.dynasty-item:hover, .event-item:hover {
+.dynasty-item:hover {
   background: rgba(255,255,255,0.1) !important;
   transform: translateY(-1px);
 }
 
-.dynasty-item.active, .event-item.active {
+.dynasty-item.active {
   background: rgba(255,255,255,0.15) !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
