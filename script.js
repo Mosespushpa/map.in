@@ -33,7 +33,7 @@ function $(id) { return document.getElementById(id); }
   { id: 'Puducherry', name:'Puducherry', capital:'Puducherry', area:'479 km²', population:'1.5 Million', language:'Tamil, Telugu, Malayalam, French', formed:1954, description:'Puducherry is a Union Territory with a unique French colonial heritage.', facts:['Former French colony','Known for beaches and Auroville','French architecture and culture'], historicalEvents:[{year:1954,event:'Puducherry merged with India'},{year:1962,event:'Officially became Union Territory'}] },
   { id: 'Jammu_Kashmir', name:'Jammu & Kashmir', capital:'Srinagar (summer), Jammu (winter)', area:'55,530 km²', population:'12 Million'},
   { id:'Ladakh', name:'Ladakh', capital:'Leh', area:'59,146 km²', population:'0.3 Million'},
-  { id: 'Dadra And Nagar Haveli And Daman And Diu', name:'Dadra and Nagar Haveli and Daman and Diu', capital:'Daman', area:'603 km²', population:'0.6 Million'},
+  { id: 'Dadra And Nagar Haveli And Daman And Diu', name:'Dadra and Nagar Haveli and Daman and Diu', capital:'Daman', area:'603 km²', population:'0.6 Million', language:'Gujarati, Hindi', formed:2020, description:'Formed by merger of Dadra & Nagar Haveli and Daman & Diu in 2020. Comprises three geographically separate enclaves on the western coast.', facts:['Formed by merger in January 2020','Three separate geographic enclaves','Former Portuguese territory'], historicalEvents:[{year:1961,event:'Liberated from Portuguese rule'},{year:2020,event:'Merged into single UT'}] },
   { id:'Andhra_Pradesh', name:'Andhra Pradesh', capital:'Amaravati', area:'162,975 km²', population:'54 Million', language:'Telugu', formed:1956, description:'Andhra Pradesh was formed in 1956 from Telugu-speaking regions of Madras State. Telangana was carved out in 2014.', facts:['Rice Bowl of India','Home to Tirupati temple','Coastline of 974 km along Bay of Bengal'], historicalEvents:[{year:1956,event:'Andhra Pradesh formed from Madras State'},{year:2014,event:'Telangana carved out'}], images:[{url:'https://via.placeholder.com/300x200?text=Tirupati+Temple', caption:'Tirupati Temple'}, {url:'https://via.placeholder.com/300x200?text=Amaravati+Buddha', caption:'Amaravati Buddhist Site'}] },
   { id:'Maharashtra', name:'Maharashtra', capital:'Mumbai', area:'307,713 km²', population:'112 Million', language:'Marathi', formed:1960, description:'Maharashtra was formed on May 1, 1960 when Bombay State was divided along linguistic lines.', facts:['Financial capital of India — Mumbai','Home to Bollywood','Ajanta and Ellora Caves — UNESCO Sites'], historicalEvents:[{year:1960,event:'Maharashtra formed from Bombay State'},{year:1995,event:'Bombay renamed to Mumbai'}], images:[{url:'https://via.placeholder.com/300x200?text=Gateway+of+India', caption:'Gateway of India'}, {url:'https://via.placeholder.com/300x200?text=Ajanta+Caves', caption:'Ajanta Caves'}] },
   { id:'Tamil_Nadu', name:'Tamil Nadu', capital:'Chennai', area:'130,060 km²', population:'72 Million', language:'Tamil', formed:1950, description:'Tamil Nadu has one of the oldest civilizations in the world with a rich cultural heritage.', facts:['Tamil — one of world\'s oldest classical languages','Home to over 33,000 ancient temples','Major IT hub — Chennai'], historicalEvents:[{year:1950,event:'Madras State formed'},{year:1969,event:'Renamed Tamil Nadu'}] },
@@ -66,9 +66,10 @@ function $(id) { return document.getElementById(id); }
 
 // ── Union Territories Data ──
 const unionTerritories = {
-  'Andaman_Nicobar': { id:'Andaman_Nicobar', name:'Andaman and Nicobar Islands', capital:'Port Blair', area:'8,249 km²', population:'0.38 Million', language:'Hindi, English', formed:1956, description:'Island territory in the Bay of Bengal, known for pristine beaches and tribal heritage.', facts:['Cellular Jail - Kala Pani','Only place in India to see active volcanoes','Home to 6 tribes including Sentinelese'], historicalEvents:[{year:1858,event:'Cellular Jail constructed for freedom fighters'},{year:2004,event:'Devastated by Indian Ocean Tsunami'}] },
+  'Andaman_Nicobar': { id:'Andaman And Nicobar Islands', name:'Andaman and Nicobar Islands', capital:'Port Blair', area:'8,249 km²', population:'0.38 Million', language:'Hindi, English', formed:1956, description:'Island territory in the Bay of Bengal, known for pristine beaches and tribal heritage.', facts:['Cellular Jail - Kala Pani','Only place in India to see active volcanoes','Home to 6 tribes including Sentinelese'], historicalEvents:[{year:1858,event:'Cellular Jail constructed for freedom fighters'},{year:2004,event:'Devastated by Indian Ocean Tsunami'}] },
   'Chandigarh': { id:'Chandigarh', name:'Chandigarh', capital:'Chandigarh', area:'114 km²', population:'1.05 Million', language:'Hindi, Punjabi', formed:1966, description:'Planned city designed by Le Corbusier, joint capital of Punjab and Haryana.', facts:['First planned city in India','Designed by Le Corbusier','Joint capital of two states'], historicalEvents:[{year:1947,event:'Partition led to need for new Punjab capital'},{year:1966,event:'Became Union Territory'}] },
   'Delhi': { id:'Delhi', name:'Delhi', capital:'New Delhi', area:'1,484 km²', population:'32.9 Million', language:'Hindi, English', formed:1956, description:'National capital territory, seat of Indian government and rich Mughal heritage.', facts:['National capital of India','Seat of Union Government','UNESCO World Heritage Sites'], historicalEvents:[{year:1911,event:'Capital shifted from Calcutta to Delhi'},{year:1947,event:'Became capital of independent India'}] },
+  'Dadra_Nagar_Haveli_Daman_Diu': { id:'Dadra And Nagar Haveli And Daman And Diu', name:'Dadra and Nagar Haveli and Daman and Diu', capital:'Daman', area:'603 km²', population:'0.6 Million', language:'Gujarati, Hindi', formed:2020, description:'Formed by merger of Dadra & Nagar Haveli and Daman & Diu in 2020. Comprises three geographically separate enclaves on the western coast.', facts:['Formed by merger in January 2020','Three separate geographic enclaves','Former Portuguese territory'], historicalEvents:[{year:1961,event:'Liberated from Portuguese rule'},{year:2020,event:'Merged into single UT'}] },
   'Jammu_Kashmir': { id:'Jammu_Kashmir', name:'Jammu and Kashmir', capital:'Srinagar (Summer), Jammu (Winter)', area:'55,673 km²', population:'12.5 Million', language:'Hindi, Urdu', formed:2019, description:'Reorganized as UT in 2019, known for valleys, lakes and mountains.', facts:['Paradise on Earth','Saffron cultivation','Houseboats in Dal Lake'], historicalEvents:[{year:1947,event:'Accession to India'},{year:2019,event:'Reorganized as Union Territory'}] },
   'Ladakh': { id:'Ladakh', name:'Ladakh', capital:'Leh', area:'59,146 km²', population:'0.27 Million', language:'Hindi, Ladakhi', formed:2019, description:'High-altitude desert region carved from J&K, known for Buddhist culture.', facts:['Highest plateau in India','Cold desert','Buddhist monasteries'], historicalEvents:[{year:2019,event:'Formed from Jammu & Kashmir reorganization'}] },
   'Lakshadweep': { id:'Lakshadweep', name:'Lakshadweep', capital:'Kavaratti', area:'32 km²', population:'0.06 Million', language:'Malayalam', formed:1956, description:'Coral island archipelago in Arabian Sea, smallest territory by area.', facts:['Smallest UT by area','36 coral islands','Only 10 islands inhabited'], historicalEvents:[{year:1956,event:'Became Union Territory'},{year:1973,event:'Renamed from Laccadive Islands'}] },
@@ -672,52 +673,44 @@ function resetPanel() {
 }
 
 function hidePlaceholder() {
-  if (!placeholderHidden) {
-    placeholderHidden = true;
-    const spPlaceholder = $('spPlaceholder');
-    const spContent = $('spContent');
-    
-    if (spPlaceholder) spPlaceholder.classList.add('hidden');
-    if (spContent) spContent.classList.remove('hidden');
-  }
+  placeholderHidden = true;
+  const spPlaceholder = $('spPlaceholder');
+  const spContent = $('spContent');
+  if (spPlaceholder) spPlaceholder.classList.add('hidden');
+  if (spContent) spContent.classList.remove('hidden');
 }
 
 function initPanelResize() {
   const panel = document.querySelector('.side-panel');
   const handle = document.querySelector('.panel-resize-handle');
-  
   if (!panel || !handle) return;
-  
-  let startX = 0;
-  let startWidth = 0;
-  
+
+  let startX, startWidth;
+
   handle.addEventListener('mousedown', (e) => {
-    isResizing = true;
     startX = e.clientX;
-    startWidth = parseInt(window.getComputedStyle(panel).width, 10);
-    
+    startWidth = panel.offsetWidth;
     handle.classList.add('dragging');
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-    
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+
+    function onMove(e) {
+      const newWidth = Math.min(Math.max(startWidth - (e.clientX - startX), 260), window.innerWidth * 0.6);
+      panel.style.width = newWidth + 'px';
+    }
+
+    function onUp() {
+      handle.classList.remove('dragging');
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    }
+
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
     e.preventDefault();
   });
-  
-  function onMouseMove(e) {
-    if (!isResizing) return;
-    
-    const deltaX = startX - e.clientX;
-    const newWidth = Math.min(Math.max(startWidth + deltaX, 280), window.innerWidth * 0.5);
-    
-    document.documentElement.style.setProperty('--panel-width', `${newWidth}px`);
-  }
-  
-  function onMouseUp() {
-    isResizing = false;
-    handle.classList.remove('dragging');
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
-  }
 }
 
 // ── Event Handlers ──
@@ -776,7 +769,7 @@ function init() {
       timeline.style.display = 'none';
     }
     
-    // Expose global data for components
+    // Expose global data and functions for components
     window.statesData = statesData;
     window.riversData = riversData;
     window.fortsData = fortsData;
@@ -785,6 +778,7 @@ function init() {
     window.stateLanguages = stateLanguages;
     window.dynastiesData = dynastiesData;
     window.historicalEvents = historicalEvents;
+    window.showPanel = showPanel;
     
     // Initialize default overlay after a short delay to ensure components are loaded
     setTimeout(() => {
