@@ -58,12 +58,26 @@
     
     // Clear all highlighting and reset styles
     document.querySelectorAll('.state').forEach(state => {
-      state.classList.remove('category-highlight', 'dynasty-highlight', 'language-highlight', 'ut-highlight');
+      state.classList.remove('category-highlight', 'dynasty-highlight', 'language-highlight', 'ut-highlight', 'no-hover');
       state.style.fill = '';
       state.style.stroke = '';
       state.style.strokeWidth = '';
       state.style.opacity = '';
       state.style.filter = '';
+      
+      // Remove category-specific event handlers
+      if (state._languageHoverHandler) {
+        state.removeEventListener('mouseenter', state._languageHoverHandler);
+        state._languageHoverHandler = null;
+      }
+      if (state._utHoverHandler) {
+        state.removeEventListener('mouseenter', state._utHoverHandler);
+        state._utHoverHandler = null;
+      }
+      if (state._ghatHoverHandler) {
+        state.removeEventListener('mouseenter', state._ghatHoverHandler);
+        state._ghatHoverHandler = null;
+      }
     });
   }
 
@@ -96,6 +110,11 @@
     console.log('[Overlays] Showing Union Territories overlay');
     clearAllOverlays();
     
+    // Disable hover effects for all states
+    document.querySelectorAll('.state').forEach(state => {
+      state.classList.add('no-hover');
+    });
+    
     // Show UT info in side panel
     showUTInfoPanel();
     
@@ -127,6 +146,13 @@
       
       if (utElement) {
         utElement.classList.add('ut-highlight');
+        utElement.classList.remove('no-hover'); // Allow hover for UTs
+        
+        // Add hover handler for UTs
+        utElement._utHoverHandler = () => {
+          window.showPanel(utData, 'uts');
+        };
+        utElement.addEventListener('mouseenter', utElement._utHoverHandler);
         
         try {
           const bbox = utElement.getBBox();
@@ -146,31 +172,55 @@
   }
 
   function showRiversOverlay() {
-    console.log('[Overlays] Showing rivers overlay');
+    console.log('[Overlays] Rivers - Under Development');
     clearAllOverlays();
     
-    // Show rivers info in side panel
-    showRiversInfoPanel();
-    
-    // Add river name labels at center points
-    (window.riversData || []).forEach(river => {
-      if (river.coordinates && river.coordinates.start && river.coordinates.end) {
-        const centerLat = (river.coordinates.start[0] + river.coordinates.end[0]) / 2;
-        const centerLng = (river.coordinates.start[1] + river.coordinates.end[1]) / 2;
-        const [x, y] = latLngToSVG(centerLat, centerLng);
-        
-        addTextLabel(x, y, river.name, 'river-label', river.id, () => {
-          window.showPanel(river, 'rivers');
-        });
-      }
+    // Disable hover effects for all states
+    document.querySelectorAll('.state').forEach(state => {
+      state.classList.add('no-hover');
     });
+    
+    // Show "under development" message
+    const placeholder = document.getElementById('spPlaceholder');
+    const content = document.getElementById('spContent');
+    
+    if (!placeholder || !content) return;
+    
+    placeholder.classList.add('hidden');
+    content.classList.remove('hidden');
+    
+    document.getElementById('spTitle').textContent = 'Rivers';
+    document.getElementById('spSub').textContent = 'Under Development';
+    document.getElementById('spDesc').textContent = 'Rivers visualization and interaction features are currently under development. This section will be available soon with detailed information about major Indian rivers, their courses, and significance.';
+    
+    document.getElementById('spStats').innerHTML = `
+      <div style="text-align: center; padding: 40px 20px; color: #888;">
+        <i class="fas fa-water" style="font-size: 48px; margin-bottom: 16px; color: #3498db;"></i>
+        <h3 style="color: #3498db; margin-bottom: 8px;">Coming Soon</h3>
+        <p>Interactive rivers map with detailed information about:</p>
+        <ul style="text-align: left; margin: 16px 0;">
+          <li>River courses and tributaries</li>
+          <li>Historical significance</li>
+          <li>Cultural importance</li>
+          <li>Economic impact</li>
+        </ul>
+      </div>
+    `;
+    
+    document.getElementById('spFacts').innerHTML = '';
+    document.getElementById('spEvents').innerHTML = '';
   }
 
   function showGhatsOverlay() {
     console.log('[Overlays] Showing ghats overlay');
     clearAllOverlays();
     
-    // Show ghats info in side panel
+    // Disable hover effects for all states initially
+    document.querySelectorAll('.state').forEach(state => {
+      state.classList.add('no-hover');
+    });
+    
+    // Show ghats info in side panel first
     showGhatsInfoPanel();
     
     // Highlight states that contain Western/Eastern Ghats
@@ -183,6 +233,24 @@
         stateEl.style.fill = '#27AE60';
         stateEl.style.opacity = '0.6';
         stateEl.classList.add('category-highlight');
+        stateEl.classList.remove('no-hover'); // Allow interaction for ghat states
+        
+        // Add hover handler for Western Ghats states
+        stateEl._ghatHoverHandler = () => {
+          const ghatData = {
+            name: 'Western Ghats Region',
+            description: `${window.statesData[stateId]?.name || stateId} is part of the Western Ghats mountain range.`,
+            facts: [
+              'Part of Western Ghats mountain range',
+              'UNESCO World Heritage Site',
+              'Biodiversity hotspot',
+              'Major source of rivers'
+            ],
+            type: 'Mountain Range'
+          };
+          window.showPanel(ghatData, 'ghats');
+        };
+        stateEl.addEventListener('mouseenter', stateEl._ghatHoverHandler);
       }
     });
     
@@ -192,6 +260,24 @@
         stateEl.style.fill = '#E67E22';
         stateEl.style.opacity = '0.6';
         stateEl.classList.add('category-highlight');
+        stateEl.classList.remove('no-hover'); // Allow interaction for ghat states
+        
+        // Add hover handler for Eastern Ghats states
+        stateEl._ghatHoverHandler = () => {
+          const ghatData = {
+            name: 'Eastern Ghats Region',
+            description: `${window.statesData[stateId]?.name || stateId} is part of the Eastern Ghats mountain range.`,
+            facts: [
+              'Part of Eastern Ghats mountain range',
+              'Discontinuous mountain range',
+              'Rich in minerals',
+              'Ancient geological formation'
+            ],
+            type: 'Mountain Range'
+          };
+          window.showPanel(ghatData, 'ghats');
+        };
+        stateEl.addEventListener('mouseenter', stateEl._ghatHoverHandler);
       }
     });
     
@@ -209,14 +295,34 @@
     riverGhats.forEach(ghat => {
       const [x, y] = latLngToSVG(ghat.coords[0], ghat.coords[1]);
       addMarker(x, y, 'ghat-marker', ghat.name, () => {
-        const ghatData = (window.ghatsData || []).find(g => g.name.includes(ghat.name.split(' ')[0]));
-        if (ghatData) window.showPanel(ghatData, 'ghats');
+        const ghatData = (window.ghatsData || []).find(g => g.name.includes(ghat.name.split(' ')[0])) || {
+          name: ghat.name,
+          description: `${ghat.name} are sacred steps leading to the river, important for Hindu rituals and ceremonies.`,
+          facts: [
+            'Sacred river steps',
+            'Important pilgrimage site',
+            'Ancient cultural significance',
+            'Daily ritual activities'
+          ],
+          type: 'River Ghats'
+        };
+        window.showPanel(ghatData, 'ghats');
       });
       
       // Add labels next to markers with better positioning
       addTextLabel(x + 12, y - 5, ghat.name.replace(' Ghats', ''), 'ghat-label', ghat.name, () => {
-        const ghatData = (window.ghatsData || []).find(g => g.name.includes(ghat.name.split(' ')[0]));
-        if (ghatData) window.showPanel(ghatData, 'ghats');
+        const ghatData = (window.ghatsData || []).find(g => g.name.includes(ghat.name.split(' ')[0])) || {
+          name: ghat.name,
+          description: `${ghat.name} are sacred steps leading to the river, important for Hindu rituals and ceremonies.`,
+          facts: [
+            'Sacred river steps',
+            'Important pilgrimage site',
+            'Ancient cultural significance',
+            'Daily ritual activities'
+          ],
+          type: 'River Ghats'
+        };
+        window.showPanel(ghatData, 'ghats');
       });
     });
   }
@@ -262,6 +368,23 @@
         stateEl.style.opacity = '0.8';
         stateEl.classList.add('language-highlight');
         
+        // Add hover handler for languages
+        stateEl._languageHoverHandler = () => {
+          const langData = {
+            name: language,
+            description: `${language} is the official language of ${window.statesData[stateId]?.name || window.unionTerritories[stateId]?.name || stateId}`,
+            facts: [
+              `Official language of ${window.statesData[stateId]?.name || window.unionTerritories[stateId]?.name}`,
+              `Part of ${Object.keys(window.stateLanguages).filter(id => window.stateLanguages[id] === language).length} states/UTs`,
+              'Click to see more details'
+            ],
+            type: 'Official Language'
+          };
+          window.showPanel(langData, 'languages');
+        };
+        
+        stateEl.addEventListener('mouseenter', stateEl._languageHoverHandler);
+        
         try {
           const bbox = stateEl.getBBox();
           const centerX = bbox.x + bbox.width / 2;
@@ -270,8 +393,13 @@
           addTextLabel(centerX, centerY, language, 'language-label', stateId, () => {
             const langData = {
               name: language,
-              description: `${language} is the official language of ${window.statesData[stateId]?.name || stateId}`,
-              states: Object.keys(window.stateLanguages).filter(id => window.stateLanguages[id] === language),
+              description: `${language} is the official language of ${window.statesData[stateId]?.name || window.unionTerritories[stateId]?.name || stateId}`,
+              facts: [
+                `Official language of ${window.statesData[stateId]?.name || window.unionTerritories[stateId]?.name}`,
+                `Spoken by millions of people`,
+                `Rich literary tradition`,
+                `Cultural significance in the region`
+              ],
               type: 'Official Language'
             };
             window.showPanel(langData, 'languages');
@@ -595,21 +723,71 @@
     }
   }
 
-  // Public API
+  // Public API - Expose globally but ensure everything is ready
+  function ensureMapReady(callback) {
+    const map = document.getElementById('india-map');
+    const states = document.querySelectorAll('.state');
+    
+    if (map && states.length > 0) {
+      callback();
+    } else {
+      console.log('[Overlays] Map not ready, retrying...');
+      setTimeout(() => ensureMapReady(callback), 100);
+    }
+  }
+
   window.MapOverlays = {
-    showStatesOverlay,
-    showUTsOverlay, 
-    showRiversOverlay,
-    showGhatsOverlay,
-    showFortsOverlay,
-    showLanguagesOverlay,
-    showDynastiesOverlay,
-    showHistoricalEventsOverlay,
+    showStatesOverlay: () => ensureMapReady(showStatesOverlay),
+    showUTsOverlay: () => ensureMapReady(showUTsOverlay),
+    showRiversOverlay: () => ensureMapReady(showRiversOverlay),
+    showGhatsOverlay: () => ensureMapReady(showGhatsOverlay),
+    showFortsOverlay: () => ensureMapReady(showFortsOverlay),
+    showLanguagesOverlay: () => ensureMapReady(showLanguagesOverlay),
+    showDynastiesOverlay: () => ensureMapReady(showDynastiesOverlay),
+    showHistoricalEventsOverlay: () => ensureMapReady(showHistoricalEventsOverlay),
     clearAllOverlays,
     toggleDynasty,
     highlightSpecificDynasty,
-    showEventOnMap,
+    showEventOnMap: () => ensureMapReady(() => showEventOnMap(...arguments)),
     setCurrentMode: (mode) => { currentOverlayMode = mode; }
   };
+
+  // Event listener for overlay mode changes
+  document.addEventListener('overlayModeChanged', (e) => {
+    const mode = e.detail;
+    console.log(`[Overlays] Mode changed to: ${mode}`);
+    
+    currentOverlayMode = mode;
+    
+    switch (mode) {
+      case 'states':
+        window.MapOverlays.showStatesOverlay();
+        break;
+      case 'uts':
+        window.MapOverlays.showUTsOverlay();
+        break;
+      case 'rivers':
+        window.MapOverlays.showRiversOverlay();
+        break;
+      case 'ghats':
+        window.MapOverlays.showGhatsOverlay();
+        break;
+      case 'forts':
+        window.MapOverlays.showFortsOverlay();
+        break;
+      case 'languages':
+        window.MapOverlays.showLanguagesOverlay();
+        break;
+      case 'dynasties':
+        window.MapOverlays.showDynastiesOverlay();
+        break;
+      case 'events':
+        window.MapOverlays.showHistoricalEventsOverlay();
+        break;
+      default:
+        console.warn(`[Overlays] Unknown mode: ${mode}`);
+        window.MapOverlays.clearAllOverlays();
+    }
+  });
 
 })();

@@ -194,7 +194,8 @@ body.light .tag-btn:hover { background: rgba(102,126,234,0.15); color: #333; }
 
 /* ── MAP AREA ── */
 .map-area {
-  flex: 1;
+  flex: 3; /* 75% of space */
+  width: 75vw;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -241,8 +242,22 @@ body.light .map-area { background: linear-gradient(135deg, rgba(232,234,246,0.9)
   filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.6)) !important;
 }
 
+/* Disable hover effects for non-states categories */
+.state.no-hover:hover,
+.state.no-hover:focus {
+  fill: inherit !important;
+  stroke: inherit !important;
+  stroke-width: inherit !important;
+}
+
 body.light .state { fill: #c5cae9; stroke: #5c6bc0; }
 body.light .state:hover, body.light .state:focus { fill: #2ecc71 !important; }
+body.light .state.no-hover:hover,
+body.light .state.no-hover:focus {
+  fill: inherit !important;
+  stroke: inherit !important;
+  stroke-width: inherit !important;
+}
 
 /* Overlay markers */
 .fort-marker { fill: #e74c3c; stroke: #fff; stroke-width: 1; transition: r 0.2s; }
@@ -289,17 +304,37 @@ body.light .dynasty-selector:hover {
 
 /* ── SIDE PANEL ── */
 .side-panel {
-  width: var(--panel-width, 320px);
+  flex: 1; /* 25% of space */
+  width: 25vw;
   min-width: 280px;
-  max-width: 50vw;
-  flex-shrink: 0;
+  max-width: 400px;
   background: rgba(15,15,40,0.92);
   backdrop-filter: blur(10px);
   border-left: 1px solid rgba(255,255,255,0.08);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Scrollbar styling for side panel */
+.side-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.side-panel::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+}
+
+.side-panel::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+}
+
+.side-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.5);
 }
 
 /* Resize handle for draggable edge */

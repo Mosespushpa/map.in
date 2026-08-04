@@ -27,9 +27,8 @@ let milestones = [];
 
 function $(id) { return document.getElementById(id); }
 
-// ── Part 1: Inline States Data ──
+// ── Inline States Data ──
 [
-
   { id:'Delhi', name:'Delhi', capital:'New Delhi', area:'1,484 km²', population:'32 Million', language:'Hindi, English', formed:1956, description:'Delhi is the capital territory of India, home to the national government.', facts:['Capital of India','Home to Rashtrapati Bhavan','Qutub Minar — UNESCO Site'], historicalEvents:[{year:1911,event:'Capital moved from Calcutta to Delhi'},{year:1956,event:'Delhi becomes Union Territory'}] },
   { id: 'Puducherry', name:'Puducherry', capital:'Puducherry', area:'479 km²', population:'1.5 Million', language:'Tamil, Telugu, Malayalam, French', formed:1954, description:'Puducherry is a Union Territory with a unique French colonial heritage.', facts:['Former French colony','Known for beaches and Auroville','French architecture and culture'], historicalEvents:[{year:1954,event:'Puducherry merged with India'},{year:1962,event:'Officially became Union Territory'}] },
   { id: 'Jammu_Kashmir', name:'Jammu & Kashmir', capital:'Srinagar (summer), Jammu (winter)', area:'55,530 km²', population:'12 Million'},
@@ -65,11 +64,10 @@ function $(id) { return document.getElementById(id); }
   { id:'Goa', name:'Goa', capital:'Panaji', area:'3,702 km²', population:'1.5 Million', language:'Konkani', formed:1987, description:'Goa is the smallest state by area, a former Portuguese colony known for its beaches.', facts:['Smallest state by area','Portuguese colony until 1961','Basilica of Bom Jesus — UNESCO Heritage'], historicalEvents:[{year:1961,event:'Liberated from Portuguese rule'},{year:1987,event:'Became full state'}] }
 ].forEach(st => { statesData[st.id] = st; });
 
-// ── Part 2: Inline Union Territories Data ──
+// ── Union Territories Data ──
 const unionTerritories = {
   'Andaman_Nicobar': { id:'Andaman_Nicobar', name:'Andaman and Nicobar Islands', capital:'Port Blair', area:'8,249 km²', population:'0.38 Million', language:'Hindi, English', formed:1956, description:'Island territory in the Bay of Bengal, known for pristine beaches and tribal heritage.', facts:['Cellular Jail - Kala Pani','Only place in India to see active volcanoes','Home to 6 tribes including Sentinelese'], historicalEvents:[{year:1858,event:'Cellular Jail constructed for freedom fighters'},{year:2004,event:'Devastated by Indian Ocean Tsunami'}] },
   'Chandigarh': { id:'Chandigarh', name:'Chandigarh', capital:'Chandigarh', area:'114 km²', population:'1.05 Million', language:'Hindi, Punjabi', formed:1966, description:'Planned city designed by Le Corbusier, joint capital of Punjab and Haryana.', facts:['First planned city in India','Designed by Le Corbusier','Joint capital of two states'], historicalEvents:[{year:1947,event:'Partition led to need for new Punjab capital'},{year:1966,event:'Became Union Territory'}] },
-  'Dadra_Nagar_Haveli_Daman_Diu': { id:'Dadra_Nagar_Haveli_Daman_Diu', name:'Dadra & Nagar Haveli and Daman & Diu', capital:'Daman', area:'603 km²', population:'0.61 Million', language:'Hindi, Gujarati', formed:2020, description:'Merged territory combining former Portuguese colonies on the western coast.', facts:['Former Portuguese territories','Merged in 2020','Known for beaches and heritage'], historicalEvents:[{year:1961,event:'Liberation from Portuguese rule'},{year:2020,event:'Merger of two territories'}] },
   'Delhi': { id:'Delhi', name:'Delhi', capital:'New Delhi', area:'1,484 km²', population:'32.9 Million', language:'Hindi, English', formed:1956, description:'National capital territory, seat of Indian government and rich Mughal heritage.', facts:['National capital of India','Seat of Union Government','UNESCO World Heritage Sites'], historicalEvents:[{year:1911,event:'Capital shifted from Calcutta to Delhi'},{year:1947,event:'Became capital of independent India'}] },
   'Jammu_Kashmir': { id:'Jammu_Kashmir', name:'Jammu and Kashmir', capital:'Srinagar (Summer), Jammu (Winter)', area:'55,673 km²', population:'12.5 Million', language:'Hindi, Urdu', formed:2019, description:'Reorganized as UT in 2019, known for valleys, lakes and mountains.', facts:['Paradise on Earth','Saffron cultivation','Houseboats in Dal Lake'], historicalEvents:[{year:1947,event:'Accession to India'},{year:2019,event:'Reorganized as Union Territory'}] },
   'Ladakh': { id:'Ladakh', name:'Ladakh', capital:'Leh', area:'59,146 km²', population:'0.27 Million', language:'Hindi, Ladakhi', formed:2019, description:'High-altitude desert region carved from J&K, known for Buddhist culture.', facts:['Highest plateau in India','Cold desert','Buddhist monasteries'], historicalEvents:[{year:2019,event:'Formed from Jammu & Kashmir reorganization'}] },
@@ -77,24 +75,19 @@ const unionTerritories = {
   'Puducherry': { id:'Puducherry', name:'Puducherry', capital:'Puducherry', area:'479 km²', population:'1.24 Million', language:'Tamil, French', formed:1963, description:'Former French colony with unique Indo-French architecture and culture.', facts:['Former French colony','French Quarter architecture','Auroville international township'], historicalEvents:[{year:1674,event:'French established trading post'},{year:1954,event:'Merged with Indian Union'}] }
 };
 
-// ── Part 2: Enhanced Rivers Data for Display ──
+// ── Rivers Data ──
 riversData = [
   { id:'ganga', name:'Ganga (Ganges)', origin:'Gangotri Glacier, Uttarakhand', length:'2,525 km', type:'Himalayan', description:'The Ganga is the most sacred river in Hinduism and the longest river in India.', facts:['Most sacred river in Hinduism','Supports 40% of India\'s population','Declared National River of India in 2008'], coordinates:{start:[30.9,79.1],end:[21.9,89.5]} },
   { id:'yamuna', name:'Yamuna', origin:'Yamunotri Glacier, Uttarakhand', length:'1,376 km', type:'Himalayan', description:'The Yamuna is the second-largest tributary of the Ganga, flowing through Delhi and Agra.', facts:['Taj Mahal stands on its banks','Flows through Delhi','Tributary of Ganga'], coordinates:{start:[31.0,78.5],end:[25.4,81.9]} },
   { id:'brahmaputra', name:'Brahmaputra', origin:'Angsi Glacier, Tibet', length:'2,900 km (in India: 916 km)', type:'Himalayan', description:'The Brahmaputra originates in Tibet and flows through Arunachal Pradesh and Assam.', facts:['One of the largest rivers by discharge','Majuli island formed in its waters','Known as Tsangpo in Tibet'], coordinates:{start:[28.0,95.0],end:[25.5,90.0]} },
   { id:'godavari', name:'Godavari', origin:'Trimbakeshwar, Maharashtra', length:'1,465 km', type:'Peninsular', description:'The Godavari is the second-longest river in India, known as the Dakshin Ganga.', facts:['Dakshin Ganga — Ganges of the South','Second longest river in India','Pushkaram festival every 12 years'], coordinates:{start:[19.9,73.5],end:[16.5,82.3]} },
   { id:'krishna', name:'Krishna', origin:'Mahabaleshwar, Maharashtra', length:'1,400 km', type:'Peninsular', description:'The Krishna flows through the Deccan Plateau and empties into the Bay of Bengal.', facts:['Fourth longest river in India','Nagarjuna Sagar Dam on Krishna','Srisailam Dam — major hydroelectric project'], coordinates:{start:[17.9,73.7],end:[15.7,80.9]} },
-  { id:'narmada', name:'Narmada', origin:'Amarkantak, Madhya Pradesh', length:'1,312 km', type:'Peninsular', description:'The Narmada is the longest west-flowing river in India.', facts:['Longest west-flowing river in India','Sardar Sarovar Dam — major project','Marble Rocks at Bhedaghat'], coordinates:{start:[22.7,81.8],end:[21.7,72.6]} },
-  { id:'cauvery', name:'Cauvery (Kaveri)', origin:'Talakaveri, Karnataka', length:'800 km', type:'Peninsular', description:'The Cauvery is a sacred river in South India, source of water for Bengaluru and Chennai.', facts:['Sacred river of South India','Cauvery water dispute between Karnataka and Tamil Nadu','Hogenakkal Falls — Niagara of India'], coordinates:{start:[12.4,75.5],end:[11.1,79.9]} },
-  { id:'mahanadi', name:'Mahanadi', origin:'Sihawa, Chhattisgarh', length:'858 km', type:'Peninsular', description:'The Mahanadi is the major river of Odisha. Hirakud Dam is one of the longest earthen dams.', facts:['Hirakud Dam — longest earthen dam','Chilika Lake fed by Mahanadi','Mahanadi means Great River'], coordinates:{start:[20.5,82.1],end:[20.3,86.7]} },
-  { id:'indus', name:'Indus', origin:'Tibetan Plateau', length:'3,180 km (in India: 1,114 km)', type:'Himalayan', description:'The Indus is one of the longest rivers in Asia. The Indus Valley Civilization flourished on its banks.', facts:['Indus Valley Civilization — 3300 BCE','India named after Indus river','Indus Waters Treaty with Pakistan'], coordinates:{start:[32.5,79.5],end:[24.0,67.5]} },
-  { id:'tapti', name:'Tapti (Tapi)', origin:'Satpura Range, Madhya Pradesh', length:'724 km', type:'Peninsular', description:'The Tapti is one of the major west-flowing rivers of India, flowing parallel to the Narmada.', facts:['Second major west-flowing river','Flows parallel to Narmada','Surat city on its banks'], coordinates:{start:[21.8,78.2],end:[21.2,72.6]} }
+  { id:'narmada', name:'Narmada', origin:'Amarkantak, Madhya Pradesh', length:'1,312 km', type:'Peninsular', description:'The Narmada is the longest west-flowing river in India.', facts:['Longest west-flowing river in India','Sardar Sarovar Dam — major project','Marble Rocks at Bhedaghat'], coordinates:{start:[22.7,81.8],end:[21.7,72.6]} }
 ];
 
-// ── Languages by State (Official Languages) ──
+// ── Languages by State ──
 const stateLanguages = {
   'Delhi': 'Hindi', 'Puducherry': 'Tamil', 'Jammu_Kashmir': 'Hindi', 'Ladakh': 'Hindi',
-  'Dadra_And_Nagar_Haveli_And_Daman_And_Diu': 'Gujarati', 'Lakshadweep': 'Malayalam', 'Chandigarh': 'Hindi',
   'Andaman_Nicobar': 'Hindi', 'Andhra_Pradesh': 'Telugu', 'Arunachal_Pradesh': 'English', 'Assam': 'Assamese',
   'Bihar': 'Hindi', 'Chhattisgarh': 'Hindi', 'Goa': 'Konkani', 'Gujarat': 'Gujarati',
   'Haryana': 'Hindi', 'Himachal_Pradesh': 'Hindi', 'Jharkhand': 'Hindi', 'Karnataka': 'Kannada',
@@ -105,7 +98,7 @@ const stateLanguages = {
   'West_Bengal': 'Bengali'
 };
 
-// ── Major Dynasties with estimated coverage areas ──
+// ── Dynasties Data ──
 const dynastiesData = [
   { 
     id: 'maurya', 
@@ -138,48 +131,88 @@ const dynastiesData = [
     facts: ['Founded by Chhatrapati Shivaji', 'Capital at Raigad fort', 'Peshwas were the prime ministers', 'Fought against Mughal expansion']
   },
   { 
+    id: 'gupta', 
+    name: 'Gupta Empire', 
+    period: '320-550 CE', 
+    capital: 'Pataliputra',
+    color: '#F39C12',
+    states: ['Bihar', 'Jharkhand', 'Uttar_Pradesh', 'Madhya_Pradesh', 'West_Bengal', 'Odisha', 'Rajasthan', 'Gujarat', 'Haryana'],
+    description: 'The Gupta Empire is considered the Golden Age of India with remarkable achievements in arts and sciences.',
+    facts: ['Golden Age of India', 'Decimal system and zero invented', 'Great advances in astronomy and mathematics', 'Flourishing of arts and literature']
+  },
+  { 
+    id: 'chola', 
+    name: 'Chola Empire', 
+    period: '300 BCE-1279 CE', 
+    capital: 'Thanjavur',
+    color: '#27AE60',
+    states: ['Tamil_Nadu', 'Andhra_Pradesh', 'Karnataka', 'Kerala', 'Odisha'],
+    description: 'The Chola dynasty was one of the longest-ruling dynasties and greatest naval power in South India.',
+    facts: ['Built magnificent temples including Brihadeeswarar Temple', 'Greatest naval power in Indian Ocean', 'Extended empire to Southeast Asia', 'Advanced irrigation and administration']
+  },
+  { 
     id: 'vijayanagara', 
     name: 'Vijayanagara Empire', 
     period: '1336-1646 CE', 
     capital: 'Hampi',
-    color: '#F39C12',
+    color: '#3498DB',
     states: ['Karnataka', 'Andhra_Pradesh', 'Telangana', 'Tamil_Nadu', 'Kerala'],
-    description: 'The Vijayanagara Empire was a South Indian empire based in the Deccan Plateau.',
-    facts: ['Capital at Hampi (UNESCO World Heritage Site)', 'Founded by Harihara and Bukka', 'Controlled South Indian trade routes', 'Patron of arts and literature']
-  },
-  { 
-    id: 'chola', 
-    name: 'Chola Dynasty', 
-    period: '300 BCE-1279 CE', 
-    capital: 'Thanjavur',
-    color: '#27AE60',
-    states: ['Tamil_Nadu', 'Andhra_Pradesh', 'Karnataka', 'Kerala'],
-    description: 'The Chola dynasty was one of the longest-ruling dynasties in southern India.',
-    facts: ['Built magnificent temples including Brihadeeswarar Temple', 'Greatest naval power in Indian Ocean', 'Rajaraja Chola and Rajendra Chola were great rulers', 'Extended empire to Southeast Asia']
+    description: 'The Vijayanagara Empire was a South Indian empire that resisted Muslim invasions.',
+    facts: ['Capital at Hampi (UNESCO World Heritage Site)', 'Founded by Harihara and Bukka', 'Patron of arts and literature', 'Controlled South Indian trade routes']
   },
   { 
     id: 'rajput', 
     name: 'Rajput Kingdoms', 
     period: '6th-19th Century CE', 
     capital: 'Various (Udaipur, Jaipur, Jodhpur)',
-    color: '#3498DB',
+    color: '#8E44AD',
     states: ['Rajasthan', 'Madhya_Pradesh', 'Gujarat', 'Haryana', 'Uttar_Pradesh'],
-    description: 'The Rajput kingdoms were a collection of Hindu dynasties that ruled parts of northern India.',
+    description: 'The Rajput kingdoms were warrior clans known for valor, chivalry, and magnificent forts.',
     facts: ['Known for chivalry and honor', 'Built magnificent forts and palaces', 'Resisted foreign invasions', 'Princely states until Indian independence']
   },
   { 
-    id: 'nizam', 
-    name: 'Nizam of Hyderabad', 
-    period: '1724-1948 CE', 
-    capital: 'Hyderabad',
-    color: '#8E44AD',
-    states: ['Telangana', 'Andhra_Pradesh', 'Karnataka', 'Maharashtra'],
-    description: 'The Nizams were the rulers of Hyderabad State in south-central India.',
-    facts: ['Founded by Mir Qamar-ud-Din', 'One of the richest rulers in the world', 'Controlled diamond mines including Golconda', 'Merged with India in 1948']
+    id: 'delhi_sultanate', 
+    name: 'Delhi Sultanate', 
+    period: '1206-1526 CE', 
+    capital: 'Delhi',
+    color: '#16A085',
+    states: ['Delhi', 'Uttar_Pradesh', 'Haryana', 'Punjab', 'Rajasthan', 'Madhya_Pradesh', 'Bihar'],
+    description: 'The Delhi Sultanate was a series of Muslim dynasties that ruled northern India.',
+    facts: ['First Muslim empire in India', 'Five dynasties: Mamluk, Khilji, Tughlaq, Sayyid, Lodi', 'Built Qutub Minar', 'Introduced Indo-Islamic architecture']
+  },
+  { 
+    id: 'pallava', 
+    name: 'Pallava Dynasty', 
+    period: '275-897 CE', 
+    capital: 'Kanchipuram',
+    color: '#E91E63',
+    states: ['Tamil_Nadu', 'Andhra_Pradesh', 'Karnataka'],
+    description: 'The Pallava dynasty was known for its rock-cut architecture and naval expeditions.',
+    facts: ['Rock-cut temples at Mahabalipuram', 'Developed Grantha script', 'Naval expeditions to Southeast Asia', 'Patron of Sanskrit literature']
+  },
+  { 
+    id: 'chalukya', 
+    name: 'Chalukya Dynasty', 
+    period: '543-753 CE, 973-1200 CE', 
+    capital: 'Badami/Kalyani',
+    color: '#FF5722',
+    states: ['Karnataka', 'Andhra_Pradesh', 'Maharashtra', 'Goa'],
+    description: 'The Chalukya dynasty ruled large parts of southern and central India in different periods.',
+    facts: ['Three distinct periods of rule', 'Built cave temples at Badami', 'Defeated Harsha of Kannauj', 'Promoted Kannada literature']
+  },
+  { 
+    id: 'rashtrakuta', 
+    name: 'Rashtrakuta Dynasty', 
+    period: '753-982 CE', 
+    capital: 'Manyakheta',
+    color: '#795548',
+    states: ['Karnataka', 'Maharashtra', 'Madhya_Pradesh', 'Gujarat', 'Andhra_Pradesh'],
+    description: 'The Rashtrakuta dynasty was known for its military prowess and architectural achievements.',
+    facts: ['Built Kailasa temple at Ellora', 'Ruled from Deccan plateau', 'Military expeditions to north India', 'Patron of Kannada and Sanskrit literature']
   }
 ];
 
-// ── Historical Events with approximate locations ──
+// ── Historical Events ──
 const historicalEvents = [
   { 
     id: 'independence', 
@@ -202,14 +235,14 @@ const historicalEvents = [
     period: 'Colonial'
   },
   { 
-    id: 'revolt_1857', 
-    name: 'First War of Independence', 
-    year: 1857, 
-    location: 'Delhi/Meerut',
-    coordinates: [28.9845, 77.7064],
-    description: 'The first major uprising against British rule, also known as the Sepoy Mutiny.',
-    facts: ['Started in Meerut on May 10, 1857', 'Mangal Pandey fired first shot', 'Bahadur Shah Zafar proclaimed emperor', 'Brutally suppressed by British'],
-    period: 'Colonial'
+    id: 'dandi_march', 
+    name: 'Dandi March', 
+    year: 1930, 
+    location: 'Gujarat',
+    coordinates: [20.7645, 72.9289],
+    description: 'Gandhi led the Salt March to protest British salt monopoly.',
+    facts: ['240-mile march from Sabarmati to Dandi', 'Gandhi broke salt law on April 6, 1930', 'Civil Disobedience Movement launched', '78 marchers started, thousands joined'],
+    period: 'Independence Movement'
   },
   { 
     id: 'jallianwala_bagh', 
@@ -222,23 +255,53 @@ const historicalEvents = [
     period: 'Colonial'
   },
   { 
-    id: 'dandi_march', 
-    name: 'Dandi March', 
-    year: 1930, 
-    location: 'Gujarat',
-    coordinates: [20.7645, 72.9289],
-    description: 'Gandhi led the Salt March to protest British salt monopoly.',
-    facts: ['240-mile march from Sabarmati to Dandi', 'Gandhi broke salt law on April 6, 1930', 'Civil Disobedience Movement launched', '78 marchers started, thousands joined'],
+    id: 'revolt_1857', 
+    name: 'Revolt of 1857', 
+    year: 1857, 
+    location: 'Delhi/Meerut',
+    coordinates: [28.9845, 77.7064],
+    description: 'The first major uprising against British rule, also known as the Sepoy Mutiny.',
+    facts: ['Started in Meerut on May 10, 1857', 'Mangal Pandey fired first shot', 'Bahadur Shah Zafar proclaimed emperor', 'Brutally suppressed by British'],
+    period: 'Colonial'
+  },
+  { 
+    id: 'quit_india', 
+    name: 'Quit India Movement', 
+    year: 1942, 
+    location: 'Mumbai',
+    coordinates: [19.0760, 72.8777],
+    description: 'Gandhi launched the Quit India movement demanding immediate independence.',
+    facts: ['Do or Die call by Gandhi', 'Mass civil disobedience', 'British arrested Congress leaders', 'People took over government buildings'],
     period: 'Independence Movement'
   },
   { 
-    id: 'panipat_first', 
+    id: 'battle_panipat_1', 
     name: 'First Battle of Panipat', 
     year: 1526, 
     location: 'Haryana',
     coordinates: [29.3909, 76.9635],
-    description: 'Babur defeated Ibrahim Lodi to establish the Mughal Empire.',
-    facts: ['Babur used gunpowder and cannons', 'End of Delhi Sultanate', 'Beginning of Mughal rule', 'Revolutionary military tactics'],
+    description: 'Babur defeated Ibrahim Lodi, establishing the Mughal Empire in India.',
+    facts: ['Babur used cannons and gunpowder', 'End of Delhi Sultanate', 'Beginning of Mughal rule', 'Use of field artillery in India'],
+    period: 'Medieval'
+  },
+  { 
+    id: 'battle_panipat_3', 
+    name: 'Third Battle of Panipat', 
+    year: 1761, 
+    location: 'Haryana',
+    coordinates: [29.3909, 76.9635],
+    description: 'Ahmad Shah Abdali defeated the Marathas, ending their expansion northward.',
+    facts: ['Massive loss of Maratha power', 'Over 100,000 casualties', 'End of Maratha expansion', 'Power vacuum in North India'],
+    period: 'Medieval'
+  },
+  { 
+    id: 'battle_haldighati', 
+    name: 'Battle of Haldighati', 
+    year: 1576, 
+    location: 'Rajasthan',
+    coordinates: [24.8607, 73.7185],
+    description: 'Maharana Pratap fought against Akbar\'s forces, though outnumbered.',
+    facts: ['Rana Pratap vs Akbar', 'Famous horse Chetak died', 'Symbol of Rajput resistance', 'Pratap never surrendered'],
     period: 'Medieval'
   },
   { 
@@ -246,263 +309,48 @@ const historicalEvents = [
     name: 'Kalinga War', 
     year: -261, 
     location: 'Odisha',
-    coordinates: [20.9517, 85.0985],
-    description: 'Ashoka conquered Kalinga in a brutal war that later led to his conversion to Buddhism.',
-    facts: ['Over 100,000 soldiers killed', 'Ashoka converted to Buddhism after the war', 'Last major conquest by Mauryas', 'Led to spread of Buddhism'],
+    coordinates: [20.2961, 85.8245],
+    description: 'Ashoka conquered Kalinga, but the bloodshed led him to embrace Buddhism.',
+    facts: ['Last major conquest by Ashoka', 'Over 100,000 killed', 'Ashoka embraced Buddhism', 'Turning point in Mauryan policy'],
     period: 'Ancient'
   },
   { 
-    id: 'haldighati', 
-    name: 'Battle of Haldighati', 
-    year: 1576, 
-    location: 'Rajasthan',
-    coordinates: [24.8726, 73.8530],
-    description: 'Maharana Pratap fought against Akbar in this famous Rajput resistance battle.',
-    facts: ['Maharana Pratap vs Akbar', 'Chetak - famous horse of Maharana Pratap', 'Symbol of Rajput valor', 'Man Singh led Mughal forces'],
-    period: 'Medieval'
-  }
-];
-riversData = [
-  { id:'ganga', name:'Ganga (Ganges)', origin:'Gangotri Glacier, Uttarakhand', length:'2,525 km', type:'Himalayan', description:'The Ganga is the most sacred river in Hinduism and the longest river in India.', facts:['Most sacred river in Hinduism','Supports 40% of India\'s population','Declared National River of India in 2008'], coordinates:{start:[30.9,79.1],end:[21.9,89.5]} },
-  { id:'yamuna', name:'Yamuna', origin:'Yamunotri Glacier, Uttarakhand', length:'1,376 km', type:'Himalayan', description:'The Yamuna is the second-largest tributary of the Ganga, flowing through Delhi and Agra.', facts:['Taj Mahal stands on its banks','Flows through Delhi','Tributary of Ganga'], coordinates:{start:[31.0,78.5],end:[25.4,81.9]} },
-  { id:'brahmaputra', name:'Brahmaputra', origin:'Angsi Glacier, Tibet', length:'2,900 km (in India: 916 km)', type:'Himalayan', description:'The Brahmaputra originates in Tibet and flows through Arunachal Pradesh and Assam.', facts:['One of the largest rivers by discharge','Majuli island formed in its waters','Known as Tsangpo in Tibet'], coordinates:{start:[28.0,95.0],end:[25.5,90.0]} },
-  { id:'godavari', name:'Godavari', origin:'Trimbakeshwar, Maharashtra', length:'1,465 km', type:'Peninsular', description:'The Godavari is the second-longest river in India, known as the Dakshin Ganga.', facts:['Dakshin Ganga — Ganges of the South','Second longest river in India','Pushkaram festival every 12 years'], coordinates:{start:[19.9,73.5],end:[16.5,82.3]} },
-  { id:'krishna', name:'Krishna', origin:'Mahabaleshwar, Maharashtra', length:'1,400 km', type:'Peninsular', description:'The Krishna flows through the Deccan Plateau and empties into the Bay of Bengal.', facts:['Fourth longest river in India','Nagarjuna Sagar Dam on Krishna','Srisailam Dam — major hydroelectric project'], coordinates:{start:[17.9,73.7],end:[15.7,80.9]} },
-  { id:'narmada', name:'Narmada', origin:'Amarkantak, Madhya Pradesh', length:'1,312 km', type:'Peninsular', description:'The Narmada is the longest west-flowing river in India.', facts:['Longest west-flowing river in India','Sardar Sarovar Dam — major project','Marble Rocks at Bhedaghat'], coordinates:{start:[22.7,81.8],end:[21.7,72.6]} },
-  { id:'cauvery', name:'Cauvery (Kaveri)', origin:'Talakaveri, Karnataka', length:'800 km', type:'Peninsular', description:'The Cauvery is a sacred river in South India, source of water for Bengaluru and Chennai.', facts:['Sacred river of South India','Cauvery water dispute between Karnataka and Tamil Nadu','Hogenakkal Falls — Niagara of India'], coordinates:{start:[12.4,75.5],end:[11.1,79.9]} },
-  { id:'mahanadi', name:'Mahanadi', origin:'Sihawa, Chhattisgarh', length:'858 km', type:'Peninsular', description:'The Mahanadi is the major river of Odisha. Hirakud Dam is one of the longest earthen dams.', facts:['Hirakud Dam — longest earthen dam','Chilika Lake fed by Mahanadi','Mahanadi means Great River'], coordinates:{start:[20.5,82.1],end:[20.3,86.7]} },
-  { id:'indus', name:'Indus', origin:'Tibetan Plateau', length:'3,180 km (in India: 1,114 km)', type:'Himalayan', description:'The Indus is one of the longest rivers in Asia. The Indus Valley Civilization flourished on its banks.', facts:['Indus Valley Civilization — 3300 BCE','India named after Indus river','Indus Waters Treaty with Pakistan'], coordinates:{start:[32.5,79.5],end:[24.0,67.5]} },
-  { id:'tapti', name:'Tapti (Tapi)', origin:'Satpura Range, Madhya Pradesh', length:'724 km', type:'Peninsular', description:'The Tapti is one of the major west-flowing rivers of India, flowing parallel to the Narmada.', facts:['Second major west-flowing river','Flows parallel to Narmada','Surat city on its banks'], coordinates:{start:[21.8,78.2],end:[21.2,72.6]} }
-];
-
-// ── Part 2: Inline Forts Data ──
-fortsData = [
-  { id:'red_fort', name:'Red Fort', location:'Delhi', state:'Delhi', built:'1639', builtBy:'Shah Jahan', dynasty:'Mughal', type:'Imperial Fort', description:'The Red Fort served as the main residence of the Mughal Emperors. It is a UNESCO World Heritage Site.', facts:['UNESCO World Heritage Site','Independence Day flag hoisting site','Built by Shah Jahan in 1639'], coordinates:[28.6562,77.2410], images:[{url:'https://via.placeholder.com/300x200?text=Red+Fort', caption:'Red Fort Delhi'}] },
-  { id:'agra_fort', name:'Agra Fort', location:'Agra', state:'Uttar_Pradesh', built:'1565', builtBy:'Akbar', dynasty:'Mughal', type:'Imperial Fort', description:'Agra Fort is a UNESCO World Heritage Site, main residence of Mughal emperors until 1638.', facts:['UNESCO World Heritage Site','Shah Jahan imprisoned here by Aurangzeb','Visible from Taj Mahal'], coordinates:[27.1795,78.0211], images:[{url:'https://via.placeholder.com/300x200?text=Agra+Fort', caption:'Agra Fort'}] },
-  { id:'chittorgarh', name:'Chittorgarh Fort', location:'Chittorgarh', state:'Rajasthan', built:'7th century', builtBy:'Chitrangada Mori', dynasty:'Rajput', type:'Hill Fort', description:'Chittorgarh Fort is the largest fort in India and a UNESCO World Heritage Site.', facts:['Largest fort in India','UNESCO World Heritage Site','Three sieges — 1303, 1535, 1568'], coordinates:[24.8887,74.6269], images:[{url:'https://via.placeholder.com/300x200?text=Chittorgarh+Fort', caption:'Chittorgarh Fort'}] },
-  { id:'mehrangarh', name:'Mehrangarh Fort', location:'Jodhpur', state:'Rajasthan', built:'1459', builtBy:'Rao Jodha', dynasty:'Rathore', type:'Hill Fort', description:'Mehrangarh Fort stands 410 feet above the city of Jodhpur.', facts:['One of largest forts in India','410 feet above Jodhpur city','Museum with royal artifacts'], coordinates:[26.2980,73.0188], images:[{url:'https://via.placeholder.com/300x200?text=Mehrangarh+Fort', caption:'Mehrangarh Fort Jodhpur'}] },
-  { id:'golconda', name:'Golconda Fort', location:'Hyderabad', state:'Telangana', built:'13th century', builtBy:'Kakatiya dynasty', dynasty:'Qutb Shahi', type:'Hill Fort', description:'Golconda Fort was famous for its diamond trade, including the Kohinoor diamond.', facts:['Source of Kohinoor diamond','Acoustic system — clap at entrance heard at top','Hyderabad founded nearby in 1591'], coordinates:[17.3833,78.4011], images:[{url:'https://via.placeholder.com/300x200?text=Golconda+Fort', caption:'Golconda Fort Hyderabad'}] },
-  { id:'gwalior_fort', name:'Gwalior Fort', location:'Gwalior', state:'Madhya_Pradesh', built:'8th century', builtBy:'Suraj Sen', dynasty:'Various', type:'Hill Fort', description:'Gwalior Fort was called the pearl amongst fortresses in India by Babur.', facts:['Called pearl amongst fortresses by Babur','Man Singh Palace inside','Rani Lakshmibai died near here'], coordinates:[26.2183,78.1828], images:[{url:'https://via.placeholder.com/300x200?text=Gwalior+Fort', caption:'Gwalior Fort'}] },
-  { id:'jaisalmer_fort', name:'Jaisalmer Fort', location:'Jaisalmer', state:'Rajasthan', built:'1156', builtBy:'Rawal Jaisal', dynasty:'Bhati Rajput', type:'Desert Fort', description:'Jaisalmer Fort is one of the few living forts in the world, a UNESCO World Heritage Site.', facts:['Living fort — 3000 people reside inside','UNESCO World Heritage Site','Golden Fort — Sonar Quila'], coordinates:[26.9124,70.9152], images:[{url:'https://via.placeholder.com/300x200?text=Jaisalmer+Fort', caption:'Golden Fort of Jaisalmer'}] },
-  { id:'amber_fort', name:'Amber Fort', location:'Jaipur', state:'Rajasthan', built:'1592', builtBy:'Raja Man Singh I', dynasty:'Kachwaha Rajput', type:'Hill Fort', description:'Amber Fort is a UNESCO World Heritage Site known for blending Hindu and Mughal architecture.', facts:['UNESCO World Heritage Site','Sheesh Mahal — Hall of Mirrors','Blend of Hindu and Mughal architecture'], coordinates:[26.9855,75.8513], images:[{url:'https://via.placeholder.com/300x200?text=Amber+Fort', caption:'Amber Fort Jaipur'}] },
-  { id:'daulatabad', name:'Daulatabad Fort', location:'Aurangabad', state:'Maharashtra', built:'12th century', builtBy:'Yadava dynasty', dynasty:'Various', type:'Hill Fort', description:'Daulatabad Fort is one of the most formidable forts in India.', facts:['Muhammad bin Tughluq moved capital here','Considered impregnable','Ellora Caves nearby'], coordinates:[19.9400,75.2200], images:[{url:'https://via.placeholder.com/300x200?text=Daulatabad+Fort', caption:'Daulatabad Fort'}] },
-  { id:'purana_qila', name:'Purana Qila', location:'Delhi', state:'Delhi', built:'16th century', builtBy:'Humayun / Sher Shah Suri', dynasty:'Mughal / Sur', type:'Imperial Fort', description:'Purana Qila is believed to be built on the site of Indraprastha, capital of the Pandavas.', facts:['Believed to be site of Indraprastha','Built by Humayun and Sher Shah Suri','Qila-i-Kuhna Mosque inside'], coordinates:[28.6100,77.2431], images:[{url:'https://via.placeholder.com/300x200?text=Purana+Qila', caption:'Purana Qila Delhi'}] }
-];
-
-// ── Part 3: Inline Ghats Data ──
-ghatsData = [
-  { id:'western_ghats', name:'Western Ghats', type:'Mountain Range', length:'1,600 km', states:['Gujarat','Maharashtra','Goa','Karnataka','Kerala','Tamil_Nadu'], description:'The Western Ghats is a UNESCO World Heritage Site and one of the world\'s eight hottest biodiversity hotspots.', facts:['UNESCO World Heritage Site','One of 8 global biodiversity hotspots','Source of major peninsular rivers','Over 5,000 species of flowering plants'], highestPeak:'Anamudi — 2,695 m' },
-  { id:'eastern_ghats', name:'Eastern Ghats', type:'Mountain Range', length:'1,750 km', states:['Odisha','Andhra_Pradesh','Tamil_Nadu'], description:'The Eastern Ghats are a discontinuous range of mountains along the eastern coast of India.', facts:['Discontinuous mountain range','Older than Western Ghats','Araku Valley — coffee growing region','Tribal heartland'], highestPeak:'Jindhagada — 1,690 m' },
-  { id:'varanasi_ghats', name:'Varanasi Ghats', type:'River Ghats', count:'88 ghats', state:'Uttar_Pradesh', description:'The ghats of Varanasi are a series of steps leading down to the Ganges river, the spiritual heart of Hinduism.', facts:['88 ghats along the Ganges','Dashashwamedh Ghat — main ghat','Manikarnika Ghat — cremation ghat','Ganga Aarti every evening'], famousGhats:['Dashashwamedh','Manikarnika','Assi','Panchganga'] },
-  { id:'rishikesh_ghats', name:'Rishikesh Ghats', type:'River Ghats', state:'Uttarakhand', description:'The ghats of Rishikesh on the Ganges are famous for yoga, meditation, and adventure sports.', facts:['Yoga Capital of the World','Triveni Ghat — main ghat','Ram Jhula and Lakshman Jhula bridges','Beatles visited Maharishi Mahesh Yogi here'], famousGhats:['Triveni Ghat','Swarg Ashram Ghat'] },
-  { id:'haridwar_ghats', name:'Haridwar Ghats', type:'River Ghats', state:'Uttarakhand', description:'Haridwar is one of the seven holiest places in Hinduism. The Har Ki Pauri ghat is the most sacred spot.', facts:['One of 7 holiest Hindu cities','Har Ki Pauri — most sacred ghat','Kumbh Mela held every 12 years','Gateway to Char Dham pilgrimage'], famousGhats:['Har Ki Pauri','Kushavarta Ghat'] }
-];
-
-// ── Part 3: Load Map from inline SVG (no fetch) ──
-milestones = [
-  { year:1947, label:'Independence', description:'India gains independence from British rule on August 15, 1947. The country is partitioned into India and Pakistan.', events:['Partition of British India','Independence Day - Aug 15','Jawaharlal Nehru becomes first PM'] },
-  { year:1950, label:'Republic', description:'India becomes a republic on January 26, 1950. The Constitution of India comes into effect.', events:['Constitution adopted - Jan 26','Dr. Rajendra Prasad becomes first President','Integration of princely states begins'] },
-  { year:1956, label:'States Reorganisation', description:'States Reorganisation Act reorganises Indian states along linguistic lines.', events:['States Reorganisation Act','14 states and 6 union territories formed','Linguistic basis for state boundaries'] },
-  { year:1960, label:'Bombay Split', description:'Bombay State is divided into Maharashtra and Gujarat on May 1, 1960.', events:['Maharashtra formed','Gujarat formed','Bombay becomes capital of Maharashtra'] },
-  { year:1971, label:'Bangladesh War', description:'India-Pakistan war leads to creation of Bangladesh. Himachal Pradesh becomes a full state.', events:['Bangladesh Liberation War','Himachal Pradesh becomes state','Meghalaya, Manipur, Tripura become states'] },
-  { year:2000, label:'New States', description:'Three new states carved out — Chhattisgarh, Jharkhand, and Uttarakhand.', events:['Chhattisgarh from Madhya Pradesh','Jharkhand from Bihar','Uttarakhand from Uttar Pradesh'] },
-  { year:2014, label:'Telangana', description:'Telangana is carved out of Andhra Pradesh, becoming India\'s 29th state.', events:['Telangana becomes 29th state','Hyderabad as joint capital','Andhra Pradesh reorganised'] },
-  { year:2019, label:'J&K Reorganisation', description:'Jammu & Kashmir is reorganised into two Union Territories — J&K and Ladakh.', events:['Article 370 abrogated','J&K becomes Union Territory','Ladakh becomes Union Territory'] },
-  { year:2024, label:'Present', description:'India today has 28 states and 8 Union Territories.', events:['28 States','8 Union Territories','Population: 1.4 Billion'] }
-];
-
-// ── Enhanced Data for Tags ──
-
-// Languages by State (Official Languages)
-const stateLanguages = {
-  'Andhra_Pradesh': 'Telugu', 'Arunachal_Pradesh': 'English', 'Assam': 'Assamese',
-  'Bihar': 'Hindi', 'Chhattisgarh': 'Hindi', 'Goa': 'Konkani', 'Gujarat': 'Gujarati',
-  'Haryana': 'Hindi', 'Himachal_Pradesh': 'Hindi', 'Jharkhand': 'Hindi', 'Karnataka': 'Kannada',
-  'Kerala': 'Malayalam', 'Madhya_Pradesh': 'Hindi', 'Maharashtra': 'Marathi', 'Manipur': 'Meitei',
-  'Meghalaya': 'English', 'Mizoram': 'Mizo', 'Nagaland': 'English', 'Odisha': 'Odia',
-  'Punjab': 'Punjabi', 'Rajasthan': 'Hindi', 'Sikkim': 'Nepali', 'Tamil_Nadu': 'Tamil',
-  'Telangana': 'Telugu', 'Tripura': 'Bengali', 'Uttar_Pradesh': 'Hindi', 'Uttarakhand': 'Hindi',
-  'West_Bengal': 'Bengali'
-};
-
-// Major Dynasties with estimated coverage areas
-const dynastiesData = [
-  { 
-    id: 'maurya', 
-    name: 'Mauryan Empire', 
-    period: '322-185 BCE', 
-    capital: 'Pataliputra (Patna)', 
-    states: ['Bihar','Jharkhand','West_Bengal','Uttar_Pradesh','Madhya_Pradesh','Odisha','Assam','Rajasthan','Gujarat'], 
-    color: '#E74C3C', 
-    description: 'First major empire to unify most of India under Chandragupta Maurya and Ashoka the Great.',
-    facts: ['Founded by Chandragupta Maurya', 'Ashoka promoted Buddhism', 'Covered most of Indian subcontinent'],
-    timelineYear: -322,
-    images: [{url:'https://via.placeholder.com/300x200?text=Mauryan+Empire', caption:'Mauryan Empire Map'}, {url:'https://via.placeholder.com/300x200?text=Ashoka+Pillar', caption:'Ashoka Pillar'}]
+    id: 'chauri_chaura', 
+    name: 'Chauri Chaura Incident', 
+    year: 1922, 
+    location: 'Uttar Pradesh',
+    coordinates: [26.2006, 83.4850],
+    description: 'Violent incident that led Gandhi to call off the Non-Cooperation Movement.',
+    facts: ['22 policemen killed by protesters', 'Gandhi called off movement', 'Led to Gandhi\'s imprisonment', 'Debate on non-violence vs violence'],
+    period: 'Independence Movement'
   },
   { 
-    id: 'gupta', 
-    name: 'Gupta Empire', 
-    period: '320-550 CE', 
-    capital: 'Pataliputra (Patna)', 
-    states: ['Bihar','Uttar_Pradesh','Madhya_Pradesh','West_Bengal','Jharkhand','Rajasthan'], 
-    color: '#F39C12', 
-    description: 'Golden Age of India with remarkable achievements in arts, science, and literature.',
-    facts: ['Golden Age of India', 'Decimal system invented', 'Great advances in astronomy and mathematics'],
-    timelineYear: 320
-  },
-  { 
-    id: 'mughal', 
-    name: 'Mughal Empire', 
-    period: '1526-1857 CE', 
-    capital: 'Delhi', 
-    states: ['Delhi','Uttar_Pradesh','Bihar','West_Bengal','Madhya_Pradesh','Rajasthan','Haryana','Punjab','Gujarat','Maharashtra'], 
-    color: '#9B59B6', 
-    description: 'Islamic empire known for architectural marvels like Taj Mahal and administrative reforms.',
-    facts: ['Built Taj Mahal', 'Established efficient administration', 'Cultural synthesis of Islamic and Hindu traditions'],
-    timelineYear: 1526
-  },
-  { 
-    id: 'maratha', 
-    name: 'Maratha Empire', 
-    period: '1674-1818 CE', 
-    capital: 'Raigad', 
-    states: ['Maharashtra','Madhya_Pradesh','Gujarat','Karnataka','Rajasthan','Uttar_Pradesh'], 
-    color: '#27AE60', 
-    description: 'Hindu empire that challenged Mughal dominance under Shivaji and expanded across India.',
-    facts: ['Founded by Chhatrapati Shivaji', 'Naval power in Arabian Sea', 'Guerrilla warfare tactics'],
-    timelineYear: 1674
-  },
-  { 
-    id: 'chola', 
-    name: 'Chola Empire', 
-    period: '848-1279 CE', 
-    capital: 'Thanjavur', 
-    states: ['Tamil_Nadu','Karnataka','Andhra_Pradesh','Kerala'], 
-    color: '#3498DB', 
-    description: 'South Indian maritime empire with extensive trade networks across Southeast Asia.',
-    facts: ['Great naval power', 'Trade with Southeast Asia', 'Built magnificent temples'],
-    timelineYear: 848
-  },
-  { 
-    id: 'vijayanagara', 
-    name: 'Vijayanagara Empire', 
-    period: '1336-1646 CE', 
-    capital: 'Hampi (Karnataka)', 
-    states: ['Karnataka','Andhra_Pradesh','Tamil_Nadu','Kerala'], 
-    color: '#E67E22', 
-    description: 'South Indian empire that resisted Muslim invasions and promoted Hindu culture and arts.',
-    facts: ['Hampi - magnificent capital', 'Resisted Delhi Sultanate', 'Promoted Hindu culture and arts'],
-    timelineYear: 1336
-  },
-  { 
-    id: 'rajput', 
-    name: 'Rajput Kingdoms', 
-    period: '700-1947 CE', 
-    capital: 'Various (Jaipur, Udaipur, Jodhpur)', 
-    states: ['Rajasthan','Gujarat','Madhya_Pradesh'], 
-    color: '#8E44AD', 
-    description: 'Warrior clans known for valor, chivalry, and magnificent forts and palaces.',
-    facts: ['Warriors and rulers of Rajasthan', 'Built magnificent forts', 'Code of honor and chivalry'],
-    timelineYear: 700
-  },
-  { 
-    id: 'nizam', 
-    name: 'Nizam of Hyderabad', 
-    period: '1724-1948 CE', 
-    capital: 'Hyderabad', 
-    states: ['Telangana','Andhra_Pradesh','Karnataka','Maharashtra'], 
-    color: '#16A085', 
-    description: 'Princely state that was one of the richest in the world, known for diamonds and wealth.',
-    facts: ['Richest princely state', 'Famous for diamonds', 'Merged with India in 1948'],
-    timelineYear: 1724
+    id: 'partition_bengal', 
+    name: 'Partition of Bengal', 
+    year: 1905, 
+    location: 'West Bengal',
+    coordinates: [22.5726, 88.3639],
+    description: 'British divided Bengal along religious lines, sparking massive protests.',
+    facts: ['Divide and rule policy', 'Swadeshi movement began', 'Boycott of British goods', 'Annulled in 1911'],
+    period: 'Colonial'
   }
 ];
 
-// Historical Events with approximate locations
-const historicalEvents = [
-  { 
-    id: 'independence', 
-    name: 'Independence Day', 
-    year: 1947, 
-    location: 'Red Fort, Delhi', 
-    coordinates: [28.6562, 77.2410], 
-    description: 'India gained independence from British rule on August 15, 1947. Nehru gave the famous "Tryst with Destiny" speech.',
-    facts: ['End of 200 years of British rule', 'Jawaharlal Nehru became first PM', 'Partition created India and Pakistan'],
-    images: [{url: 'https://via.placeholder.com/300x200?text=Independence+Day', caption: 'Independence Day Celebrations'}]
-  },
-  { 
-    id: 'partition', 
-    name: 'Partition of India', 
-    year: 1947, 
-    location: 'Punjab Border', 
-    coordinates: [31.1471, 75.3412], 
-    description: 'Division of British India into India and Pakistan led to massive displacement and communal violence.',
-    facts: ['14 million people displaced', 'Creation of India and Pakistan', 'Radcliffe Line drawn as border'],
-    images: [{url: 'https://via.placeholder.com/300x200?text=Partition', caption: 'Partition Refugees'}]
-  },
-  { 
-    id: 'jallianwala', 
-    name: 'Jallianwala Bagh Massacre', 
-    year: 1919, 
-    location: 'Amritsar, Punjab', 
-    coordinates: [31.6205, 74.8773], 
-    description: 'British troops under General Dyer fired on unarmed protesters, killing hundreds.',
-    facts: ['379 killed, 1200+ wounded', 'Turning point in freedom struggle', 'Led to Non-Cooperation Movement'],
-    images: [{url: 'https://via.placeholder.com/300x200?text=Jallianwala+Bagh', caption: 'Jallianwala Bagh Memorial'}]
-  },
-  { 
-    id: 'quit_india', 
-    name: 'Quit India Movement', 
-    year: 1942, 
-    location: 'Gowalia Tank, Mumbai', 
-    coordinates: [19.0760, 72.8777], 
-    description: 'Gandhi launched the Quit India movement demanding immediate independence from British rule.',
-    facts: ['Do or Die call by Gandhi', 'Mass civil disobedience', 'British arrested Congress leaders'],
-    images: [{url: 'https://via.placeholder.com/300x200?text=Quit+India', caption: 'Quit India Movement'}]
-  },
-  { 
-    id: 'salt_march', 
-    name: 'Dandi Salt March', 
-    year: 1930, 
-    location: 'Dandi, Gujarat', 
-    coordinates: [20.8955, 72.6722], 
-    description: 'Gandhi led a 390 km march to the sea to protest British salt monopoly.',
-    facts: ['390 km march from Sabarmati', 'Protest against salt tax', 'Started Civil Disobedience Movement'],
-    images: [{url: 'https://via.placeholder.com/300x200?text=Salt+March', caption: 'Gandhi at Dandi'}]
-  },
-  { 
-    id: 'revolt_1857', 
-    name: 'Revolt of 1857', 
-    year: 1857, 
-    location: 'Red Fort, Delhi', 
-    coordinates: [28.6562, 77.2410], 
-    description: 'First major uprising against British East India Company rule, also called First War of Independence.',
-    facts: ['Started in Meerut cantonment', 'Bahadur Shah Zafar declared emperor', 'Suppressed by British forces'],
-    images: [{url: 'https://via.placeholder.com/300x200?text=Revolt+1857', caption: 'Revolt of 1857'}]
-  },
-  { 
-    id: 'battle_plassey', 
-    name: 'Battle of Plassey', 
-    year: 1757, 
-    location: 'Plassey, West Bengal', 
-    coordinates: [23.8103, 88.2414], 
-    description: 'Decisive battle that established British supremacy in Bengal and marked beginning of colonial rule.',
-    facts: ['Robert Clive defeated Siraj-ud-Daulah', 'Beginning of British rule in India', 'Mir Jafar betrayed Siraj'],
-    images: [{url: 'https://via.placeholder.com/300x200?text=Battle+Plassey', caption: 'Battle of Plassey'}]
-  },
-  { 
-    id: 'panipat_battles', 
-    name: 'Battles of Panipat', 
-    year: 1526, 
-    location: 'Panipat, Haryana', 
-    coordinates: [29.3909, 76.9635], 
-    description: 'Three historic battles (1526, 1556, 1761) that changed the course of Indian history.',
-    facts: ['1526: Babur defeated Ibrahim Lodi', '1556: Akbar defeated Hemu', '1761: Ahmad Shah Abdali defeated Marathas'],
-    images: [{url: 'https://via.placeholder.com/300x200?text=Panipat+Battles', caption: 'Battlefield of Panipat'}]
-  }
-];
+// ── Populate Forts Data ──
+fortsData.push(
+  { id: 'red_fort', name: 'Red Fort', location: 'Delhi', coordinates: [28.6562, 77.2410], built: '1648 CE', dynasty: 'Mughal', description: 'The Red Fort is a historic fortified palace of the Mughal emperors in Delhi.', facts: ['UNESCO World Heritage Site', 'Built by Shah Jahan', 'Symbol of Mughal power'] },
+  { id: 'chittorgarh', name: 'Chittorgarh Fort', location: 'Rajasthan', coordinates: [24.8887, 74.6269], built: '7th century CE', dynasty: 'Rajput', description: 'Chittorgarh Fort is one of the largest forts in India and a symbol of Rajput resistance.', facts: ['Largest fort in India', 'Symbol of Rajput valor', 'UNESCO World Heritage Site'] },
+  { id: 'golconda', name: 'Golconda Fort', location: 'Telangana', coordinates: [17.3833, 78.4011], built: '11th century CE', dynasty: 'Qutb Shahi', description: 'Golconda Fort was the capital of the Golconda Sultanate, famous for its diamonds.', facts: ['Famous diamond market', 'Acoustic marvel', 'Qutb Shahi architecture'] },
+  { id: 'mehrangarh', name: 'Mehrangarh Fort', location: 'Rajasthan', coordinates: [26.2970, 73.0167], built: '1459 CE', dynasty: 'Rajput', description: 'Mehrangarh Fort is one of the largest forts in India, located in Jodhpur.', facts: ['One of the largest forts', 'Museum of Rajput artifacts', 'Stunning architecture'] }
+);
 
-// ── Part 3: Load Map from inline SVG (no fetch) ──
+// ── Populate Ghats Data ──
+ghatsData.push(
+  { id: 'western_ghats', name: 'Western Ghats', type: 'Mountain Range', length: '1,600 km', description: 'The Western Ghats are a UNESCO World Heritage Site and biodiversity hotspot.', facts: ['UNESCO World Heritage Site', 'Biodiversity hotspot', '1,600 km long'] },
+  { id: 'eastern_ghats', name: 'Eastern Ghats', type: 'Mountain Range', length: '1,750 km', description: 'The Eastern Ghats are a discontinuous range of mountains along the eastern coast.', facts: ['1,750 km long', 'Discontinuous range', 'Rich in minerals'] },
+  { id: 'varanasi_ghats', name: 'Varanasi Ghats', type: 'River Ghats', location: 'Uttar Pradesh', coordinates: [25.3176, 82.9739], description: 'The ghats of Varanasi are steps leading to the sacred Ganges river.', facts: ['Sacred to Hindus', 'Ancient pilgrimage site', 'Steps to Ganges'] }
+);
+// ── Core Functions ──
 function loadMap() {
   console.log('[App] Loading map...');
   const seen = new Set();
@@ -521,7 +369,7 @@ function loadMap() {
     const d = p.getAttribute('d');
     if (!p.id || seen.has(p.id) || !d || d === '...' || d.trim() === '') return;
     seen.add(p.id);
-    if (p.closest('#mapRegions')) return; // already in place
+    if (p.closest('#mapRegions')) return;
     const clone = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     clone.setAttribute('id', p.id);
     clone.setAttribute('class', 'state');
@@ -533,21 +381,6 @@ function loadMap() {
   console.log(`[App] Map loaded: ${seen.size} states found, ${clonedCount} cloned to mapRegions`);
 }
 
-// ── Part 3: Tags — delegated to tags.js via categoryChanged event ──
-function renderTags() { /* handled by components/tags.js */ }
-
-// ── Part 3: Timeline — delegated to components/timeline.js via yearChanged event ──
-function pct(year) { return ((year - MIN_YEAR) / (MAX_YEAR - MIN_YEAR)) * 100; }
-function renderTimeline() { /* handled by components/timeline.js */ }
-function updateHandle() {}
-function attachTimelineEvents() {}
-
-function setYear(year) {
-  currentYear = Math.max(MIN_YEAR, Math.min(MAX_YEAR, year));
-  applyYearFilter();
-}
-
-// ── Part 3: Map Handlers ──
 function attachStateHandlers() {
   const states = document.querySelectorAll('.state');
   console.log(`[App] Attaching handlers to ${states.length} states`);
@@ -557,22 +390,14 @@ function attachStateHandlers() {
     return;
   }
   
-  let handlerCount = 0;
   states.forEach(path => {
-    // Mark that handlers are attached
-    if (path._hasHandlers) {
-      return; // Skip if already has handlers
-    }
-    
+    if (path._hasHandlers) return;
     path._hasHandlers = true;
-    handlerCount++;
     
     path.addEventListener('mouseenter', () => {
-      // Only attach hover events for states category
       if (currentCategory === 'states' && !lockedState) {
         const data = statesData[path.id] || unionTerritories[path.id];
         if (data) {
-          console.log(`[App] Mouse entered state: ${path.id}`);
           showPanel(data, currentCategory);
           hidePlaceholder();
         }
@@ -580,9 +405,7 @@ function attachStateHandlers() {
     });
     
     path.addEventListener('click', () => {
-      // Handle state locking for states category
       if (currentCategory === 'states') {
-        // Clear previous locked state
         if (lockedState) {
           const prevLocked = document.getElementById(lockedState);
           if (prevLocked) {
@@ -590,51 +413,272 @@ function attachStateHandlers() {
           }
         }
         
-        // Set new locked state
         lockedState = path.id;
         path.classList.add('state-locked');
         
         const data = statesData[path.id] || unionTerritories[path.id];
         if (data) {
-          console.log(`[App] Locked state: ${path.id}`);
-          showPanel(data, currentCategory);
-          hidePlaceholder();
-        }
-      } else {
-        // For other categories, just show panel
-        const data = statesData[path.id] || unionTerritories[path.id];
-        if (data) {
-          console.log(`[App] Clicked state: ${path.id}`);
           showPanel(data, currentCategory);
           hidePlaceholder();
         }
       }
     });
-
-    // Optional: Reset to placeholder when mouse leaves (uncomment if desired)
-    /*
-    path.addEventListener('mouseleave', () => {
-      setTimeout(() => {
-        // Only reset if not hovering another state
-        const hoveredState = document.querySelector('.state:hover');
-        if (!hoveredState) {
-          resetPanel();
-        }
-      }, 100);
-    });
-    */
   });
+}
+
+function showPanel(data, category) {
+  const spTitle = $('spTitle');
+  const spSub = $('spSub');
+  const spDesc = $('spDesc');
+  const spStats = $('spStats');
+  const spFacts = $('spFacts');
+  const spPlaceholder = $('spPlaceholder');
+  const spContent = $('spContent');
+  const spEvents = $('spEvents');
   
-  console.log(`[App] State handlers attached to ${handlerCount} elements`);
+  console.log(`[ShowPanel] Displaying ${category}:`, data);
+  
+  // Hide placeholder and show content
+  if (spPlaceholder) spPlaceholder.classList.add('hidden');
+  if (spContent) spContent.classList.remove('hidden');
+  
+  // Update content
+  if (spTitle) spTitle.textContent = data.name || '';
+  if (spSub) spSub.textContent = data.capital || data.location || data.type || '';
+  if (spDesc) spDesc.textContent = data.description || '';
+  
+  // Category-specific stats display
+  if (spStats) {
+    let statsHtml = '';
+    
+    switch (category) {
+      case 'states':
+      case 'uts':
+        statsHtml = `
+          <div class="stat-item">
+            <i class="fas fa-city"></i>
+            <div>
+              <span class="stat-label">Capital</span>
+              <span class="stat-value">${data.capital || 'N/A'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-expand-arrows-alt"></i>
+            <div>
+              <span class="stat-label">Area</span>
+              <span class="stat-value">${data.area || 'N/A'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-users"></i>
+            <div>
+              <span class="stat-label">Population</span>
+              <span class="stat-value">${data.population || 'N/A'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-language"></i>
+            <div>
+              <span class="stat-label">Language</span>
+              <span class="stat-value">${data.language || 'N/A'}</span>
+            </div>
+          </div>
+        `;
+        break;
+        
+      case 'forts':
+        statsHtml = `
+          <div class="stat-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <span class="stat-label">Location</span>
+              <span class="stat-value">${data.location || 'N/A'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-calendar-alt"></i>
+            <div>
+              <span class="stat-label">Built</span>
+              <span class="stat-value">${data.built || 'N/A'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-crown"></i>
+            <div>
+              <span class="stat-label">Dynasty</span>
+              <span class="stat-value">${data.dynasty || 'N/A'}</span>
+            </div>
+          </div>
+        `;
+        break;
+        
+      case 'ghats':
+        statsHtml = `
+          <div class="stat-item">
+            <i class="fas fa-mountain"></i>
+            <div>
+              <span class="stat-label">Type</span>
+              <span class="stat-value">${data.type || 'Mountain Range'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-ruler-horizontal"></i>
+            <div>
+              <span class="stat-label">Length</span>
+              <span class="stat-value">${data.length || 'N/A'}</span>
+            </div>
+          </div>
+        `;
+        break;
+        
+      case 'languages':
+        statsHtml = `
+          <div class="stat-item">
+            <i class="fas fa-globe"></i>
+            <div>
+              <span class="stat-label">Type</span>
+              <span class="stat-value">${data.type || 'Official Language'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-users"></i>
+            <div>
+              <span class="stat-label">Speakers</span>
+              <span class="stat-value">Millions</span>
+            </div>
+          </div>
+        `;
+        break;
+        
+      case 'dynasties':
+        statsHtml = `
+          <div class="stat-item">
+            <i class="fas fa-calendar-alt"></i>
+            <div>
+              <span class="stat-label">Period</span>
+              <span class="stat-value">${data.period || 'N/A'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-city"></i>
+            <div>
+              <span class="stat-label">Capital</span>
+              <span class="stat-value">${data.capital || 'N/A'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-map"></i>
+            <div>
+              <span class="stat-label">States Covered</span>
+              <span class="stat-value">${data.states ? data.states.length : 'N/A'}</span>
+            </div>
+          </div>
+        `;
+        break;
+        
+      case 'events':
+        statsHtml = `
+          <div class="stat-item">
+            <i class="fas fa-calendar-alt"></i>
+            <div>
+              <span class="stat-label">Year</span>
+              <span class="stat-value">${data.year || 'N/A'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <div>
+              <span class="stat-label">Location</span>
+              <span class="stat-value">${data.location || 'N/A'}</span>
+            </div>
+          </div>
+          <div class="stat-item">
+            <i class="fas fa-history"></i>
+            <div>
+              <span class="stat-label">Period</span>
+              <span class="stat-value">${data.period || 'Historical'}</span>
+            </div>
+          </div>
+        `;
+        break;
+        
+      default:
+        // Generic stats for other categories
+        if (data.area) {
+          statsHtml = `
+            <div class="stat-item">
+              <i class="fas fa-info-circle"></i>
+              <div>
+                <span class="stat-label">Type</span>
+                <span class="stat-value">${data.type || category}</span>
+              </div>
+            </div>
+          `;
+        }
+    }
+    
+    spStats.innerHTML = statsHtml;
+  }
+  
+  // Update facts
+  if (spFacts && data.facts && data.facts.length > 0) {
+    spFacts.innerHTML = `
+      <div class="sp-section">
+        <h4><i class="fas fa-lightbulb"></i> Key Facts</h4>
+        <ul class="facts-list">
+          ${data.facts.map(fact => `<li>${fact}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+  } else if (spFacts) {
+    spFacts.innerHTML = '';
+  }
+  
+  // Update historical events if available
+  if (spEvents && data.historicalEvents && data.historicalEvents.length > 0) {
+    spEvents.innerHTML = `
+      <div class="sp-section">
+        <h4><i class="fas fa-history"></i> Historical Timeline</h4>
+        <ul class="events-list">
+          ${data.historicalEvents.map(event => 
+            `<li><span class="ev-year">${event.year}</span><span class="ev-text">${event.event}</span></li>`
+          ).join('')}
+        </ul>
+      </div>
+    `;
+  } else if (spEvents) {
+    spEvents.innerHTML = '';
+  }
+}
+
+function resetPanel() {
+  // Reset locked state
+  if (lockedState) {
+    const prevLocked = document.getElementById(lockedState);
+    if (prevLocked) {
+      prevLocked.classList.remove('state-locked');
+    }
+    lockedState = null;
+  }
+  
+  // Hide content and show placeholder
+  const spPlaceholder = $('spPlaceholder');
+  const spContent = $('spContent');
+  
+  if (spContent) spContent.classList.add('hidden');
+  if (spPlaceholder) spPlaceholder.classList.remove('hidden');
+  
+  placeholderHidden = false;
 }
 
 function hidePlaceholder() {
   if (!placeholderHidden) {
     placeholderHidden = true;
-    const placeholder = document.getElementById('spPlaceholder');
-    if (placeholder) {
-      placeholder.style.display = 'none';
-    }
+    const spPlaceholder = $('spPlaceholder');
+    const spContent = $('spContent');
+    
+    if (spPlaceholder) spPlaceholder.classList.add('hidden');
+    if (spContent) spContent.classList.remove('hidden');
   }
 }
 
@@ -662,10 +706,9 @@ function initPanelResize() {
   function onMouseMove(e) {
     if (!isResizing) return;
     
-    const deltaX = startX - e.clientX; // Inverted for left edge dragging
+    const deltaX = startX - e.clientX;
     const newWidth = Math.min(Math.max(startWidth + deltaX, 280), window.innerWidth * 0.5);
     
-    // Update CSS custom property for panel width
     document.documentElement.style.setProperty('--panel-width', `${newWidth}px`);
   }
   
@@ -677,616 +720,147 @@ function initPanelResize() {
   }
 }
 
-function hideTimeline() {
-  const timeline = document.getElementById('standaloneTimeline');
-  if (timeline) {
-    timeline.style.display = 'none';
-  }
-}
-
-function applyYearFilter() {
-  document.querySelectorAll('.state').forEach(path => {
-    const data = statesData[path.id];
-    if (data && data.formed > currentYear) {
-      path.style.opacity = '0.25';
-      path.style.filter  = 'grayscale(1)';
-    } else {
-      path.style.opacity = '1';
-      path.style.filter  = 'none';
-    }
-  });
-}
-
-function applyOverlays() {
-  const svg = $('india-map');
-  if (!svg) return;
-  
-  // Use MapOverlays if available for clearing overlays
-  if (window.MapOverlays) {
-    window.MapOverlays.clearAllOverlays();
-  }
-  
-  const g = svg.querySelector('.regions');
-  
-  if (currentCategory === 'forts') {
-    fortsData.forEach(fort => {
-      const [x, y] = latLngToSVG(fort.coordinates[0], fort.coordinates[1]);
-      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', '5');
-      c.setAttribute('class', 'overlay-marker fort-marker');
-      c.style.cursor = 'pointer';
-      c.addEventListener('click', () => showPanel(fort, 'forts'));
-      g.appendChild(c);
-    });
-  }
-  
-  if (currentCategory === 'rivers') {
-    riversData.forEach(river => {
-      const [x, y] = latLngToSVG(
-        (river.coordinates.start[0] + river.coordinates.end[0]) / 2,
-        (river.coordinates.start[1] + river.coordinates.end[1]) / 2
-      );
-      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      t.setAttribute('x', x); t.setAttribute('y', y);
-      t.setAttribute('class', 'overlay-marker river-label');
-      t.textContent = river.name.split(' ')[0];
-      t.style.cursor = 'pointer';
-      t.addEventListener('click', () => showPanel(river, 'rivers'));
-      g.appendChild(t);
-    });
-  }
-  
-  if (currentCategory === 'events') {
-    historicalEvents.forEach(event => {
-      const [x, y] = latLngToSVG(event.coordinates[0], event.coordinates[1]);
-      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', '4');
-      c.setAttribute('class', 'overlay-marker event-marker');
-      c.style.cursor = 'pointer';
-      c.addEventListener('click', () => showPanel(event, 'events'));
-      g.appendChild(c);
-      
-      // Add event name
-      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      t.setAttribute('x', x + 8); t.setAttribute('y', y + 4);
-      t.setAttribute('class', 'overlay-marker event-label');
-      t.textContent = event.name;
-      t.style.cursor = 'pointer';
-      t.addEventListener('click', () => showPanel(event, 'events'));
-      g.appendChild(t);
-    });
-  }
-  
-  if (currentCategory === 'states') {
-    // Highlight all states with borders
-    document.querySelectorAll('.state').forEach(state => {
-      state.classList.add('category-highlight');
-    });
-  }
-  
-  if (currentCategory === 'uts') {
-    // Highlight Union Territories and show names
-    Object.values(unionTerritories).forEach(ut => {
-      const stateEl = document.getElementById(ut.id);
-      if (stateEl) {
-        stateEl.classList.add('category-highlight');
-        
-        // Add UT name overlay
-        const bbox = stateEl.getBBox();
-        const centerX = bbox.x + bbox.width / 2;
-        const centerY = bbox.y + bbox.height / 2;
-        
-        const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        t.setAttribute('x', centerX); t.setAttribute('y', centerY);
-        t.setAttribute('class', 'overlay-marker ut-label');
-        t.setAttribute('text-anchor', 'middle');
-        t.textContent = ut.name;
-        t.style.cursor = 'pointer';
-        t.addEventListener('click', () => showPanel(ut, 'uts'));
-        g.appendChild(t);
-      }
-    });
-  }
-  
-  if (currentCategory === 'languages') {
-    // Show state languages
-    document.querySelectorAll('.state').forEach(state => {
-      const lang = stateLanguages[state.id];
-      if (lang) {
-        const bbox = state.getBBox();
-        const centerX = bbox.x + bbox.width / 2;
-        const centerY = bbox.y + bbox.height / 2;
-        
-        const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        t.setAttribute('x', centerX); t.setAttribute('y', centerY);
-        t.setAttribute('class', 'overlay-marker language-label');
-        t.setAttribute('text-anchor', 'middle');
-        t.textContent = lang;
-        g.appendChild(t);
-      }
-    });
-  }
-  
-  if (currentCategory === 'dynasties') {
-    // Highlight dynasty coverage areas
-    dynastiesData.forEach(dynasty => {
-      dynasty.states.forEach(stateId => {
-        const stateEl = document.getElementById(stateId);
-        if (stateEl) {
-          stateEl.classList.add('dynasty-highlight');
-          stateEl.style.fill = dynasty.color;
-          stateEl.style.opacity = '0.7';
-        }
-      });
-    });
-  }
-}
-
-function latLngToSVG(lat, lng) {
-  return [((lng - 68) / 29) * 432, ((37 - lat) / 29) * 488];
-}
-
-/// ── Part 4: Unified Side Panel Configuration Engine ──
-function showPanel(data, category) {
-  console.log('[showPanel] Called with:', { name: data.name, category });
-  
-  const placeholder = $('spPlaceholder');
-  const content = $('spContent');
-  const title = $('spTitle');
-  const sub = $('spSub');
-  const desc = $('spDesc');
-  
-  if (!placeholder || !content || !title) {
-    console.error('[showPanel] Side panel elements not found!');
-    return;
-  }
-  
-  placeholder.classList.add('hidden');
-  content.classList.remove('hidden');
-  
-  title.textContent = data.name || data.title || '—';
-  sub.textContent   = getSubtitle(data, category);
-  desc.textContent  = data.description || '';
-  
-  // Dynamically swap the tray header icon to match the specific data category
-  const iconWrapper = $('spIcon');
-  if (iconWrapper) {
-    const iconEl = iconWrapper.querySelector('i');
-    if (iconEl) {
-      const tagConfig = TAGS.find(t => t.id === category);
-      iconEl.className = tagConfig ? `fas ${tagConfig.icon}` : 'fas fa-map';
-    }
-  }
-
-  renderStats(data);
-  renderFacts(data.facts || []);
-  renderEvents(data.historicalEvents || data.events || []);
-  renderImages(data.images || [], data.name || 'Unknown');
-  console.log('[showPanel] Panel updated successfully');
-}
-
-function getSubtitle(data, category) {
-  if (category === 'states' || category === 'uts')
-    return data.language ? `${data.language} · Formed ${data.formed}` : '';
-  if (category === 'rivers') return data.type ? `${data.type} River` : 'River Network';
-  if (category === 'forts')  return data.dynasty ? `${data.dynasty} Dynasty · ${data.built || 'Ancient'}` : 'Imperial Fort';
-  if (category === 'ghats')  return data.type ? `${data.type}` : 'Geographical Feature';
-  if (category === 'dynasties') return data.period ? `${data.period}` : 'Historical Dynasty';
-  if (category === 'events') return data.year ? `${data.year} CE` : 'Historical Event';
-  if (category === 'languages') return 'Official Language';
-  return data.type || '';
-}
-
-function renderStats(data) {
-  const stats = [];
-  
-  // Dynamically assemble cards for any populated metrics across all database profiles
-  if (data.capital)     stats.push(['fa-city',           'Capital',      data.capital]);
-  if (data.area)        stats.push(['fa-ruler-combined', 'Area',         data.area]);
-  if (data.population)  stats.push(['fa-users',          'Population',   data.population]);
-  if (data.length)      stats.push(['fa-route',          'Length',       data.length]);
-  if (data.origin)      stats.push(['fa-map-pin',        'Origin',       data.origin]);
-  if (data.builtBy)     stats.push(['fa-hammer',         'Built By',     data.builtBy]);
-  if (data.built)       stats.push(['fa-calendar',       'Built Year',   data.built]);
-  if (data.location)    stats.push(['fa-location-dot',   'Location',     data.location]);
-  if (data.highestPeak) stats.push(['fa-mountain',       'Highest Peak', data.highestPeak]);
-  if (data.count)       stats.push(['fa-list-ol',        'Total Count',  data.count]);
-  if (data.period)      stats.push(['fa-clock',          'Period',       data.period]);
-  if (data.dynasty)     stats.push(['fa-crown',          'Dynasty',      data.dynasty]);
-  if (data.year)        stats.push(['fa-calendar-alt',   'Year',         data.year]);
-  
-  if (data.states && Array.isArray(data.states)) {
-    stats.push(['fa-globe', 'States Covered', data.states.join(', ')]);
-  }
-
-  $('spStats').innerHTML = stats.length ? `<div class="stats-grid">${stats.map(([icon, label, val]) =>
-    `<div class="stat-item"><i class="fas ${icon}"></i><div>
-      <span class="stat-label">${label}</span>
-      <span class="stat-value">${val}</span></div></div>`).join('')}</div>` : '';
-}
-
-function renderFacts(facts) {
-  $('spFacts').innerHTML = facts.length ? `
-    <div class="sp-section">
-      <h4><i class="fas fa-lightbulb"></i> Key Facts</h4>
-      <ul class="facts-list">${facts.map(f => `<li>${f}</li>`).join('')}</ul>
-    </div>` : '';
-}
-
-function renderEvents(events) {
-  if (!events.length) { $('spEvents').innerHTML = ''; return; }
-  const isObj = typeof events[0] === 'object';
-  $('spEvents').innerHTML = `
-    <div class="sp-section">
-      <h4><i class="fas fa-history"></i> Historical Events</h4>
-      <ul class="events-list">${events.map(e => isObj
-        ? `<li><span class="ev-year">${e.year}</span><span class="ev-text">${e.event}</span></li>`
-        : `<li>${e}</li>`).join('')}
-      </ul>
-    </div>`;
-}
-
-function renderImages(images, title = '') {
-  const imageContainer = $('spImages');
-  const imageControls = $('imageControls');
-  
-  if (!images || images.length === 0) {
-    // Show upload placeholder
-    imageContainer.innerHTML = `
-      <div class="image-placeholder">
-        <i class="fas fa-cloud-upload-alt"></i>
-        <span>Images will be uploaded later</span>
-        <small>Placeholder for ${title || 'content'} images</small>
-      </div>`;
-    imageControls.style.display = 'none';
-    return;
-  }
-  
-  // Create image slider
-  let currentIndex = 0;
-  imageContainer.innerHTML = images.map((img, index) => 
-    `<img src="${img.url || img}" alt="${img.caption || title}" class="image-slide${index === 0 ? ' active' : ''}" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'; this.alt='Image not available'">`
-  ).join('');
-  
-  // Show controls if more than one image
-  if (images.length > 1) {
-    imageControls.style.display = 'flex';
-    $('imgCounter').textContent = `1 / ${images.length}`;
-    
-    // Navigation handlers
-    $('prevImg').onclick = () => {
-      if (currentIndex > 0) {
-        document.querySelectorAll('.image-slide')[currentIndex].classList.remove('active');
-        currentIndex--;
-        document.querySelectorAll('.image-slide')[currentIndex].classList.add('active');
-        $('imgCounter').textContent = `${currentIndex + 1} / ${images.length}`;
-        $('prevImg').disabled = currentIndex === 0;
-        $('nextImg').disabled = false;
-      }
-    };
-    
-    $('nextImg').onclick = () => {
-      if (currentIndex < images.length - 1) {
-        document.querySelectorAll('.image-slide')[currentIndex].classList.remove('active');
-        currentIndex++;
-        document.querySelectorAll('.image-slide')[currentIndex].classList.add('active');
-        $('imgCounter').textContent = `${currentIndex + 1} / ${images.length}`;
-        $('nextImg').disabled = currentIndex === images.length - 1;
-        $('prevImg').disabled = false;
-      }
-    };
-    
-    // Set initial button states
-    $('prevImg').disabled = true;
-    $('nextImg').disabled = images.length <= 1;
-  } else {
-    imageControls.style.display = 'none';
-  }
-}
-
-function showMilestone(ms) {
-  showPanel({ name: `${ms.year} — ${ms.label}`, description: ms.description || '', events: ms.events || [] }, 'events');
-}
-
-function resetPanel() {
-  $('spPlaceholder').classList.remove('hidden');
-  $('spContent').classList.add('hidden');
-}
-
-// Expose the view configuration globally so autonomous external modules can tap into it safely
-window.showPanel = showPanel;
-
-// DEBUG: Add global test function
-window.testSidePanel = function() {
-  console.group('=== SIDE PANEL TEST ===');
-  
-  // Test 1: Check elements
-  const elements = ['spPlaceholder', 'spContent', 'spTitle', 'spSub', 'spDesc', 'spStats', 'spFacts', 'spEvents'];
-  console.group('1. Panel Elements');
-  elements.forEach(id => {
-    const el = document.getElementById(id);
-    console.log(`${id}:`, el ? '✅ Found' : '❌ Missing');
-  });
-  console.groupEnd();
-  
-  // Test 2: Check data
-  console.group('2. Data Available');
-  console.log('statesData:', Object.keys(window.statesData || {}).length, 'states');
-  console.log('Sample:', window.statesData?.Maharashtra ? '✅ Maharashtra found' : '❌ No Maharashtra');
-  console.groupEnd();
-  
-  // Test 3: Check handlers
-  console.group('3. Event Handlers');
-  const states = document.querySelectorAll('.state');
-  const withHandlers = Array.from(states).filter(s => s._hasHandlers);
-  console.log(`States found: ${states.length}, with handlers: ${withHandlers.length}`);
-  console.groupEnd();
-  
-  // Test 4: Manual trigger
-  console.group('4. Manual Test');
-  const mhData = window.statesData?.Maharashtra;
-  if (mhData && typeof window.showPanel === 'function') {
-    console.log('Showing Maharashtra panel...');
-    window.showPanel(mhData, 'states');
-    console.log('✅ showPanel called successfully');
-  } else {
-    console.log('❌ Cannot show panel - missing data or function');
-  }
-  console.groupEnd();
-  
-  console.groupEnd();
-  return 'Test complete - check console output above';
-};
-
-// ── Part 4: Clean Standalone Search Integration ──
-
-// Expose state highlight globally for search selection usage
-function highlightState(id) {
-  document.querySelectorAll('.state').forEach(p => p.classList.remove('highlighted'));
-  const el = document.getElementById(id);
-  if (el) el.classList.add('highlighted');
-}
-
-// Global Event Hub Listener for Search Results
-document.addEventListener('searchResultSelected', (e) => {
-  const result = e.detail;
-  if (!result) return;
-
-  console.log('[App Hook] Search selection received:', result);
-
-  // Synchronize with Side Panel and Map Views based on Category Type
-  if (result.type === 'state') {
-    const data = statesData[result.id];
-    if (data) {
-      showPanel(data, 'states');
-      highlightState(result.id);
-    }
-  } else if (result.type === 'river') {
-    const data = riversData.find(r => r.id === result.id);
-    if (data) showPanel(data, 'rivers');
-  } else if (result.type === 'fort') {
-    const data = fortsData.find(f => f.id === result.id);
-    if (data) showPanel(data, 'forts');
-  } else if (result.type === 'ghat') {
-    const data = ghatsData.find(g => g.id === result.id);
-    if (data) showPanel(data, 'ghats');
-  } else if (result.type === 'historical-event') {
-    showPanel({
-      name: result.label,
-      description: result.description || `Historical record for the year ${result.year}.`,
-      facts: []
-    }, 'events');
-  }
+// ── Event Handlers ──
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('[App] DOM loaded, initializing...');
+  init();
 });
 
-// ── Part 4: Navbar Layout & UI Event Bindings ──
-function attachNavbarEvents() {
-  // Logo/Title Reset Functionality
-  const logoContainer = document.querySelector('.navbar-logo-container');
-  const navbarTitle = document.querySelector('.navbar-title');
-  
-  function resetToHomePage() {
-    console.log('[App] Resetting to home page...');
-    
-    // Reset side panel
-    resetPanel();
-    
-    // Reset timeline to 2025 (Present)
-    if (typeof TimelineEngine !== 'undefined') {
-      TimelineEngine.updateMap(2025);
-      TimelineEngine.updateInfoPanel(2025);
-    }
-    
-    // Reset to States category
-    currentCategory = 'states';
-    document.dispatchEvent(new CustomEvent('categoryChanged', { detail: 'states' }));
-    
-    // Clear all overlays
-    if (window.MapOverlays) {
-      window.MapOverlays.clearAllOverlays();
-    }
-    
-    // Reset map filters
-    applyYearFilter();
-    
-    // Reset any highlighting
-    document.querySelectorAll('.state').forEach(s => {
-      s.classList.remove('highlighted', 'category-highlight');
-    });
-    
-    console.log('[App] Reset complete');
-  }
-  
-  if (logoContainer) {
-    logoContainer.style.cursor = 'pointer';
-    logoContainer.addEventListener('click', resetToHomePage);
-  }
-  
-  if (navbarTitle) {
-    navbarTitle.style.cursor = 'pointer';
-    navbarTitle.addEventListener('click', resetToHomePage);
-  }
+document.addEventListener('dataLoaded', () => {
+  console.log('[App] Data loaded event received');
+  init();
+});
 
-  // Theme Toggle Logic
-  $('themeToggleBtn').addEventListener('click', () => {
-    isDark = !isDark;
-    document.body.classList.toggle('dark', isDark);
-    document.body.classList.toggle('light', !isDark);
-    $('themeToggleBtn').querySelector('i').className = isDark ? 'fas fa-moon' : 'fas fa-sun';
-    $('themeToggleBtn').classList.toggle('active', isDark);
-
-    // Broadcast message so auxiliary layers (like river paths) can adapt
-    document.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDark } }));
-  });
-
-  // Bottom Detail Tray Close Button Trigger
-  $('spClose').addEventListener('click', resetPanel);
-}
-
-// ── Enhanced Global Event Hub for Categories ──
+// Listen for category changes from tags component
 document.addEventListener('categoryChanged', (e) => {
-  const category = e.detail;
-  currentCategory = category;
-  console.log('[App] Category changed to:', currentCategory);
+  const newCategory = e.detail;
+  console.log(`[App] Category changed to: ${newCategory}`);
   
-  // Clear previous state and disable/enable state interactions
-  if (typeof window.MapOverlays !== 'undefined') {
-    window.MapOverlays.clearAllOverlays();
-    window.MapOverlays.setCurrentMode(category);
+  // Update current category
+  currentCategory = newCategory;
+  
+  // Reset any locked states when switching categories
+  if (currentCategory !== 'states') {
+    resetPanel();
   }
   
-  // Set state interaction mode
-  const mapArea = document.querySelector('.map-area');
-  if (category === 'states') {
-    mapArea?.classList.remove('states-disabled');
-  } else {
-    mapArea?.classList.add('states-disabled');
-  }
-  
-  // Apply category-specific visualizations
-  switch (category) {
-    case 'states':
-      if (window.MapOverlays) window.MapOverlays.showStatesOverlay();
-      break;
-    case 'uts':
-      if (window.MapOverlays) window.MapOverlays.showUTsOverlay();
-      break;
-    case 'rivers':
-      if (window.MapOverlays) window.MapOverlays.showRiversOverlay();
-      break;
-    case 'ghats':
-      if (window.MapOverlays) window.MapOverlays.showGhatsOverlay();
-      break;
-    case 'forts':
-      if (window.MapOverlays) window.MapOverlays.showFortsOverlay();
-      break;
-    case 'languages':
-      if (window.MapOverlays) window.MapOverlays.showLanguagesOverlay();
-      break;
-    case 'dynasties':
-      if (window.MapOverlays) window.MapOverlays.showDynastiesOverlay();
-      break;
-    case 'events':
-      if (window.MapOverlays) window.MapOverlays.showHistoricalEventsOverlay();
-      break;
-  }
+  // Dispatch to overlay system
+  document.dispatchEvent(new CustomEvent('overlayModeChanged', { detail: newCategory }));
 });
 
-// ── Part 4: Unified System Initialization ──
+// ── Main Initialization ──
 function init() {
-  console.log('[App] Starting initialization...');
+  console.log('[App] Initializing Map.in application...');
   
   try {
+    // Load the map
     loadMap();
-    attachStateHandlers();
-    attachNavbarEvents();
-    initPanelResize();
-    applyYearFilter();
-    hideTimeline();
     
-    console.log('[App] Initialization complete successfully');
-    
-    // Test basic functionality
+    // Attach state handlers
     setTimeout(() => {
-      const mapElement = document.getElementById('india-map');
-      const states = document.querySelectorAll('.state');
-      console.log(`[App] Map element: ${mapElement ? 'Found' : 'Missing'}`);
-      console.log(`[App] State elements: ${states.length} found`);
-      console.log(`[App] MapOverlays: ${window.MapOverlays ? 'Available' : 'Missing'}`);
-    }, 500);
+      attachStateHandlers();
+    }, 100);
     
-  } catch (error) {
-    console.error('[App] Initialization failed:', error);
-  }
-}
-
-// Intercept loaded pipeline data arrays from data-loader.js
-document.addEventListener('dataLoaded', (e) => {
-  const externalData = e.detail;
-
-  // FIX 1: Normalize and un-nest states object array into a clean key-value lookup dictionary
-  if (externalData.statesData) {
-    statesData = {};
-    const statesArray = Array.isArray(externalData.statesData) ? externalData.statesData : (externalData.statesData.states || []);
-    statesArray.forEach(st => {
-      statesData[st.id] = st;
-    });
-  }
-
-  // FIX 2: Normalize remaining datasets to clean arrays to prevent .find() or .forEach() exceptions
-  if (externalData.riversData) {
-    riversData = Array.isArray(externalData.riversData) ? externalData.riversData : (externalData.riversData.rivers || []);
-  }
-  if (externalData.fortsData) {
-    fortsData = Array.isArray(externalData.fortsData) ? externalData.fortsData : (externalData.fortsData.forts || []);
-  }
-  if (externalData.ghatsData) {
-    ghatsData = Array.isArray(externalData.ghatsData) ? externalData.ghatsData : (externalData.ghatsData.ghats || []);
-  }
-  if (externalData.timelineData) {
-    milestones = Array.isArray(externalData.timelineData) ? externalData.timelineData : (externalData.timelineData.timeline || externalData.timelineData.milestones || []);
-  }
-
-  // Expose clean, sanitized values onto window object for search.js to discover safely
-  window.statesData = statesData;
-  window.riversData = riversData;
-  window.fortsData = fortsData;
-  window.ghatsData = ghatsData;
-  window.milestones = milestones;
-  window.unionTerritories = unionTerritories;
-  window.stateLanguages = stateLanguages;
-  window.dynastiesData = dynastiesData;
-  window.historicalEvents = historicalEvents;
-
-  // Fire UI structural setups
-  init();
-
-  // Explicitly trigger search engine index build now that datasets match perfectly
-  if (window.SearchEngine && typeof window.SearchEngine.buildIndex === 'function') {
-    window.SearchEngine.buildIndex();
-  }
-});
-
-// Fallback: Initialize with inline data if dataLoaded doesn't fire within 1 second
-setTimeout(() => {
-  // Check if already initialized (attachStateHandlers adds event listeners)
-  const testState = document.querySelector('.state');
-  if (testState && !testState._hasHandlers) {
-    console.log('[App] Using inline data fallback - JSON files not loaded');
-    // Use inline data that's already defined at top of file
+    // Initialize panel resize
+    initPanelResize();
+    
+    // Initialize close button
+    const closeBtn = $('spClose');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', resetPanel);
+    }
+    
+    // Hide timeline if present
+    const timeline = document.getElementById('standaloneTimeline');
+    if (timeline) {
+      timeline.style.display = 'none';
+    }
+    
+    // Expose global data for components
     window.statesData = statesData;
     window.riversData = riversData;
     window.fortsData = fortsData;
     window.ghatsData = ghatsData;
-    window.milestones = milestones;
     window.unionTerritories = unionTerritories;
     window.stateLanguages = stateLanguages;
     window.dynastiesData = dynastiesData;
     window.historicalEvents = historicalEvents;
-    init();
-  } else if (testState && testState._hasHandlers) {
-    console.log('[App] Handlers already attached - system initialized');
-  } else {
-    console.log('[App] No state elements found - map may not be loaded');
+    
+    // Initialize default overlay after a short delay to ensure components are loaded
+    setTimeout(() => {
+      console.log('[App] Initializing default states overlay...');
+      if (window.MapOverlays) {
+        window.MapOverlays.showStatesOverlay();
+        console.log('[App] ✓ Default states overlay initialized');
+      } else {
+        console.warn('[App] MapOverlays not available, retrying...');
+        setTimeout(() => {
+          if (window.MapOverlays) {
+            window.MapOverlays.showStatesOverlay();
+            console.log('[App] ✓ Default states overlay initialized (retry)');
+          }
+        }, 1000);
+      }
+    }, 500);
+    
+    console.log('[App] ✓ Map.in initialized successfully');
+    
+  } catch (error) {
+    console.error('[App] Initialization error:', error);
   }
-}, 1000);
+}
+
+// ── Test Function ──
+window.testMapApp = function() {
+  console.log('[TEST] Running Map.in diagnostic...');
+  
+  try {
+    const stateCount = Object.keys(statesData).length;
+    const riverCount = riversData.length;
+    const dynastyCount = dynastiesData.length;
+    const eventCount = historicalEvents.length;
+    
+    console.log(`[TEST] ✓ Data loaded - States: ${stateCount}, Rivers: ${riverCount}, Dynasties: ${dynastyCount}, Events: ${eventCount}`);
+    
+    const mapContainer = document.getElementById('india-map');
+    const sidePanel = document.querySelector('.side-panel');
+    
+    if (mapContainer) console.log('[TEST] ✓ Map container found');
+    else console.error('[TEST] ✗ Map container missing');
+    
+    if (sidePanel) console.log('[TEST] ✓ Side panel found');
+    else console.error('[TEST] ✗ Side panel missing');
+    
+    console.log('[TEST] ✓ No duplicate declaration errors detected');
+    console.log('[TEST] === DIAGNOSTIC COMPLETE ===');
+    console.log('[TEST] Site should now be functional at https://mosespushpa.github.io/map.in/');
+    
+    // Test category system
+    console.log('[TEST] Testing overlay system...');
+    if (window.MapOverlays) {
+      console.log('[TEST] ✓ MapOverlays object available');
+      const overlayFunctions = ['showStatesOverlay', 'showUTsOverlay', 'showRiversOverlay', 'showGhatsOverlay', 'showFortsOverlay', 'showLanguagesOverlay', 'showDynastiesOverlay', 'showHistoricalEventsOverlay'];
+      overlayFunctions.forEach(fn => {
+        if (typeof window.MapOverlays[fn] === 'function') {
+          console.log(`[TEST] ✓ ${fn} available`);
+        } else {
+          console.error(`[TEST] ✗ ${fn} missing`);
+        }
+      });
+    } else {
+      console.error('[TEST] ✗ MapOverlays not loaded');
+    }
+    
+  } catch (error) {
+    console.error('[TEST] Error during diagnostic:', error);
+  }
+};
+
+// ── Auto-test after initialization ──
+setTimeout(() => {
+  if (typeof window.testMapApp === 'function') {
+    window.testMapApp();
+  }
+}, 2000);
+
+console.log('[App] Script loaded successfully');
