@@ -36,7 +36,10 @@ function $(id) { return document.getElementById(id); }
   { id: 'Dadra And Nagar Haveli And Daman And Diu', name:'Dadra and Nagar Haveli and Daman and Diu', capital:'Daman', area:'603 km²', population:'0.6 Million', language:'Gujarati, Hindi', formed:2020, description:'Formed by merger of Dadra & Nagar Haveli and Daman & Diu in 2020. Comprises three geographically separate enclaves on the western coast.', facts:['Formed by merger in January 2020','Three separate geographic enclaves','Former Portuguese territory'], historicalEvents:[{year:1961,event:'Liberated from Portuguese rule'},{year:2020,event:'Merged into single UT'}] },
   { id:'Andhra_Pradesh', name:'Andhra Pradesh', capital:'Amaravati', area:'162,975 km²', population:'54 Million', language:'Telugu', formed:1956, description:'Andhra Pradesh was formed in 1956 from Telugu-speaking regions of Madras State. Telangana was carved out in 2014.', facts:['Rice Bowl of India','Home to Tirupati temple','Coastline of 974 km along Bay of Bengal'], historicalEvents:[{year:1956,event:'Andhra Pradesh formed from Madras State'},{year:2014,event:'Telangana carved out'}], images:[{url:'https://via.placeholder.com/300x200?text=Tirupati+Temple', caption:'Tirupati Temple'}, {url:'https://via.placeholder.com/300x200?text=Amaravati+Buddha', caption:'Amaravati Buddhist Site'}] },
   { id:'Maharashtra', name:'Maharashtra', capital:'Mumbai', area:'307,713 km²', population:'112 Million', language:'Marathi', formed:1960, description:'Maharashtra was formed on May 1, 1960 when Bombay State was divided along linguistic lines.', facts:['Financial capital of India — Mumbai','Home to Bollywood','Ajanta and Ellora Caves — UNESCO Sites'], historicalEvents:[{year:1960,event:'Maharashtra formed from Bombay State'},{year:1995,event:'Bombay renamed to Mumbai'}], images:[{url:'https://via.placeholder.com/300x200?text=Gateway+of+India', caption:'Gateway of India'}, {url:'https://via.placeholder.com/300x200?text=Ajanta+Caves', caption:'Ajanta Caves'}] },
-  { id:'Tamil_Nadu', name:'Tamil Nadu', capital:'Chennai', area:'130,060 km²', population:'72 Million', language:'Tamil', formed:1950, description:'Tamil Nadu has one of the oldest civilizations in the world with a rich cultural heritage.', facts:['Tamil — one of world\'s oldest classical languages','Home to over 33,000 ancient temples','Major IT hub — Chennai'], historicalEvents:[{year:1950,event:'Madras State formed'},{year:1969,event:'Renamed Tamil Nadu'}] },
+  { id:'Tamil_Nadu', name:'Tamil Nadu', capital:'Chennai', area:'130,060 km²', population:'72 Million', language:'Tamil', formed:1950, description:'Tamil Nadu has one of the oldest civilizations in the world with a rich cultural heritage.', facts:['Tamil — one of world\'s oldest classical languages','Home to over 33,000 ancient temples','Major IT hub — Chennai'], historicalEvents:[{year:1950,event:'Madras State formed'},{year:1969,event:'Renamed Tamil Nadu'}], images:[
+    { url: 'resources/images/States/Tamil%20Nadu/t1.webp', caption: 'State image 1' },
+    { url: 'resources/images/States/Tamil%20Nadu/t2.jpg', caption: 'State image 2' }
+  ] },
   { id:'Karnataka', name:'Karnataka', capital:'Bengaluru', area:'191,791 km²', population:'68 Million', language:'Kannada', formed:1956, description:'Karnataka is known as the Silicon Valley of India due to its thriving IT industry.', facts:['Silicon Valley of India — Bengaluru','Hampi — UNESCO World Heritage Site','Home to Vijayanagara Empire ruins'], historicalEvents:[{year:1956,event:'Mysore State formed'},{year:1973,event:'Renamed Karnataka'}] },
   { id:'Rajasthan', name:'Rajasthan', capital:'Jaipur', area:'342,239 km²', population:'68 Million', language:'Rajasthani, Hindi', formed:1956, description:'Rajasthan is the largest state of India by area, known for its majestic forts and the Thar Desert.', facts:['Largest state by area','Thar Desert — largest desert in India','Jaipur — Pink City'], historicalEvents:[{year:1949,event:'Rajputana states merged to form Rajasthan'},{year:1956,event:'Present boundaries established'}] },
   { id:'Madhya_Pradesh', name:'Madhya Pradesh', capital:'Bhopal', area:'308,245 km²', population:'72 Million', language:'Hindi', formed:1956, description:'Madhya Pradesh is the second-largest state by area, known as the Heart of India.', facts:['Heart of India','Khajuraho temples — UNESCO Heritage','Largest tiger population in India'], historicalEvents:[{year:1956,event:'Madhya Pradesh formed'},{year:2000,event:'Chhattisgarh carved out'}] },
@@ -45,7 +48,10 @@ function $(id) { return document.getElementById(id); }
   { id:'Gujarat', name:'Gujarat', capital:'Gandhinagar', area:'196,024 km²', population:'60 Million', language:'Gujarati', formed:1960, description:'Gujarat is on the western coast of India, birthplace of Mahatma Gandhi.', facts:['Birthplace of Mahatma Gandhi','Longest coastline among Indian states','Gir Forest — only wild Asiatic lions'], historicalEvents:[{year:1960,event:'Gujarat formed from Bombay State'}] },
   { id:'Bihar', name:'Bihar', capital:'Patna', area:'94,163 km²', population:'124 Million', language:'Hindi, Maithili', formed:1912, description:'Bihar is one of the oldest inhabited places in the world, birthplace of Buddhism.', facts:['Birthplace of Buddhism — Bodh Gaya','Nalanda — ancient world\'s first university','Pataliputra — capital of Maurya Empire'], historicalEvents:[{year:1912,event:'Bihar separated from Bengal'},{year:2000,event:'Jharkhand carved out'}] },
   { id:'Odisha', name:'Odisha', capital:'Bhubaneswar', area:'155,707 km²', population:'46 Million', language:'Odia', formed:1936, description:'Odisha is on the eastern coast of India, known for its ancient temples.', facts:['Konark Sun Temple — UNESCO Heritage','Jagannath Temple — Puri','Chilika Lake — largest coastal lagoon in Asia'], historicalEvents:[{year:1936,event:'Odisha formed as separate province'},{year:1949,event:'Merged with Indian Union'}] },
-  { id:'Telangana', name:'Telangana', capital:'Hyderabad', area:'112,077 km²', population:'35 Million', language:'Telugu', formed:2014, description:'Telangana is India\'s youngest state, carved out of Andhra Pradesh in 2014.', facts:['Youngest state of India','Hyderabad — City of Pearls','Charminar — iconic monument'], historicalEvents:[{year:2014,event:'Telangana formed as 29th state'}] },
+  { id:'Telangana', name:'Telangana', capital:'Hyderabad', area:'112,077 km²', population:'35 Million', language:'Telugu', formed:2014, description:'Telangana is India\'s youngest state, carved out of Andhra Pradesh in 2014.', facts:['Youngest state of India','Hyderabad — City of Pearls','Charminar — iconic monument'], historicalEvents:[{year:2014,event:'Telangana formed as 29th state'}], images:[
+    { url: 'resources/images/States/Telangana/t1.webp', caption: 'State image 1' },
+    { url: 'resources/images/States/Telangana/t2.jpg', caption: 'State image 2' }
+  ] },
   { id:'Kerala', name:'Kerala', capital:'Thiruvananthapuram', area:'38,863 km²', population:'35 Million', language:'Malayalam', formed:1956, description:'Kerala is known as God\'s Own Country with the highest literacy rate in India.', facts:['Highest literacy rate in India — 96%','Backwaters — unique ecosystem','Major spice trade hub historically'], historicalEvents:[{year:1956,event:'Kerala formed from Travancore-Cochin'}] },
   { id:'Punjab', name:'Punjab', capital:'Chandigarh', area:'50,362 km²', population:'30 Million', language:'Punjabi', formed:1947, description:'Punjab is known as the Granary of India, partitioned in 1947.', facts:['Granary of India','Golden Temple — Amritsar','Partitioned in 1947'], historicalEvents:[{year:1947,event:'Punjab partitioned between India and Pakistan'},{year:1966,event:'Haryana and Himachal Pradesh carved out'}] },
   { id:'Haryana', name:'Haryana', capital:'Chandigarh', area:'44,212 km²', population:'28 Million', language:'Hindi', formed:1966, description:'Haryana surrounds Delhi on three sides and is one of the wealthiest states per capita.', facts:['Surrounds Delhi on three sides','Kurukshetra — site of Mahabharata war','Major automobile manufacturing hub'], historicalEvents:[{year:1966,event:'Haryana carved out of Punjab'}] },
@@ -649,6 +655,50 @@ function showPanel(data, category) {
     `;
   } else if (spEvents) {
     spEvents.innerHTML = '';
+  }
+
+  // Update images slider (local resources/images/States/...)
+  const spImagesEl = $('spImages');
+  const imageControls = $('imageControls');
+  const imgCounter = $('imgCounter');
+  const prevBtn = $('prevImg');
+  const nextBtn = $('nextImg');
+
+  if (spImagesEl) {
+    // clear existing content
+    spImagesEl.innerHTML = '';
+
+    if (data.images && Array.isArray(data.images) && data.images.length > 0) {
+      data.images.forEach((img, i) => {
+        const imgEl = document.createElement('img');
+        imgEl.className = 'image-slide';
+        imgEl.src = img.url;
+        imgEl.alt = img.caption || (data.name + ' image');
+        if (i === 0) imgEl.classList.add('active');
+        spImagesEl.appendChild(imgEl);
+      });
+
+      // show controls
+      if (imageControls) imageControls.style.display = 'flex';
+      if (imgCounter) imgCounter.textContent = `1 / ${data.images.length}`;
+
+      // simple slider logic
+      let idx = 0;
+      const slides = () => spImagesEl.querySelectorAll('.image-slide');
+      const update = (newIdx) => {
+        const s = slides();
+        s.forEach((el, j) => el.classList.toggle('active', j === newIdx));
+        if (imgCounter) imgCounter.textContent = `${newIdx + 1} / ${s.length}`;
+      };
+
+      if (prevBtn) prevBtn.onclick = () => { idx = (idx - 1 + data.images.length) % data.images.length; update(idx); };
+      if (nextBtn) nextBtn.onclick = () => { idx = (idx + 1) % data.images.length; update(idx); };
+
+    } else {
+      // no images — show placeholder and hide controls
+      spImagesEl.innerHTML = '<div class="image-placeholder"><i class="fas fa-image"></i><span>No images available</span></div>';
+      if (imageControls) imageControls.style.display = 'none';
+    }
   }
 }
 

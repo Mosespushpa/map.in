@@ -1004,59 +1004,251 @@
     });
   }
 
-  function toggleDynasty(dynastyId) {
-    const dynasty = (window.dynastiesData || []).find(d => d.id === dynastyId);
-    if (!dynasty) return;
+   function toggleDynasty(dynastyId) {
+     const dynasty = (window.dynastiesData || []).find(d => d.id === dynastyId);
+     if (!dynasty) return;
 
-    activeDynasties.clear();
-    document.querySelectorAll('.dynasty-highlight').forEach(el => {
-      el.classList.remove('dynasty-highlight');
-      el.style.fill = '';
-      el.style.opacity = '';
-    });
-    document.querySelectorAll('.dynasty-item').forEach(item => item.classList.remove('active'));
+     activeDynasties.clear();
+     document.querySelectorAll('.dynasty-highlight').forEach(el => {
+       el.classList.remove('dynasty-highlight');
+       el.style.fill = '';
+       el.style.opacity = '';
+     });
+     document.querySelectorAll('.dynasty-item').forEach(item => item.classList.remove('active'));
 
-    activeDynasties.add(dynastyId);
-    dynasty.states.forEach(stateId => {
-      const stateEl = document.getElementById(stateId);
-      if (stateEl) {
-        stateEl.classList.add('dynasty-highlight');
-        stateEl.style.fill = dynasty.color;
-        stateEl.style.opacity = '0.6';
-      }
-    });
+     activeDynasties.add(dynastyId);
 
-    const dynastyItem = document.querySelector(`[data-dynasty="${dynastyId}"]`);
-    if (dynastyItem) dynastyItem.classList.add('active');
+     // Start expansion animation from capital
+     animateDynastyExpansion(dynasty);
 
-    showDynastyDetail(dynasty);
-  }
+     const dynastyItem = document.querySelector(`[data-dynasty="${dynastyId}"]`);
+     if (dynastyItem) dynastyItem.classList.add('active');
 
-  function highlightSpecificDynasty(dynastyId) {
-    // Clear all current dynasty highlights
-    activeDynasties.clear();
-    document.querySelectorAll('.dynasty-highlight').forEach(el => {
-      el.classList.remove('dynasty-highlight');
-      el.style.fill = '';
-      el.style.opacity = '';
-    });
-    
-    // Highlight specific dynasty
-    const dynasty = (window.dynastiesData || []).find(d => d.id === dynastyId);
-    if (dynasty) {
-      activeDynasties.add(dynastyId);
-      dynasty.states.forEach(stateId => {
-        const stateEl = document.getElementById(stateId);
-        if (stateEl) {
-          stateEl.classList.add('dynasty-highlight');
-          stateEl.style.fill = dynasty.color;
-          stateEl.style.opacity = '0.7';
-        }
-      });
-      
-      showDynastyDetail(dynasty);
-    }
-  }
+     showDynastyDetail(dynasty);
+   }
+
+   function highlightSpecificDynasty(dynastyId) {
+     // Clear all current dynasty highlights
+     activeDynasties.clear();
+     document.querySelectorAll('.dynasty-highlight').forEach(el => {
+       el.classList.remove('dynasty-highlight');
+       el.style.fill = '';
+       el.style.opacity = '';
+     });
+
+     // Highlight specific dynasty
+     const dynasty = (window.dynastiesData || []).find(d => d.id === dynastyId);
+     if (dynasty) {
+       activeDynasties.add(dynastyId);
+       dynasty.states.forEach(stateId => {
+         const stateEl = document.getElementById(stateId);
+         if (stateEl) {
+           stateEl.classList.add('dynasty-highlight');
+           stateEl.style.fill = dynasty.color;
+           stateEl.style.opacity = '0.7';
+         }
+       });
+
+       showDynastyDetail(dynasty);
+     }
+   }
+
+   // ── Dynasty Expansion Animation ──
+   function animateDynastyExpansion(dynasty) {
+     // Get capital coordinates - need to extract from dynasty capital string
+     const capitalCoords = getCapitalCoordinates(dynasty.capital);
+
+     if (!capitalCoords) {
+       // Fallback: just highlight states without animation
+       dynasty.states.forEach(stateId => {
+         const stateEl = document.getElementById(stateId);
+         if (stateEl) {
+           stateEl.classList.add('dynasty-highlight');
+           stateEl.style.fill = dynasty.color;
+           stateEl.style.opacity = '0.6';
+         }
+       });
+       return;
+     }
+
+     const [capitalX, capitalY] = capitalCoords;
+
+     // Create expanding circle animation from capital
+     const svg = document.getElementById('india-map');
+     const g = svg.querySelector('.regions');
+
+     // Create capital marker (crown icon placeholder as circle with glow)
+     const capitalMarker = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+     capitalMarker.setAttribute('cx', capitalX);
+     capitalMarker.setAttribute('cy', capitalY);
+     capitalMarker.setAttribute('r', '5');
+     capitalMarker.setAttribute('class', 'dynasty-capital-marker');
+     capitalMarker.setAttribute('fill', dynasty.color);
+     capitalMarker.setAttribute('opacity', '0.9');
+     capitalMarker.setAttribute('stroke', '#fff');
+     capitalMarker.setAttribute('stroke-width', '1.5');
+     capitalMarker.setAttribute('pointer-events', 'none');
+     g.insertBefore(capitalMarker, g.firstChild);
+
+     // Create expanding circle starting from capital
+     const expandCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+     expandCircle.setAttribute('cx', capitalX);
+     expandCircle.setAttribute('cy', capitalY);
+     expandCircle.setAttribute('r', '0');
+     expandCircle.setAttribute('class', 'dynasty-expansion-circle');
+     expandCircle.setAttribute('fill', dynasty.color);
+     expandCircle.setAttribute('opacity', '0.4');
+     expandCircle.setAttribute('pointer-events', 'none');
+     g.insertBefore(expandCircle, capitalMarker.nextSibling); // Insert after capital marker
+
+     // Sort states by distance from capital for progressive animation
+     const sortedStates = dynasty.states
+       .map(stateId => {
+         const stateEl = document.getElementById(stateId);
+         if (!stateEl) return null;
+         try {
+           const bbox = stateEl.getBBox();
+           const cx = bbox.x + bbox.width / 2;
+           const cy = bbox.y + bbox.height / 2;
+           const distance = Math.sqrt(Math.pow(cx - capitalX, 2) + Math.pow(cy - capitalY, 2));
+           return { stateId, distance, element: stateEl };
+         } catch (e) {
+           return null;
+         }
+       })
+       .filter(x => x !== null)
+       .sort((a, b) => a.distance - b.distance);
+
+     const maxDistance = sortedStates.length > 0 ? sortedStates[sortedStates.length - 1].distance : 100;
+     const animationDuration = 2000; // 2 seconds for full expansion
+     const stateDelay = animationDuration / Math.max(sortedStates.length, 1);
+
+     let startTime = null;
+     function animationFrame(currentTime) {
+       if (startTime === null) startTime = currentTime;
+       const elapsed = currentTime - startTime;
+       const progress = Math.min(elapsed / animationDuration, 1);
+
+       // Expand the circle
+       const currentRadius = progress * maxDistance * 1.1;
+       expandCircle.setAttribute('r', currentRadius);
+
+       // Progressively color states
+       sortedStates.forEach((item, index) => {
+         const stateStartTime = stateDelay * index;
+         const stateElapsed = elapsed - stateStartTime;
+         const stateProgress = Math.max(0, Math.min(stateElapsed / 150, 1)); // 150ms per state
+
+         if (stateProgress > 0) {
+           item.element.classList.add('dynasty-highlight');
+           item.element.style.fill = dynasty.color;
+           // Gradually increase opacity as it fills in
+           item.element.style.opacity = (stateProgress * 0.6).toFixed(2);
+         }
+       });
+
+       if (progress < 1) {
+         requestAnimationFrame(animationFrame);
+       } else {
+         // Complete the animation
+         sortedStates.forEach(item => {
+           item.element.style.opacity = '0.6';
+         });
+
+         // Fade and remove the expansion circle
+         let fadeStartTime = currentTime;
+         function fadeCircle(fadeTime) {
+           const fadeDuration = 1000;
+           const fadeElapsed = fadeTime - fadeStartTime;
+           const fadeProgress = Math.min(fadeElapsed / fadeDuration, 1);
+
+           // Fade out circle
+           expandCircle.setAttribute('opacity', (0.4 * (1 - fadeProgress * 0.8)).toFixed(2));
+
+           // Scale and fade capital marker
+           const markerScale = 1 + (fadeProgress * 1.5);
+           const markerOpacity = 0.9 * (1 - fadeProgress);
+           capitalMarker.setAttribute('r', (5 * markerScale).toFixed(1));
+           capitalMarker.setAttribute('opacity', markerOpacity.toFixed(2));
+
+           if (fadeProgress < 1) {
+             requestAnimationFrame(fadeCircle);
+           } else {
+             expandCircle.remove();
+             capitalMarker.remove();
+           }
+         }
+         requestAnimationFrame(fadeCircle);
+       }
+     }
+
+     requestAnimationFrame(animationFrame);
+   }
+
+   // Helper function to get capital coordinates from dynasty capital name
+   function getCapitalCoordinates(capitalName) {
+     // Capital name to coordinates mapping
+     const capitalCoordinates = {
+       'Pataliputra': [25.59, 85.12], // Patna
+       'Pataliputra (Patna)': [25.59, 85.12],
+       'Delhi': [28.6139, 77.2090],
+       'Delhi/Agra': [28.6139, 77.2090], // Use Delhi as primary
+       'Raigad': [18.76, 73.25],
+       'Raigad/Pune': [18.76, 73.25],
+       'Thanjavur': [10.78, 79.13],
+       'Hampi': [15.34, 76.46],
+       'Various (Udaipur, Jaipur, Jodhpur)': [25.30, 75.83], // Jaipur as central point
+       'Kanchipuram': [12.83, 79.70],
+       'Badami': [15.42, 75.65],
+       'Manyakheta': [16.00, 77.00],
+       'Chandigarh': [30.7333, 76.7794],
+       'Srinagar (summer), Jammu (winter)': [34.0837, 74.7973],
+       'Srinagar': [34.0837, 74.7973],
+       'Leh': [34.1526, 77.5771],
+       'Shimla': [31.78, 77.17],
+       'Leh': [34.15, 77.58],
+       'New Delhi': [28.6139, 77.2090],
+       'Gandhinagar': [23.2156, 72.6369],
+       'Jaipur': [26.9124, 75.7873],
+       'Lucknow': [26.8467, 80.9462],
+       'Raipur': [21.2514, 81.6296],
+       'Nagpur': [21.1458, 79.0882],
+       'Agartala': [23.8103, 91.2868],
+       'Mumbai': [19.0760, 72.8777],
+       'Bhopal': [23.1815, 77.4104],
+       'Bangalore': [12.9716, 77.5946],
+       'Thiruvananthapuram': [8.5241, 76.9366],
+       'Chennai': [13.0827, 80.2707],
+       'Kolkata': [22.5726, 88.3639],
+       'Dehradun': [30.3165, 78.0322],
+       'Port Blair': [11.6234, 92.7265],
+       'Puducherry': [11.9416, 79.8083],
+       'Panaji': [15.4909, 73.8278],
+       'Itanagar': [28.2180, 93.6053],
+       'Kohima': [25.6751, 94.1077],
+       'Imphal': [24.8170, 94.7885],
+       'Aizawl': [23.1815, 92.7789],
+       'Gangtok': [27.5598, 88.5889],
+       'Shillong': [25.5788, 91.8933],
+       'Dispur': [26.1445, 91.7898],
+       'Amaravati': [13.3686, 79.5453]
+     };
+
+     // Convert capital name to coordinates
+     const coords = capitalCoordinates[capitalName];
+     if (coords) {
+       return latLngToSVG(coords[0], coords[1]);
+     }
+
+     // If not found directly, try partial match
+     for (const [capital, coordinate] of Object.entries(capitalCoordinates)) {
+       if (capitalName.includes(capital) || capital.includes(capitalName)) {
+         return latLngToSVG(coordinate[0], coordinate[1]);
+       }
+     }
+
+     return null;
+   }
 
   // Public API - Expose globally but ensure everything is ready
   function ensureMapReady(callback) {
