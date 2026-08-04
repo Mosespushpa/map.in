@@ -244,10 +244,25 @@
       if (el) {
         el.dispatchEvent(new Event('mouseenter', { bubbles: true }));
         el.classList.add('search-highlighted');
+
+        // Display state information in panel
+        if (window.showPanel && window.statesData) {
+          const data = window.statesData[result.id];
+          if (data) {
+            window.showPanel(data, 'states');
+            console.log('[Search] State information displayed in panel');
+          }
+        }
       }
     } else if (result.type === 'fort' && result.coordinates) {
       // Fort markers will be handled by their own system
       console.log('[Search] Fort selected:', result);
+    } else if (result.type === 'river' || result.type === 'ghat' || result.type === 'historical-event') {
+      // Display information for other types
+      if (window.showPanel) {
+        window.showPanel(result, result.type);
+        console.log('[Search] Information displayed in panel for:', result.type);
+      }
     }
 
     console.log('[Search] Selected:', result);
@@ -287,6 +302,11 @@
         break;
       case 'Enter':
         e.preventDefault();
+        // If no selection, default to first item
+        if (currentSelection < 0 && itemCount > 0) {
+          currentSelection = 0;
+          selectResult(currentSelection);
+        }
         if (currentSelection >= 0 && currentSelection < itemCount) {
           items[currentSelection].click();
         }

@@ -34,9 +34,13 @@ body.light {
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 }
 
-
+.navbar-brand:hover {
+  opacity: 0.8;
+}
 
 .navbar-title {
   font-size: 20px;
@@ -228,19 +232,41 @@ body.light .map-area { background: linear-gradient(135deg, rgba(232,234,246,0.9)
   fill: #1e2a4a;
   stroke: #00e5ff;
   stroke-width: 1.5;
+  stroke-opacity: 0;
   cursor: pointer;
   transition: fill 0.2s, opacity 0.3s, filter 0.3s;
 }
 
-.state:hover, .state:focus { fill: #2ecc71 !important; stroke: #27ae60 !important; stroke-width: 2 !important; }
-.state.highlighted { fill: #f39c12 !important; stroke: #e67e22 !important; stroke-width: 2.5 !important; }
-.state.year-active  { fill: #5c6bc0 !important; stroke: #7986cb !important; stroke-width: 2 !important; }
-.state.state-locked { 
+/* State borders for landing page and states tag */
+.state.show-borders {
+  stroke: #00e5ff !important;
+  stroke-width: 1.8 !important;
+  stroke-opacity: 1 !important;
+}
+
+body.light .state.show-borders {
+  stroke: #3f51b5 !important;
+  stroke-width: 1.8 !important;
+  stroke-opacity: 1 !important;
+}
+
+.state.show-borders:hover, .state.show-borders:focus { fill: #2ecc71 !important; stroke: #27ae60 !important; stroke-width: 2 !important; stroke-opacity: 1 !important; }
+.state:hover:not(.show-borders), .state:focus:not(.show-borders) { fill: #2ecc71 !important; stroke-opacity: 0 !important; }
+
+.state.highlighted { fill: #f39c12 !important; stroke: #e67e22 !important; stroke-width: 2.5 !important; stroke-opacity: 0; }
+.state.highlighted.show-borders { stroke-opacity: 1 !important; }
+
+.state.year-active  { fill: #5c6bc0 !important; stroke: #7986cb !important; stroke-width: 2 !important; stroke-opacity: 0; }
+.state.year-active.show-borders { stroke-opacity: 1 !important; }
+
+.state.state-locked {
   fill: #ff6b6b !important; 
   stroke: #ff4757 !important; 
   stroke-width: 3 !important;
+  stroke-opacity: 0;
   filter: drop-shadow(0 0 8px rgba(255, 107, 107, 0.6)) !important;
 }
+.state.state-locked.show-borders { stroke-opacity: 1 !important; }
 
 /* Disable hover effects for non-states categories */
 .state.no-hover:hover,
@@ -250,8 +276,9 @@ body.light .map-area { background: linear-gradient(135deg, rgba(232,234,246,0.9)
   stroke-width: inherit !important;
 }
 
-body.light .state { fill: #c5cae9; stroke: #3f51b5; }
-body.light .state:hover, body.light .state:focus { fill: #2ecc71 !important; }
+body.light .state { fill: #c5cae9; stroke: #3f51b5; stroke-opacity: 0; }
+body.light .state.show-borders:hover, body.light .state.show-borders:focus { fill: #2ecc71 !important; stroke-opacity: 1 !important; }
+body.light .state:hover:not(.show-borders), body.light .state:focus:not(.show-borders) { fill: #2ecc71 !important; stroke-opacity: 0 !important; }
 body.light .state.no-hover:hover,
 body.light .state.no-hover:focus {
   fill: inherit !important;
@@ -322,6 +349,7 @@ body.light .river-list-item { background: rgba(52,152,219,0.06); border-color: r
 .state.states-overlay {
   stroke: #00e5ff !important;
   stroke-width: 2px !important;
+  stroke-opacity: 1 !important;
 }
 
 .ghat-label { fill: #e67e22; font-size: 14px; font-weight: 700; text-anchor: middle; }

@@ -716,6 +716,40 @@ function initPanelResize() {
 // ── Event Handlers ──
 document.addEventListener('DOMContentLoaded', () => {
   console.log('[App] DOM loaded, initializing...');
+
+  // ── Logo/Brand Click Handler (Navigate to Home) ──
+  const navbarBrand = document.querySelector('.navbar-brand');
+  if (navbarBrand) {
+    navbarBrand.style.cursor = 'pointer';
+    navbarBrand.addEventListener('click', () => {
+      console.log('[App] Redirecting to home page...');
+      window.location.href = window.location.pathname.split('/').slice(0, -1).join('/') || './';
+    });
+    console.log('[App] ✓ Logo/brand click handler initialized');
+  }
+
+  // ── Theme Toggle Handler ──
+  const themeToggleBtn = document.getElementById('themeToggleBtn');
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      isDark = !isDark;
+      const body = document.body;
+
+      if (isDark) {
+        body.classList.remove('light');
+        themeToggleBtn.classList.add('active');
+        themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        console.log('[App] Switched to dark theme');
+      } else {
+        body.classList.add('light');
+        themeToggleBtn.classList.remove('active');
+        themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        console.log('[App] Switched to light theme');
+      }
+    });
+    console.log('[App] ✓ Theme toggle initialized');
+  }
+
   init();
 });
 

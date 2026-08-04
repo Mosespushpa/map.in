@@ -49,50 +49,55 @@
   let currentOverlayMode = 'states';
   let activeDynasties = new Set();
   
-  function clearAllOverlays() {
-    const svg = document.getElementById('india-map');
-    if (!svg) return;
-    
-    // Remove all overlay elements
-    svg.querySelectorAll('.overlay-marker, .overlay-label, .overlay-polygon').forEach(el => el.remove());
-    
-    // Clear all highlighting and reset styles
-    document.querySelectorAll('.state').forEach(state => {
-      state.classList.remove('category-highlight', 'dynasty-highlight', 'language-highlight', 'ut-highlight', 'no-hover');
-      state.style.cssText = '';
-      state.removeAttribute('stroke');
-      state.removeAttribute('stroke-width');
-      
-      // Remove category-specific event handlers
-      if (state._languageHoverHandler) {
-        state.removeEventListener('mouseenter', state._languageHoverHandler);
-        state._languageHoverHandler = null;
-      }
-      if (state._utHoverHandler) {
-        state.removeEventListener('mouseenter', state._utHoverHandler);
-        state._utHoverHandler = null;
-      }
-      if (state._ghatHoverHandler) {
-        state.removeEventListener('mouseenter', state._ghatHoverHandler);
-        state._ghatHoverHandler = null;
-      }
-    });
-  }
+   function clearAllOverlays() {
+     const svg = document.getElementById('india-map');
+     if (!svg) return;
 
-  function showStatesOverlay() {
-    console.log('[Overlays] Showing states overlay');
-    clearAllOverlays();
+     // Remove all overlay elements
+     svg.querySelectorAll('.overlay-marker, .overlay-label, .overlay-polygon').forEach(el => el.remove());
 
-    document.querySelectorAll('.state').forEach(state => {
-      try {
-        const bbox = state.getBBox();
-        const stateName = window.statesData[state.id]?.name ||
-                          window.unionTerritories[state.id]?.name ||
-                          state.id.replace(/_/g, ' ');
-        addTextLabel(bbox.x + bbox.width / 2, bbox.y + bbox.height / 2, stateName, 'state-label', state.id);
-      } catch (e) {}
-    });
-  }
+     // Clear all highlighting and reset styles
+     document.querySelectorAll('.state').forEach(state => {
+       state.classList.remove('category-highlight', 'dynasty-highlight', 'language-highlight', 'ut-highlight', 'no-hover', 'show-borders');
+       state.style.cssText = '';
+       state.removeAttribute('stroke');
+       state.removeAttribute('stroke-width');
+       state.setAttribute('stroke-opacity', '0');
+
+       // Remove category-specific event handlers
+       if (state._languageHoverHandler) {
+         state.removeEventListener('mouseenter', state._languageHoverHandler);
+         state._languageHoverHandler = null;
+       }
+       if (state._utHoverHandler) {
+         state.removeEventListener('mouseenter', state._utHoverHandler);
+         state._utHoverHandler = null;
+       }
+       if (state._ghatHoverHandler) {
+         state.removeEventListener('mouseenter', state._ghatHoverHandler);
+         state._ghatHoverHandler = null;
+       }
+     });
+   }
+
+   function showStatesOverlay() {
+     console.log('[Overlays] Showing states overlay');
+     clearAllOverlays();
+
+     document.querySelectorAll('.state').forEach(state => {
+       // Add border styling for landing/states page
+       state.classList.add('show-borders');
+       // Explicitly set stroke-opacity to ensure borders are visible
+       state.setAttribute('stroke-opacity', '1');
+       try {
+         const bbox = state.getBBox();
+         const stateName = window.statesData[state.id]?.name ||
+                           window.unionTerritories[state.id]?.name ||
+                           state.id.replace(/_/g, ' ');
+         addTextLabel(bbox.x + bbox.width / 2, bbox.y + bbox.height / 2, stateName, 'state-label', state.id);
+       } catch (e) {}
+     });
+   }
 
   // All UTs with their pin color and geographic spot(s)
   const UT_PINS = {
