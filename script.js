@@ -49,15 +49,31 @@ images:[{url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQ3EmmxFPmj
       {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQa9Id6FE8KWFJXII6CVa5PQkVPBAsO4IQmTIXj26ZMuw&s=10', caption:'Leh Monastery'}
     ]},
   { id: 'Dadra And Nagar Haveli And Daman And Diu', name:'Dadra and Nagar Haveli and Daman and Diu', capital:'Daman', area:'603 km²', population:'0.6 Million', language:'Gujarati, Hindi', formed:2020, description:'Formed by merger of Dadra & Nagar Haveli and Daman & Diu in 2020. Comprises three geographically separate enclaves on the western coast.', facts:['Formed by merger in January 2020','Three separate geographic enclaves','Former Portuguese territory'], historicalEvents:[{year:1961,event:'Liberated from Portuguese rule'},{year:2020,event:'Merged into single UT'}] },
-  { id:'Andhra_Pradesh', name:'Andhra Pradesh', capital:'Amaravati', area:'162,975 km²', population:'54 Million', language:'Telugu', formed:1956, description:'Andhra Pradesh was formed in 1956 from Telugu-speaking regions of Madras State. Telangana was carved out in 2014.', facts:['Rice Bowl of India','Home to Tirupati temple','Coastline of 974 km along Bay of Bengal'], historicalEvents:[{year:1956,event:'Andhra Pradesh formed from Madras State'},{year:2014,event:'Telangana carved out'}], images:[
+  { id:'Andhra_Pradesh', name:'Andhra Pradesh', capital:'Amaravati', area:'162,975 km²', population:'54 Million', language:'Telugu', formed:1956, description:'Andhra Pradesh was formed in 1956 from Telugu-speaking regions of Madras State. Telangana was carved out in 2014.', facts:['Rice Bowl of India','Home to Tirupati temple','Coastline of 974 km along Bay of Bengal'], historicalEvents:[{year:1956,event:'Andhra Pradesh formed from Madras State'},{year:2014,event:'Telangana carved out'}], 
+  images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS--6uRd0lX6fcDZgNWc7pJK8o3_YgmDxJpwwKD7Rizzw&s=10', caption:'Coastal Andhra Pradesh'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsyorxsjCEjb52Kruzer_4RbnzII79mdzSRtcrUuJSlw&s=10', caption:'Amaravati Buddhist Site'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3IdC5LllG24nG9i21L4gmloT8oFZazQZwlRvULZh2gg&s=10', caption:'Coastal Andhra Pradesh'},
     {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShFOP0OMjscPOnxcqt2lyA3G--cRfTfiYNLz46JQpRMg&s=10', caption:'Tirupati Temple'},
-     {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsyorxsjCEjb52Kruzer_4RbnzII79mdzSRtcrUuJSlw&s=10', caption:'Amaravati Buddhist Site'}] },
+      {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8cq4TQxt128koyvvD2oMu5ymNT4CDXA-CsjH32xbdvg&s=10', caption:'Coastal Andhra Pradesh'}
+    ]},
   { id:'Maharashtra', name:'Maharashtra', capital:'Mumbai', area:'307,713 km²', population:'112 Million', language:'Marathi', formed:1960, description:'Maharashtra was formed on May 1, 1960 when Bombay State was divided along linguistic lines.', facts:['Financial capital of India — Mumbai','Home to Bollywood','Ajanta and Ellora Caves — UNESCO Sites'], historicalEvents:[{year:1960,event:'Maharashtra formed from Bombay State'},{year:1995,event:'Bombay renamed to Mumbai'}], images:[{url:'https://via.placeholder.com/300x200?text=Gateway+of+India', caption:'Gateway of India'}, {url:'https://via.placeholder.com/300x200?text=Ajanta+Caves', caption:'Ajanta Caves'}] },
-  { id:'Tamil_Nadu', name:'Tamil Nadu', capital:'Chennai', area:'130,060 km²', population:'72 Million', language:'Tamil', formed:1950, description:'Tamil Nadu has one of the oldest civilizations in the world with a rich cultural heritage.', facts:['Tamil — one of world\'s oldest classical languages','Home to over 33,000 ancient temples','Major IT hub — Chennai'], historicalEvents:[{year:1950,event:'Madras State formed'},{year:1969,event:'Renamed Tamil Nadu'}], images:[
+  { id:'Tamil_Nadu', name:'Tamil Nadu', capital:'Chennai', area:'130,060 km²', population:'72 Million', language:'Tamil', formed:1950, description:'Tamil Nadu has one of the oldest civilizations in the world with a rich cultural heritage.', facts:['Tamil — one of world\'s oldest classical languages','Home to over 33,000 ancient temples','Major IT hub — Chennai'], historicalEvents:[{year:1950,event:'Madras State formed'},{year:1969,event:'Renamed Tamil Nadu'}], 
+  images:[
+    { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEWdM7lPcBIaVhb7vSuAD5tpAZR-Qxr8Wo2w1SMQDgfQ&s=10', caption: 'State image 1' },
     { url: 'resources/images/States/Tamil%20Nadu/t1.webp', caption: 'State image 1' },
-    { url: 'resources/images/States/Tamil%20Nadu/t2.jpg', caption: 'State image 2' }
+     { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwM8lL0I2dDj1RuCL5iyjR-EfqFCraHVDtGhKcVCuwAg&s=10', caption: 'State image 1' },
+    { url: 'resources/images/States/Tamil%20Nadu/t2.jpg', caption: 'State image 2' },
+    { url: 'https://client-websites.blr1.cdn.digitaloceanspaces.com/frenzyholidays/wp-content/uploads/2025/07/30164352/Valparai-1024x538.png', caption: 'State image 2' }
   ] },
-  { id:'Karnataka', name:'Karnataka', capital:'Bengaluru', area:'191,791 km²', population:'68 Million', language:'Kannada', formed:1956, description:'Karnataka is known as the Silicon Valley of India due to its thriving IT industry.', facts:['Silicon Valley of India — Bengaluru','Hampi — UNESCO World Heritage Site','Home to Vijayanagara Empire ruins'], historicalEvents:[{year:1956,event:'Mysore State formed'},{year:1973,event:'Renamed Karnataka'}] },
+  { id:'Karnataka', name:'Karnataka', capital:'Bengaluru', area:'191,791 km²', population:'68 Million', language:'Kannada', formed:1956, description:'Karnataka is known as the Silicon Valley of India due to its thriving IT industry.', facts:['Silicon Valley of India — Bengaluru','Hampi — UNESCO World Heritage Site','Home to Vijayanagara Empire ruins'], historicalEvents:[{year:1956,event:'Mysore State formed'},{year:1973,event:'Renamed Karnataka'}],
+ images:[
+    { url: 'https://t4.ftcdn.net/jpg/13/77/26/63/360_F_1377266312_jRydmbVRledy8RPzhOpRtPCNwIl46lEI.jpg', caption: 'State image 1' },
+    { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPCzpKJkEHU1T4MmEo_fECMESn64VIzmt-uMNpFjxQfQ&s=10', caption: 'State image 1' },
+    { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEfvWXnHGHZuhO1yCCOABeZrJKKDAyQE34K84B8TfRiA&s=10', caption: 'State image 1' },
+     { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfj_U1j5rY4AdPt0qIEhpilOZk_D-QCKeRzte0D2EPZQ&s=10', caption: 'State image 1' },
+    { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9gZ3wuKYaqck_hDyGpJVoVNc2oZQnzOunmlZ6Uq-FNw&s=10', caption: 'State image 2' }
+  ]},
   { id:'Rajasthan', name:'Rajasthan', capital:'Jaipur', area:'342,239 km²', population:'68 Million', language:'Rajasthani, Hindi', formed:1956, description:'Rajasthan is the largest state of India by area, known for its majestic forts and the Thar Desert.', facts:['Largest state by area','Thar Desert — largest desert in India','Jaipur — Pink City'], historicalEvents:[{year:1949,event:'Rajputana states merged to form Rajasthan'},{year:1956,event:'Present boundaries established'}] },
   { id:'Madhya_Pradesh', name:'Madhya Pradesh', capital:'Bhopal', area:'308,245 km²', population:'72 Million', language:'Hindi', formed:1956, description:'Madhya Pradesh is the second-largest state by area, known as the Heart of India.', facts:['Heart of India','Khajuraho temples — UNESCO Heritage','Largest tiger population in India'], historicalEvents:[{year:1956,event:'Madhya Pradesh formed'},{year:2000,event:'Chhattisgarh carved out'}] },
   { id:'Uttar_Pradesh', name:'Uttar Pradesh', capital:'Lucknow', area:'240,928 km²', population:'200 Million', language:'Hindi', formed:1950, description:'Uttar Pradesh is the most populous state in India, home to the Taj Mahal.', facts:['Most populous state in India','Taj Mahal — Agra','Varanasi — oldest living city in the world'], historicalEvents:[{year:1950,event:'United Provinces renamed Uttar Pradesh'},{year:2000,event:'Uttarakhand carved out'}] },
@@ -67,15 +83,18 @@ images:[{url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQ3EmmxFPmj
   { id:'Odisha', name:'Odisha', capital:'Bhubaneswar', area:'155,707 km²', population:'46 Million', language:'Odia', formed:1936, description:'Odisha is on the eastern coast of India, known for its ancient temples.', facts:['Konark Sun Temple — UNESCO Heritage','Jagannath Temple — Puri','Chilika Lake — largest coastal lagoon in Asia'], historicalEvents:[{year:1936,event:'Odisha formed as separate province'},{year:1949,event:'Merged with Indian Union'}] },
   { id:'Telangana', name:'Telangana', capital:'Hyderabad', area:'112,077 km²', population:'35 Million', language:'Telugu', formed:2014, description:'Telangana is India\'s youngest state, carved out of Andhra Pradesh in 2014.', facts:['Youngest state of India','Hyderabad — City of Pearls','Charminar — iconic monument'], historicalEvents:[{year:2014,event:'Telangana formed as 29th state'}], images:[
     { url: 'resources/images/States/Telangana/t1.webp', caption: 'State image 1' },
-    { url: 'resources/images/States/Telangana/t2.jpg', caption: 'State image 2' }
+    { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSud_fBL_Hz0iK7b2x_smw0yssNJewai_8wR5MNLwTZlA&s=10', caption: 'State image 2' },
+    { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShRlPK5EqEm4jDw-ZjSq0-Vrdk_Hs4tIN7VkQJGWgpFg&s=10', caption: 'State image 3' },
+    { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTEXVPazZmKfSmMJw6w-omdUh2Ex683HpUowVg8Hlmig&s=10', caption: 'State image 4' },
+    { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2Cfriyq7dDH5MEx4GIpJvRdhBippgug9e_G_9izJDUg&s=10', caption: 'State image 5' }
   ] },
   { id:'Kerala', name:'Kerala', capital:'Thiruvananthapuram', area:'38,863 km²', population:'35 Million', language:'Malayalam', formed:1956, description:'Kerala is known as God\'s Own Country with the highest literacy rate in India.', facts:['Highest literacy rate in India — 96%','Backwaters — unique ecosystem','Major spice trade hub historically'], historicalEvents:[{year:1956,event:'Kerala formed from Travancore-Cochin'}],
     images:[
       { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxTwxBKdMZywZXLGOn1jd1dR1s6s6fOETkEoWIQB8GLQ&s=10', caption: 'State image 1' },
-      { url: 'resources/images/States/Kerala/k2.jpg', caption: 'State image 2' },
-      { url: 'resources/images/States/Kerala/k3.jpg', caption: 'State image 3' },
-      { url: 'resources/images/States/Kerala/k4.jpg', caption: 'State image 4' },
-      { url: 'resources/images/States/Kerala/k5.jpg', caption: 'State image 5' }
+      { url:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMhi0aJ18UQxHJdLD5jXmRJmM1NbL8zeDKRR0_lP1dYQ&s=10', caption: 'State image 2' },
+      { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS74r-kCLBSbYChO7Z_Xx5ESRKN9KD26xrcM_VDLC9zSw&s=10', caption: 'State image 3' },
+      { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8zl6bVTi87Q07_ZmE0Aee0Y6MmMpAPYML7Or-sXNiYQ&s=10', caption: 'State image 4' },
+      { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgS8qYmK7mNoe5qu9O0UgP2mT13cqAL-UtPvkTs0IySw&s=10', caption: 'State image 5' }
   ]},
   { id:'Punjab', name:'Punjab', capital:'Chandigarh', area:'50,362 km²', population:'30 Million', language:'Punjabi', formed:1947, description:'Punjab is known as the Granary of India, partitioned in 1947.', facts:['Granary of India','Golden Temple — Amritsar','Partitioned in 1947'], historicalEvents:[{year:1947,event:'Punjab partitioned between India and Pakistan'},{year:1966,event:'Haryana and Himachal Pradesh carved out'}] },
   { id:'Haryana', name:'Haryana', capital:'Chandigarh', area:'44,212 km²', population:'28 Million', language:'Hindi', formed:1966, description:'Haryana surrounds Delhi on three sides and is one of the wealthiest states per capita.', facts:['Surrounds Delhi on three sides','Kurukshetra — site of Mahabharata war','Major automobile manufacturing hub'], historicalEvents:[{year:1966,event:'Haryana carved out of Punjab'}] },
@@ -91,7 +110,15 @@ images:[{url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQ3EmmxFPmj
   { id:'Mizoram', name:'Mizoram', capital:'Aizawl', area:'21,081 km²', population:'1.1 Million', language:'Mizo', formed:1987, description:'Mizoram is known for its high literacy rate and peaceful society.', facts:['Second highest literacy rate in India','Bamboo flowering every 48 years','Phawngpui — Blue Mountain'], historicalEvents:[{year:1972,event:'Became Union Territory'},{year:1987,event:'Became full state'}] },
   { id:'Tripura', name:'Tripura', capital:'Agartala', area:'10,491 km²', population:'4 Million', language:'Bengali, Kokborok', formed:1972, description:'Tripura is surrounded by Bangladesh on three sides, known for its ancient temples.', facts:['Surrounded by Bangladesh on 3 sides','Ujjayanta Palace — royal palace','Major rubber producing state'], historicalEvents:[{year:1949,event:'Merged with Indian Union'},{year:1972,event:'Became full state'}] },
   { id:'Sikkim', name:'Sikkim', capital:'Gangtok', area:'7,096 km²', population:'0.7 Million', language:'Nepali', formed:1975, description:'Sikkim is a landlocked Himalayan state, an independent kingdom until 1975.', facts:['Smallest state by population','Kangchenjunga — third highest peak','First organic state in India'], historicalEvents:[{year:1975,event:'Sikkim merges with India as 22nd state'}] },
-  { id:'Goa', name:'Goa', capital:'Panaji', area:'3,702 km²', population:'1.5 Million', language:'Konkani', formed:1987, description:'Goa is the smallest state by area, a former Portuguese colony known for its beaches.', facts:['Smallest state by area','Portuguese colony until 1961','Basilica of Bom Jesus — UNESCO Heritage'], historicalEvents:[{year:1961,event:'Liberated from Portuguese rule'},{year:1987,event:'Became full state'}] }
+  { id:'Goa', name:'Goa', capital:'Panaji', area:'3,702 km²', population:'1.5 Million', language:'Konkani', formed:1987, description:'Goa is the smallest state by area, a former Portuguese colony known for its beaches.', facts:['Smallest state by area','Portuguese colony until 1961','Basilica of Bom Jesus — UNESCO Heritage'], historicalEvents:[{year:1961,event:'Liberated from Portuguese rule'},{year:1987,event:'Became full state'}],
+    images:[
+      { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiNiYKe3OziQyEEh6yoJltraLA0U2pLc6wgy2p9lmRqA&s=10', caption: 'State image 1' },
+      { url:  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFPRnskiHMojSVdEvNXMyV-wvDzWGPfmfy--qtstI0rA&s=10', caption: 'State image 2' },
+      { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdos3D308P_2bCICdFRDsxserpUaCrsKgc6KFG1uGIcQ&s=10', caption: 'State image 3' },
+      { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQexLDOhiPjsKyaGJDg7gGmq8MRrNs87jRzE4DXyiUDJQ&s=10', caption: 'State image 4' },
+      { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4xkORv1GxU7xViYow-9Fk-yKUa8UWkBRARAcalrRyrg&s=10', caption: 'State image 5' }
+  ] }
+    
 ].forEach(st => { statesData[st.id] = st; });
 
 // ── Union Territories Data ──
