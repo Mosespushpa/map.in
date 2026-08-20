@@ -209,6 +209,7 @@ body.light .tag-btn:hover { background: rgba(102,126,234,0.15); color: #333; }
   height: 100%;
 }
 
+
 body.light .map-area { background: linear-gradient(135deg, rgba(232,234,246,0.9), rgba(200,210,240,0.9)); }
 
 .map-loading {
@@ -284,6 +285,11 @@ body.light .state.no-hover:focus {
   fill: inherit !important;
   stroke: inherit !important;
   stroke-width: inherit !important;
+}
+
+/* Animate an inner/child element or separate tooltip without moving the active hitbox */
+.state-group:hover .state-label {
+ transform: translateY(-5px);
 }
 
 /* Overlay markers */
@@ -418,7 +424,7 @@ body.light .dynasty-selector:hover {
   background: rgba(0,0,0,0.12) !important;
 }
 
-.map-tooltip { fill: #fff; font-size: 10px; background: #333; }
+.map-tooltip { fill: #fff; font-size: 10px; background: #333;}
 
 /* ── SIDE PANEL ── */
 .side-panel {

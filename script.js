@@ -10,6 +10,7 @@ let isDark = true;
 let isResizing = false;
 let lockedState = null;
 let placeholderHidden = false;
+let imageSliderInterval = null; // For auto-sliding images
 
 const TAGS = [
   { id: 'states',    label: 'States',           icon: 'fa-map' },
@@ -74,13 +75,41 @@ images:[{url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQ3EmmxFPmj
      { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfj_U1j5rY4AdPt0qIEhpilOZk_D-QCKeRzte0D2EPZQ&s=10', caption: 'State image 1' },
     { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9gZ3wuKYaqck_hDyGpJVoVNc2oZQnzOunmlZ6Uq-FNw&s=10', caption: 'State image 2' }
   ]},
-  { id:'Rajasthan', name:'Rajasthan', capital:'Jaipur', area:'342,239 km²', population:'68 Million', language:'Rajasthani, Hindi', formed:1956, description:'Rajasthan is the largest state of India by area, known for its majestic forts and the Thar Desert.', facts:['Largest state by area','Thar Desert — largest desert in India','Jaipur — Pink City'], historicalEvents:[{year:1949,event:'Rajputana states merged to form Rajasthan'},{year:1956,event:'Present boundaries established'}] },
-  { id:'Madhya_Pradesh', name:'Madhya Pradesh', capital:'Bhopal', area:'308,245 km²', population:'72 Million', language:'Hindi', formed:1956, description:'Madhya Pradesh is the second-largest state by area, known as the Heart of India.', facts:['Heart of India','Khajuraho temples — UNESCO Heritage','Largest tiger population in India'], historicalEvents:[{year:1956,event:'Madhya Pradesh formed'},{year:2000,event:'Chhattisgarh carved out'}] },
-  { id:'Uttar_Pradesh', name:'Uttar Pradesh', capital:'Lucknow', area:'240,928 km²', population:'200 Million', language:'Hindi', formed:1950, description:'Uttar Pradesh is the most populous state in India, home to the Taj Mahal.', facts:['Most populous state in India','Taj Mahal — Agra','Varanasi — oldest living city in the world'], historicalEvents:[{year:1950,event:'United Provinces renamed Uttar Pradesh'},{year:2000,event:'Uttarakhand carved out'}] },
-  { id:'West_Bengal', name:'West Bengal', capital:'Kolkata', area:'88,752 km²', population:'91 Million', language:'Bengali', formed:1947, description:'West Bengal is in eastern India. Kolkata was the capital of British India.', facts:['Kolkata — former capital of British India','Sundarbans — largest mangrove forest','Home to Rabindranath Tagore'], historicalEvents:[{year:1947,event:'Bengal partitioned — West Bengal formed'},{year:1950,event:'Merged with Indian Union'}] },
-  { id:'Gujarat', name:'Gujarat', capital:'Gandhinagar', area:'196,024 km²', population:'60 Million', language:'Gujarati', formed:1960, description:'Gujarat is on the western coast of India, birthplace of Mahatma Gandhi.', facts:['Birthplace of Mahatma Gandhi','Longest coastline among Indian states','Gir Forest — only wild Asiatic lions'], historicalEvents:[{year:1960,event:'Gujarat formed from Bombay State'}] },
-  { id:'Bihar', name:'Bihar', capital:'Patna', area:'94,163 km²', population:'124 Million', language:'Hindi, Maithili', formed:1912, description:'Bihar is one of the oldest inhabited places in the world, birthplace of Buddhism.', facts:['Birthplace of Buddhism — Bodh Gaya','Nalanda — ancient world\'s first university','Pataliputra — capital of Maurya Empire'], historicalEvents:[{year:1912,event:'Bihar separated from Bengal'},{year:2000,event:'Jharkhand carved out'}] },
-  { id:'Odisha', name:'Odisha', capital:'Bhubaneswar', area:'155,707 km²', population:'46 Million', language:'Odia', formed:1936, description:'Odisha is on the eastern coast of India, known for its ancient temples.', facts:['Konark Sun Temple — UNESCO Heritage','Jagannath Temple — Puri','Chilika Lake — largest coastal lagoon in Asia'], historicalEvents:[{year:1936,event:'Odisha formed as separate province'},{year:1949,event:'Merged with Indian Union'}] },
+  { id:'Rajasthan', name:'Rajasthan', capital:'Jaipur', area:'342,239 km²', population:'68 Million', language:'Rajasthani, Hindi', formed:1956, description:'Rajasthan is the largest state of India by area, known for its majestic forts and the Thar Desert.', facts:['Largest state by area','Thar Desert — largest desert in India','Jaipur — Pink City'], historicalEvents:[{year:1949,event:'Rajputana states merged to form Rajasthan'},{year:1956,event:'Present boundaries established'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Hawa Mahal, Jaipur'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Thar Desert'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Udaipur City Palace'}
+  ]},
+  { id:'Madhya_Pradesh', name:'Madhya Pradesh', capital:'Bhopal', area:'308,245 km²', population:'72 Million', language:'Hindi', formed:1956, description:'Madhya Pradesh is the second-largest state by area, known as the Heart of India.', facts:['Heart of India','Khajuraho temples — UNESCO Heritage','Largest tiger population in India'], historicalEvents:[{year:1956,event:'Madhya Pradesh formed'},{year:2000,event:'Chhattisgarh carved out'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-l5fEXJr52d5i9dSnYy8E3D2C1A0z_y_x_w&s', caption:'Khajuraho Temple'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5Z8fJ9j_9f_8d_7f_6g_5h_4e_3d_2c_1b_a&s', caption:'Bandhavgarh National Park'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Gwalior Fort'}
+  ]},
+  { id:'Uttar_Pradesh', name:'Uttar Pradesh', capital:'Lucknow', area:'240,928 km²', population:'200 Million', language:'Hindi', formed:1950, description:'Uttar Pradesh is the most populous state in India, home to the Taj Mahal.', facts:['Most populous state in India','Taj Mahal — Agra','Varanasi — oldest living city in the world'], historicalEvents:[{year:1950,event:'United Provinces renamed Uttar Pradesh'},{year:2000,event:'Uttarakhand carved out'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Taj Mahal, Agra'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Varanasi Ghats'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Lucknow'}
+  ]},
+  { id:'West_Bengal', name:'West Bengal', capital:'Kolkata', area:'88,752 km²', population:'91 Million', language:'Bengali', formed:1947, description:'West Bengal is in eastern India. Kolkata was the capital of British India.', facts:['Kolkata — former capital of British India','Sundarbans — largest mangrove forest','Home to Rabindranath Tagore'], historicalEvents:[{year:1947,event:'Bengal partitioned — West Bengal formed'},{year:1950,event:'Merged with Indian Union'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Howrah Bridge, Kolkata'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Sundarbans Tiger'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Darjeeling Tea Gardens'}
+  ]},
+  { id:'Gujarat', name:'Gujarat', capital:'Gandhinagar', area:'196,024 km²', population:'60 Million', language:'Gujarati', formed:1960, description:'Gujarat is on the western coast of India, birthplace of Mahatma Gandhi.', facts:['Birthplace of Mahatma Gandhi','Longest coastline among Indian states','Gir Forest — only wild Asiatic lions'], historicalEvents:[{year:1960,event:'Gujarat formed from Bombay State'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Rann of Kutch'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Statue of Unity'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Gir National Park'}
+  ]},
+  { id:'Bihar', name:'Bihar', capital:'Patna', area:'94,163 km²', population:'124 Million', language:'Hindi, Maithili', formed:1912, description:'Bihar is one of the oldest inhabited places in the world, birthplace of Buddhism.', facts:['Birthplace of Buddhism — Bodh Gaya','Nalanda — ancient world\'s first university','Pataliputra — capital of Maurya Empire'], historicalEvents:[{year:1912,event:'Bihar separated from Bengal'},{year:2000,event:'Jharkhand carved out'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Mahabodhi Temple, Bodh Gaya'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Nalanda University Ruins'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Patna'}
+  ]},
+  { id:'Odisha', name:'Odisha', capital:'Bhubaneswar', area:'155,707 km²', population:'46 Million', language:'Odia', formed:1936, description:'Odisha is on the eastern coast of India, known for its ancient temples.', facts:['Konark Sun Temple — UNESCO Heritage','Jagannath Temple — Puri','Chilika Lake — largest coastal lagoon in Asia'], historicalEvents:[{year:1936,event:'Odisha formed as separate province'},{year:1949,event:'Merged with Indian Union'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Konark Sun Temple'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Puri Beach'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Chilika Lake'}
+  ]},
   { id:'Telangana', name:'Telangana', capital:'Hyderabad', area:'112,077 km²', population:'35 Million', language:'Telugu', formed:2014, description:'Telangana is India\'s youngest state, carved out of Andhra Pradesh in 2014.', facts:['Youngest state of India','Hyderabad — City of Pearls','Charminar — iconic monument'], historicalEvents:[{year:2014,event:'Telangana formed as 29th state'}], images:[
     { url: 'resources/images/States/Telangana/t1.webp', caption: 'State image 1' },
     { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSud_fBL_Hz0iK7b2x_smw0yssNJewai_8wR5MNLwTZlA&s=10', caption: 'State image 2' },
@@ -96,20 +125,76 @@ images:[{url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQ3EmmxFPmj
       { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8zl6bVTi87Q07_ZmE0Aee0Y6MmMpAPYML7Or-sXNiYQ&s=10', caption: 'State image 4' },
       { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgS8qYmK7mNoe5qu9O0UgP2mT13cqAL-UtPvkTs0IySw&s=10', caption: 'State image 5' }
   ]},
-  { id:'Punjab', name:'Punjab', capital:'Chandigarh', area:'50,362 km²', population:'30 Million', language:'Punjabi', formed:1947, description:'Punjab is known as the Granary of India, partitioned in 1947.', facts:['Granary of India','Golden Temple — Amritsar','Partitioned in 1947'], historicalEvents:[{year:1947,event:'Punjab partitioned between India and Pakistan'},{year:1966,event:'Haryana and Himachal Pradesh carved out'}] },
-  { id:'Haryana', name:'Haryana', capital:'Chandigarh', area:'44,212 km²', population:'28 Million', language:'Hindi', formed:1966, description:'Haryana surrounds Delhi on three sides and is one of the wealthiest states per capita.', facts:['Surrounds Delhi on three sides','Kurukshetra — site of Mahabharata war','Major automobile manufacturing hub'], historicalEvents:[{year:1966,event:'Haryana carved out of Punjab'}] },
-  { id:'Himachal_Pradesh', name:'Himachal Pradesh', capital:'Shimla', area:'55,673 km²', population:'7.5 Million', language:'Hindi', formed:1971, description:'Himachal Pradesh is in the Western Himalayas, known for scenic beauty.', facts:['Summer capital of British India — Shimla','Major apple producing state','Dalai Lama\'s residence — Dharamsala'], historicalEvents:[{year:1948,event:'Himachal Pradesh formed'},{year:1971,event:'Became full state'}] },
-  { id:'Uttarakhand', name:'Uttarakhand', capital:'Dehradun', area:'53,483 km²', population:'11 Million', language:'Hindi', formed:2000, description:'Uttarakhand is known as Devbhoomi (Land of Gods), home to Hindu pilgrimage sites.', facts:['Land of Gods — Devbhoomi','Char Dham pilgrimage sites','Jim Corbett — first national park in India'], historicalEvents:[{year:2000,event:'Uttarakhand carved out of Uttar Pradesh'}] },
-  { id:'Jharkhand', name:'Jharkhand', capital:'Ranchi', area:'79,714 km²', population:'38 Million', language:'Hindi', formed:2000, description:'Jharkhand is known as the Mineral Bowl of India.', facts:['Mineral Bowl of India','Richest state in mineral resources','Tata Steel founded in Jamshedpur'], historicalEvents:[{year:2000,event:'Jharkhand carved out of Bihar'}] },
-  { id:'Chhattisgarh', name:'Chhattisgarh', capital:'Raipur', area:'135,192 km²', population:'29 Million', language:'Hindi', formed:2000, description:'Chhattisgarh is known as the Rice Bowl of Central India with rich tribal culture.', facts:['Rice Bowl of Central India','Rich tribal heritage','Bastar — tribal heartland'], historicalEvents:[{year:2000,event:'Chhattisgarh carved out of Madhya Pradesh'}] },
-  { id:'Assam', name:'Assam', capital:'Dispur', area:'78,438 km²', population:'36 Million', language:'Assamese', formed:1947, description:'Assam is in northeastern India, known for its tea gardens and the one-horned rhinoceros.', facts:['World\'s largest tea producing region','Kaziranga — one-horned rhinoceros','Majuli — world\'s largest river island'], historicalEvents:[{year:1947,event:'Assam becomes part of India'},{year:1972,event:'Meghalaya, Nagaland carved out'}] },
-  { id:'Arunachal_Pradesh', name:'Arunachal Pradesh', capital:'Itanagar', area:'83,743 km²', population:'1.5 Million', language:'English, Hindi', formed:1987, description:'Arunachal Pradesh is the easternmost state of India, known as the Land of the Rising Sun.', facts:['Land of the Rising Sun','Tawang Monastery — largest in India','Borders China, Bhutan, Myanmar'], historicalEvents:[{year:1972,event:'Became Union Territory'},{year:1987,event:'Became full state'}] },
-  { id:'Nagaland', name:'Nagaland', capital:'Kohima', area:'16,579 km²', population:'2.2 Million', language:'English', formed:1963, description:'Nagaland is known for its warrior tribes and the Hornbill Festival.', facts:['Land of Festivals','Hornbill Festival — December','Battle of Kohima — WWII turning point'], historicalEvents:[{year:1963,event:'Nagaland becomes 16th state'}] },
-  { id:'Manipur', name:'Manipur', capital:'Imphal', area:'22,327 km²', population:'3 Million', language:'Meitei', formed:1972, description:'Manipur is known as the Jewel of India, famous for its classical Manipuri dance.', facts:['Jewel of India','Manipuri classical dance','Birthplace of polo sport'], historicalEvents:[{year:1949,event:'Merged with Indian Union'},{year:1972,event:'Became full state'}] },
-  { id:'Meghalaya', name:'Meghalaya', capital:'Shillong', area:'22,429 km²', population:'3.3 Million', language:'Khasi, Garo', formed:1972, description:'Meghalaya is known as the Abode of Clouds, receiving the highest rainfall in the world.', facts:['Abode of Clouds','Cherrapunji — wettest place on Earth','Living root bridges'], historicalEvents:[{year:1972,event:'Meghalaya carved out of Assam'}] },
-  { id:'Mizoram', name:'Mizoram', capital:'Aizawl', area:'21,081 km²', population:'1.1 Million', language:'Mizo', formed:1987, description:'Mizoram is known for its high literacy rate and peaceful society.', facts:['Second highest literacy rate in India','Bamboo flowering every 48 years','Phawngpui — Blue Mountain'], historicalEvents:[{year:1972,event:'Became Union Territory'},{year:1987,event:'Became full state'}] },
-  { id:'Tripura', name:'Tripura', capital:'Agartala', area:'10,491 km²', population:'4 Million', language:'Bengali, Kokborok', formed:1972, description:'Tripura is surrounded by Bangladesh on three sides, known for its ancient temples.', facts:['Surrounded by Bangladesh on 3 sides','Ujjayanta Palace — royal palace','Major rubber producing state'], historicalEvents:[{year:1949,event:'Merged with Indian Union'},{year:1972,event:'Became full state'}] },
-  { id:'Sikkim', name:'Sikkim', capital:'Gangtok', area:'7,096 km²', population:'0.7 Million', language:'Nepali', formed:1975, description:'Sikkim is a landlocked Himalayan state, an independent kingdom until 1975.', facts:['Smallest state by population','Kangchenjunga — third highest peak','First organic state in India'], historicalEvents:[{year:1975,event:'Sikkim merges with India as 22nd state'}] },
+  { id:'Punjab', name:'Punjab', capital:'Chandigarh', area:'50,362 km²', population:'30 Million', language:'Punjabi', formed:1947, description:'Punjab is known as the Granary of India, partitioned in 1947.', facts:['Granary of India','Golden Temple — Amritsar','Partitioned in 1947'], historicalEvents:[{year:1947,event:'Punjab partitioned between India and Pakistan'},{year:1966,event:'Haryana and Himachal Pradesh carved out'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Golden Temple, Amritsar'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Punjab Fields'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Chandigarh'}
+  ]},
+  { id:'Haryana', name:'Haryana', capital:'Chandigarh', area:'44,212 km²', population:'28 Million', language:'Hindi', formed:1966, description:'Haryana surrounds Delhi on three sides and is one of the wealthiest states per capita.', facts:['Surrounds Delhi on three sides','Kurukshetra — site of Mahabharata war','Major automobile manufacturing hub'], historicalEvents:[{year:1966,event:'Haryana carved out of Punjab'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Gurugram Skyline'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Kurukshetra'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Sultanpur National Park'}
+  ]},
+  { id:'Himachal_Pradesh', name:'Himachal Pradesh', capital:'Shimla', area:'55,673 km²', population:'7.5 Million', language:'Hindi', formed:1971, description:'Himachal Pradesh is in the Western Himalayas, known for scenic beauty.', facts:['Summer capital of British India — Shimla','Major apple producing state','Dalai Lama\'s residence — Dharamsala'], historicalEvents:[{year:1948,event:'Himachal Pradesh formed'},{year:1971,event:'Became full state'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Shimla'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Spiti Valley'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Manali'}
+  ]},
+  { id:'Uttarakhand', name:'Uttarakhand', capital:'Dehradun', area:'53,483 km²', population:'11 Million', language:'Hindi', formed:2000, description:'Uttarakhand is known as Devbhoomi (Land of Gods), home to Hindu pilgrimage sites.', facts:['Land of Gods — Devbhoomi','Char Dham pilgrimage sites','Jim Corbett — first national park in India'], historicalEvents:[{year:2000,event:'Uttarakhand carved out of Uttar Pradesh'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Rishikesh'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Nainital'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Valley of Flowers'}
+  ]},
+  { id:'Jharkhand', name:'Jharkhand', capital:'Ranchi', area:'79,714 km²', population:'38 Million', language:'Hindi', formed:2000, description:'Jharkhand is known as the Mineral Bowl of India.', facts:['Mineral Bowl of India','Richest state in mineral resources','Tata Steel founded in Jamshedpur'], historicalEvents:[{year:2000,event:'Jharkhand carved out of Bihar'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Dassam Falls'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Ranchi'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Parasnath Hills'}
+  ]},
+  { id:'Chhattisgarh', name:'Chhattisgarh', capital:'Raipur', area:'135,192 km²', population:'29 Million', language:'Hindi', formed:2000, description:'Chhattisgarh is known as the Rice Bowl of Central India with rich tribal culture.', facts:['Rice Bowl of Central India','Rich tribal heritage','Bastar — tribal heartland'], historicalEvents:[{year:2000,event:'Chhattisgarh carved out of Madhya Pradesh'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Chitrakote Falls'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Bastar'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Raipur'}
+  ]},
+  { id:'Assam', name:'Assam', capital:'Dispur', area:'78,438 km²', population:'36 Million', language:'Assamese', formed:1947, description:'Assam is in northeastern India, known for its tea gardens and the one-horned rhinoceros.', facts:['World\'s largest tea producing region','Kaziranga — one-horned rhinoceros','Majuli — world\'s largest river island'], historicalEvents:[{year:1947,event:'Assam becomes part of India'},{year:1972,event:'Meghalaya, Nagaland carved out'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Kaziranga National Park'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Assam Tea Gardens'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Majuli Island'}
+  ]},
+  { id:'Arunachal_Pradesh', name:'Arunachal Pradesh', capital:'Itanagar', area:'83,743 km²', population:'1.5 Million', language:'English, Hindi', formed:1987, description:'Arunachal Pradesh is the easternmost state of India, known as the Land of the Rising Sun.', facts:['Land of the Rising Sun','Tawang Monastery — largest in India','Borders China, Bhutan, Myanmar'], historicalEvents:[{year:1972,event:'Became Union Territory'},{year:1987,event:'Became full state'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Tawang Monastery'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Ziro Valley'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Sela Pass'}
+  ]},
+  { id:'Nagaland', name:'Nagaland', capital:'Kohima', area:'16,579 km²', population:'2.2 Million', language:'English', formed:1963, description:'Nagaland is known for its warrior tribes and the Hornbill Festival.', facts:['Land of Festivals','Hornbill Festival — December','Battle of Kohima — WWII turning point'], historicalEvents:[{year:1963,event:'Nagaland becomes 16th state'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Dzukou Valley'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Hornbill Festival'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Kohima'}
+  ]},
+  { id:'Manipur', name:'Manipur', capital:'Imphal', area:'22,327 km²', population:'3 Million', language:'Meitei', formed:1972, description:'Manipur is known as the Jewel of India, famous for its classical Manipuri dance.', facts:['Jewel of India','Manipuri classical dance','Birthplace of polo sport'], historicalEvents:[{year:1949,event:'Merged with Indian Union'},{year:1972,event:'Became full state'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Loktak Lake'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Imphal'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Kangla Fort'}
+  ]},
+  { id:'Meghalaya', name:'Meghalaya', capital:'Shillong', area:'22,429 km²', population:'3.3 Million', language:'Khasi, Garo', formed:1972, description:'Meghalaya is known as the Abode of Clouds, receiving the highest rainfall in the world.', facts:['Abode of Clouds','Cherrapunji — wettest place on Earth','Living root bridges'], historicalEvents:[{year:1972,event:'Meghalaya carved out of Assam'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Living Root Bridge'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Nohkalikai Falls'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Shillong'}
+  ]},
+  { id:'Mizoram', name:'Mizoram', capital:'Aizawl', area:'21,081 km²', population:'1.1 Million', language:'Mizo', formed:1987, description:'Mizoram is known for its high literacy rate and peaceful society.', facts:['Second highest literacy rate in India','Bamboo flowering every 48 years','Phawngpui — Blue Mountain'], historicalEvents:[{year:1972,event:'Became Union Territory'},{year:1987,event:'Became full state'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Aizawl City'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Vantawng Falls'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Phawngpui National Park'}
+  ]},
+  { id:'Tripura', name:'Tripura', capital:'Agartala', area:'10,491 km²', population:'4 Million', language:'Bengali, Kokborok', formed:1972, description:'Tripura is surrounded by Bangladesh on three sides, known for its ancient temples.', facts:['Surrounded by Bangladesh on 3 sides','Ujjayanta Palace — royal palace','Major rubber producing state'], historicalEvents:[{year:1949,event:'Merged with Indian Union'},{year:1972,event:'Became full state'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Ujjayanta Palace'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Neermahal'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Unakoti'}
+  ]},
+  { id:'Sikkim', name:'Sikkim', capital:'Gangtok', area:'7,096 km²', population:'0.7 Million', language:'Nepali', formed:1975, description:'Sikkim is a landlocked Himalayan state, an independent kingdom until 1975.', facts:['Smallest state by population','Kangchenjunga — third highest peak','First organic state in India'], historicalEvents:[{year:1975,event:'Sikkim merges with India as 22nd state'}], images:[
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy2mXgAFZ2z7bY5bO0X6C8Z7F5E4D3C2B1A0z_y_x&s', caption:'Gurudongmar Lake'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_pD2zYw5aT5wX_3q2Y_6b_8n_7v_9j_4w_g&s', caption:'Gangtok'},
+    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_L-Z_y_8f_7g_6f_5e_4d_3c_2b_1a_0z_y&s', caption:'Rumtek Monastery'}
+  ]},
   { id:'Goa', name:'Goa', capital:'Panaji', area:'3,702 km²', population:'1.5 Million', language:'Konkani', formed:1987, description:'Goa is the smallest state by area, a former Portuguese colony known for its beaches.', facts:['Smallest state by area','Portuguese colony until 1961','Basilica of Bom Jesus — UNESCO Heritage'], historicalEvents:[{year:1961,event:'Liberated from Portuguese rule'},{year:1987,event:'Became full state'}],
     images:[
       { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiNiYKe3OziQyEEh6yoJltraLA0U2pLc6wgy2p9lmRqA&s=10', caption: 'State image 1' },
@@ -718,15 +803,19 @@ function showPanel(data, category) {
     spEvents.innerHTML = '';
   }
 
-  // Update images slider (local resources/images/States/...)
+  // Update images slider with auto-play and "more photos" link
   const spImagesEl = $('spImages');
   const imageControls = $('imageControls');
   const imgCounter = $('imgCounter');
   const prevBtn = $('prevImg');
   const nextBtn = $('nextImg');
 
+  if (imageSliderInterval) {
+    clearInterval(imageSliderInterval);
+    imageSliderInterval = null;
+  }
+
   if (spImagesEl) {
-    // clear existing content
     spImagesEl.innerHTML = '';
 
     if (data.images && Array.isArray(data.images) && data.images.length > 0) {
@@ -735,28 +824,61 @@ function showPanel(data, category) {
         imgEl.className = 'image-slide';
         imgEl.src = img.url;
         imgEl.alt = img.caption || (data.name + ' image');
-        if (i === 0) imgEl.classList.add('active');
         spImagesEl.appendChild(imgEl);
       });
 
-      // show controls
-      if (imageControls) imageControls.style.display = 'flex';
-      if (imgCounter) imgCounter.textContent = `1 / ${data.images.length}`;
+      // Add "More Photos" slide at the end
+      const morePhotosSlide = document.createElement('div');
+      morePhotosSlide.className = 'image-slide more-photos-slide';
+      morePhotosSlide.innerHTML = `
+        <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(data.name + ' landscape')}" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-images"></i>
+          <span>View Photo Gallery</span>
+        </a>
+      `;
+      spImagesEl.appendChild(morePhotosSlide);
 
-      // simple slider logic
-      let idx = 0;
-      const slides = () => spImagesEl.querySelectorAll('.image-slide');
-      const update = (newIdx) => {
-        const s = slides();
-        s.forEach((el, j) => el.classList.toggle('active', j === newIdx));
-        if (imgCounter) imgCounter.textContent = `${newIdx + 1} / ${s.length}`;
+      const slides = Array.from(spImagesEl.querySelectorAll('.image-slide'));
+      const totalSlides = slides.length;
+      let currentIndex = 0;
+
+      const updateSlider = (newIndex) => {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('active', i === newIndex);
+        });
+        
+        if (imgCounter) {
+          if (newIndex < data.images.length) {
+            imgCounter.textContent = `${newIndex + 1} / ${data.images.length}`;
+          } else {
+            imgCounter.textContent = 'Gallery';
+          }
+        }
+        currentIndex = newIndex;
       };
 
-      if (prevBtn) prevBtn.onclick = () => { idx = (idx - 1 + data.images.length) % data.images.length; update(idx); };
-      if (nextBtn) nextBtn.onclick = () => { idx = (idx + 1) % data.images.length; update(idx); };
+      if (prevBtn) {
+        prevBtn.onclick = () => {
+          const newIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          updateSlider(newIndex);
+        };
+      }
+      if (nextBtn) {
+        nextBtn.onclick = () => {
+          const newIndex = (currentIndex + 1) % totalSlides;
+          updateSlider(newIndex);
+        };
+      }
+
+      // Auto-slide every 2 seconds (1 second is too fast for viewing)
+      imageSliderInterval = setInterval(() => {
+        if (nextBtn) nextBtn.onclick();
+      }, 2000);
+
+      if (imageControls) imageControls.style.display = 'flex';
+      updateSlider(0);
 
     } else {
-      // no images — show placeholder and hide controls
       spImagesEl.innerHTML = '<div class="image-placeholder"><i class="fas fa-image"></i><span>No images available</span></div>';
       if (imageControls) imageControls.style.display = 'none';
     }
@@ -764,6 +886,12 @@ function showPanel(data, category) {
 }
 
 function resetPanel() {
+  // Stop image slider interval
+  if (imageSliderInterval) {
+    clearInterval(imageSliderInterval);
+    imageSliderInterval = null;
+  }
+
   // Reset locked state
   if (lockedState) {
     const prevLocked = document.getElementById(lockedState);
@@ -891,6 +1019,45 @@ function init() {
   console.log('[App] Initializing Map.in application...');
   
   try {
+    // Fix for map label flickering on hover.
+    // This prevents the state name labels from capturing mouse events, which can
+    // cause a rapid loop of mouseenter/mouseleave events on the state path.
+    const style = document.createElement('style');
+    style.textContent = `
+      #mapRegions text {
+        pointer-events: none;
+      }
+      .image-slide {
+        object-fit: cover; /* Auto-adjusts image to fill container */
+        object-position: center;
+      }
+      .more-photos-slide {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(10, 14, 39, 0.7); /* Match theme */
+        color: white;
+        font-size: 1.1rem;
+        text-align: center;
+        cursor: pointer;
+      }
+      .more-photos-slide a {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+      }
+      .more-photos-slide i {
+        font-size: 2.5rem;
+        opacity: 0.8;
+      }
+    `;
+    document.head.appendChild(style);
+
     // Load the map
     loadMap();
     
