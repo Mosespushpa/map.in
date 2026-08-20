@@ -429,7 +429,7 @@ body.light .dynasty-selector:hover {
 /* ── SIDE PANEL ── */
 .side-panel {
   flex-shrink: 0;
-  width: 300px;
+  width: 600px;
   min-width: 260px;
   max-width: 600px;
   background: rgba(15,15,40,0.92);
