@@ -56,7 +56,8 @@ images:[{url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQ3EmmxFPmj
     {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsyorxsjCEjb52Kruzer_4RbnzII79mdzSRtcrUuJSlw&s=10', caption:'Amaravati Buddhist Site'},
     {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3IdC5LllG24nG9i21L4gmloT8oFZazQZwlRvULZh2gg&s=10', caption:'Coastal Andhra Pradesh'},
     {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShFOP0OMjscPOnxcqt2lyA3G--cRfTfiYNLz46JQpRMg&s=10', caption:'Tirupati Temple'},
-      {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8cq4TQxt128koyvvD2oMu5ymNT4CDXA-CsjH32xbdvg&s=10', caption:'Coastal Andhra Pradesh'}
+      {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8cq4TQxt128koyvvD2oMu5ymNT4CDXA-CsjH32xbdvg&s=10', caption:'Coastal Andhra Pradesh'},
+      {url: 'https://upload.wikimedia.org/wikipedia/commons/2/21/Araku_valley_view.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=original', caption: 'Araku'}
     ]},
   { id:'Maharashtra', name:'Maharashtra', capital:'Mumbai', area:'307,713 km²', population:'112 Million', language:'Marathi', formed:1960, description:'Maharashtra was formed on May 1, 1960 when Bombay State was divided along linguistic lines.', facts:['Financial capital of India — Mumbai','Home to Bollywood','Ajanta and Ellora Caves — UNESCO Sites'], historicalEvents:[{year:1960,event:'Maharashtra formed from Bombay State'},{year:1995,event:'Bombay renamed to Mumbai'}], images:[{url:'https://via.placeholder.com/300x200?text=Gateway+of+India', caption:'Gateway of India'}, {url:'https://via.placeholder.com/300x200?text=Ajanta+Caves', caption:'Ajanta Caves'}] },
   { id:'Tamil_Nadu', name:'Tamil Nadu', capital:'Chennai', area:'130,060 km²', population:'72 Million', language:'Tamil', formed:1950, description:'Tamil Nadu has one of the oldest civilizations in the world with a rich cultural heritage.', facts:['Tamil — one of world\'s oldest classical languages','Home to over 33,000 ancient temples','Major IT hub — Chennai'], historicalEvents:[{year:1950,event:'Madras State formed'},{year:1969,event:'Renamed Tamil Nadu'}], 
@@ -65,7 +66,8 @@ images:[{url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQ3EmmxFPmj
     { url: 'resources/images/States/Tamil%20Nadu/t1.webp', caption: 'State image 1' },
      { url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwM8lL0I2dDj1RuCL5iyjR-EfqFCraHVDtGhKcVCuwAg&s=10', caption: 'State image 1' },
     { url: 'resources/images/States/Tamil%20Nadu/t2.jpg', caption: 'State image 2' },
-    { url: 'https://client-websites.blr1.cdn.digitaloceanspaces.com/frenzyholidays/wp-content/uploads/2025/07/30164352/Valparai-1024x538.png', caption: 'State image 2' }
+    { url: 'https://client-websites.blr1.cdn.digitaloceanspaces.com/frenzyholidays/wp-content/uploads/2025/07/30164352/Valparai-1024x538.png', caption: 'State image 2' },
+    { url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/International_Terminal_Airside_Chennai_Airport_Aug22_D72_24874.jpg/330px-International_Terminal_Airside_Chennai_Airport_Aug22_D72_24874.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail', caption: 'State image 3' }
   ] },
   { id:'Karnataka', name:'Karnataka', capital:'Bengaluru', area:'191,791 km²', population:'68 Million', language:'Kannada', formed:1956, description:'Karnataka is known as the Silicon Valley of India due to its thriving IT industry.', facts:['Silicon Valley of India — Bengaluru','Hampi — UNESCO World Heritage Site','Home to Vijayanagara Empire ruins'], historicalEvents:[{year:1956,event:'Mysore State formed'},{year:1973,event:'Renamed Karnataka'}],
  images:[
