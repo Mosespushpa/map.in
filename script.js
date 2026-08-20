@@ -53,7 +53,6 @@ images:[{url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXQ3EmmxFPmj
   { id:'Andhra_Pradesh', name:'Andhra Pradesh', capital:'Amaravati', area:'162,975 km²', population:'54 Million', language:'Telugu', formed:1956, description:'Andhra Pradesh was formed in 1956 from Telugu-speaking regions of Madras State. Telangana was carved out in 2014.', facts:['Rice Bowl of India','Home to Tirupati temple','Coastline of 974 km along Bay of Bengal'], historicalEvents:[{year:1956,event:'Andhra Pradesh formed from Madras State'},{year:2014,event:'Telangana carved out'}], 
   images:[
     {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS--6uRd0lX6fcDZgNWc7pJK8o3_YgmDxJpwwKD7Rizzw&s=10', caption:'Coastal Andhra Pradesh'},
-    {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsyorxsjCEjb52Kruzer_4RbnzII79mdzSRtcrUuJSlw&s=10', caption:'Amaravati Buddhist Site'},
     {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3IdC5LllG24nG9i21L4gmloT8oFZazQZwlRvULZh2gg&s=10', caption:'Coastal Andhra Pradesh'},
     {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShFOP0OMjscPOnxcqt2lyA3G--cRfTfiYNLz46JQpRMg&s=10', caption:'Tirupati Temple'},
       {url:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8cq4TQxt128koyvvD2oMu5ymNT4CDXA-CsjH32xbdvg&s=10', caption:'Coastal Andhra Pradesh'},
