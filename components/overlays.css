@@ -157,14 +157,63 @@ body.light .language-label {
   text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
 }
 
-/* Responsive label sizes */
-@media (max-width: 768px) {
+/* Responsive label sizes for different screen sizes */
+@media (min-width: 1920px) {
+  .state-label { font-size: 14px; }
+  .ut-label { font-size: 15px; }
+  .river-label { font-size: 13px; }
+  .ghat-label { font-size: 18px; }
+  .fort-label { font-size: 12px; }
+  .language-label { font-size: 13px; }
+  .event-label { font-size: 12px; }
+}
+
+@media (max-width: 1199px) {
+  .state-label { font-size: 10px; }
+  .ut-label { font-size: 11px; }
+  .river-label { font-size: 9px; }
+  .ghat-label { font-size: 14px; }
+  .fort-label { font-size: 8px; }
+  .language-label { font-size: 9px; }
+  .event-label { font-size: 8px; }
+}
+
+@media (max-width: 767px) {
+  .state-label { font-size: 8px; }
+  .ut-label { font-size: 9px; }
+  .river-label { font-size: 7px; }
+  .ghat-label { font-size: 12px; }
+  .fort-label { font-size: 7px; }
+  .language-label { font-size: 8px; }
+  .event-label { font-size: 7px; }
+}
+
+@media (max-width: 599px) {
   .state-label { font-size: 6px; }
   .ut-label { font-size: 7px; }
   .river-label { font-size: 5px; }
+  .ghat-label { font-size: 10px; }
   .fort-label { font-size: 5px; }
   .language-label { font-size: 6px; }
   .event-label { font-size: 5px; }
+  
+  /* Hide some labels on very small screens for clarity */
+  .fort-label, .event-label {
+    display: none;
+  }
+}
+
+@media (max-width: 374px) {
+  .state-label { font-size: 5px; }
+  .ut-label { font-size: 6px; }
+  .river-label { font-size: 4px; }
+  .ghat-label { font-size: 9px; }
+  .language-label { font-size: 5px; }
+  
+  /* Only show major labels on ultra-small screens */
+  .river-label {
+    display: none;
+  }
 }
 
 /* Animation for appearing overlays */

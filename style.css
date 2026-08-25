@@ -862,3 +862,677 @@ body.light .ut-list-item { background: rgba(156,39,176,0.06); border-color: rgba
   pointer-events: none;
   text-shadow: 0 1px 3px rgba(0,0,0,0.8);
 }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE DESIGN - All Window Sizes Support
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Extra large screens (1920px+) */
+@media (min-width: 1920px) {
+  .side-panel {
+    width: 700px;
+    max-width: 700px;
+  }
+  
+  #india-map {
+    max-width: 600px;
+    max-height: 680px;
+  }
+  
+  .navbar {
+    height: 60px;
+  }
+  
+  .navbar-title {
+    font-size: 22px;
+  }
+  
+  .sp-header h2 {
+    font-size: 20px;
+  }
+}
+
+/* Large screens (1200px - 1919px) - Default styles mostly apply */
+@media (min-width: 1200px) and (max-width: 1919px) {
+  .side-panel {
+    width: 550px;
+  }
+}
+
+/* Medium screens (768px - 1199px) - Tablets and small laptops */
+@media (max-width: 1199px) {
+  .side-panel {
+    width: 400px;
+    min-width: 300px;
+    max-width: 500px;
+  }
+  
+  .navbar-title {
+    font-size: 18px;
+  }
+  
+  .sp-header h2 {
+    font-size: 16px;
+  }
+  
+  .stat-item {
+    padding: 6px 8px;
+    min-height: 40px;
+  }
+  
+  #india-map {
+    max-width: 450px;
+    max-height: 520px;
+  }
+}
+
+/* Small tablets and large phones (600px - 767px) - Portrait tablets */
+@media (max-width: 767px) {
+  /* Allow body to scroll if content overflows */
+  body {
+    overflow: auto;
+  }
+  
+  /* Compact navbar */
+  .navbar {
+    padding: 0 12px;
+    height: 48px;
+    gap: 8px;
+  }
+  
+  .navbar-title {
+    font-size: 16px;
+  }
+  
+  .navbar-tagline {
+    display: none !important;
+  }
+  
+  .navbar-logo-container {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  
+  .nav-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  /* Compact search box */
+  .search-box {
+    padding: 4px 10px;
+    max-width: 200px;
+  }
+  
+  .search-box input {
+    font-size: 13px;
+  }
+  
+  /* Compact tags */
+  .tags-row {
+    padding: 4px 12px;
+    gap: 4px;
+  }
+  
+  .tag-btn {
+    padding: 4px 10px;
+    font-size: 11px;
+    gap: 4px;
+  }
+  
+  /* Stack layout vertically on tablets */
+  .app-body {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  /* Map takes top half */
+  .map-area {
+    height: 50vh;
+    min-height: 300px;
+    width: 100%;
+  }
+  
+  #india-map {
+    width: 95%;
+    height: 95%;
+    max-width: 400px;
+    max-height: 450px;
+  }
+  
+  /* Panel takes bottom half */
+  .side-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    height: 50vh;
+    border-left: none;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    overflow-y: auto;
+  }
+  
+  body.light .side-panel {
+    border-top-color: rgba(0,0,0,0.1);
+  }
+  
+  /* Hide resize handle on tablets */
+  .panel-resize-handle {
+    display: none !important;
+  }
+  
+  /* Compact panel content */
+  .sp-header {
+    padding: 12px;
+  }
+  
+  .sp-header h2 {
+    font-size: 15px;
+  }
+  
+  .sp-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  .sp-body {
+    padding: 12px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-item {
+    min-height: 38px;
+  }
+  
+  #spDesc {
+    font-size: 13px;
+  }
+  
+  .facts-list li, .events-list li {
+    font-size: 12px;
+  }
+  
+  .sp-section {
+    margin-bottom: 12px;
+  }
+}
+
+/* Mobile phones (320px - 599px) - Standard smartphones */
+@media (max-width: 599px) {
+  /* Extra compact navbar */
+  .navbar {
+    padding: 0 8px;
+    height: 44px;
+  }
+  
+  .navbar-brand {
+    gap: 6px;
+  }
+  
+  .navbar-title {
+    font-size: 14px;
+  }
+  
+  .navbar-logo-container {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  
+  .nav-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  /* Minimal search box */
+  .search-box {
+    max-width: 150px;
+    padding: 3px 8px;
+  }
+  
+  .search-box input {
+    font-size: 12px;
+  }
+  
+  .search-box i {
+    font-size: 12px;
+  }
+  
+  #searchClear {
+    font-size: 12px;
+  }
+  
+  .search-results {
+    max-height: 200px;
+  }
+  
+  /* Minimal tags */
+  .tags-row {
+    padding: 3px 8px;
+    gap: 3px;
+  }
+  
+  .tag-btn {
+    padding: 3px 8px;
+    font-size: 10px;
+    gap: 3px;
+  }
+  
+  .tag-btn i {
+    font-size: 10px;
+  }
+  
+  /* Adjust map area for mobile */
+  .map-area {
+    height: 45vh;
+    min-height: 250px;
+  }
+  
+  #india-map {
+    width: 98%;
+    height: 98%;
+    max-width: 100%;
+    max-height: 400px;
+  }
+  
+  /* More space for content panel */
+  .side-panel {
+    height: 55vh;
+  }
+  
+  /* Ultra compact panel */
+  .sp-header {
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .sp-header h2 {
+    font-size: 14px;
+  }
+  
+  .sp-sub {
+    font-size: 11px;
+  }
+  
+  .sp-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .sp-body {
+    padding: 10px;
+    gap: 12px;
+  }
+  
+  #spDesc {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .stat-item {
+    padding: 6px 8px;
+    min-height: 36px;
+    gap: 6px;
+  }
+  
+  .stat-item i {
+    font-size: 14px;
+  }
+  
+  .stat-label {
+    font-size: 9px;
+  }
+  
+  .stat-value {
+    font-size: 12px;
+  }
+  
+  .sp-section h4 {
+    font-size: 11px;
+    margin-bottom: 8px;
+    gap: 6px;
+  }
+  
+  .sp-section h4 i {
+    font-size: 11px;
+  }
+  
+  .facts-list li, .events-list li {
+    font-size: 11px;
+    padding-left: 12px;
+    line-height: 1.4;
+  }
+  
+  .ev-year {
+    font-size: 10px;
+    min-width: 35px;
+    padding: 1px 4px;
+  }
+  
+  .ev-text {
+    font-size: 11px;
+  }
+  
+  /* Compact list items */
+  .ut-list-item, .river-list-item {
+    padding: 8px 10px;
+    margin-bottom: 4px;
+  }
+  
+  .ut-list-name, .river-list-name {
+    font-size: 12px;
+  }
+  
+  .ut-list-capital, .river-list-type {
+    font-size: 10px;
+  }
+  
+  .ut-back-btn {
+    font-size: 11px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+  }
+  
+  /* Compact search results */
+  .search-result-item {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  
+  .search-result-item i {
+    font-size: 14px;
+  }
+  
+  .search-result-name {
+    font-size: 13px;
+  }
+  
+  .search-result-meta {
+    font-size: 11px;
+    gap: 4px;
+  }
+  
+  .search-result-meta span {
+    padding: 1px 4px;
+    font-size: 10px;
+  }
+  
+  /* Image slider adjustments */
+  .image-slider {
+    aspect-ratio: 16 / 10;
+  }
+  
+  .img-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+  
+  .img-counter {
+    font-size: 10px;
+  }
+}
+
+/* Very small mobile devices (320px - 374px) */
+@media (max-width: 374px) {
+  .navbar-title {
+    font-size: 13px;
+  }
+  
+  .search-box {
+    max-width: 100px;
+  }
+  
+  .search-box input {
+    font-size: 11px;
+  }
+  
+  .tag-btn {
+    padding: 2px 6px;
+    font-size: 9px;
+  }
+  
+  .tag-btn i {
+    font-size: 9px;
+  }
+  
+  .map-area {
+    min-height: 200px;
+    height: 40vh;
+  }
+  
+  .side-panel {
+    height: 60vh;
+  }
+  
+  .sp-header h2 {
+    font-size: 13px;
+  }
+  
+  .sp-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  #spDesc {
+    font-size: 11px;
+  }
+  
+  .facts-list li, .events-list li {
+    font-size: 10px;
+  }
+  
+  .stat-value {
+    font-size: 11px;
+  }
+  
+  .stat-label {
+    font-size: 8px;
+  }
+}
+
+/* Landscape orientation on mobile devices */
+@media (max-width: 767px) and (orientation: landscape) {
+  .app-body {
+    flex-direction: row;
+  }
+  
+  .map-area {
+    height: 100%;
+    width: 50%;
+    min-height: unset;
+  }
+  
+  #india-map {
+    max-width: 350px;
+    max-height: 400px;
+  }
+  
+  .side-panel {
+    width: 50% !important;
+    max-width: 50% !important;
+    min-width: 50% !important;
+    height: 100%;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    border-top: none;
+  }
+  
+  body.light .side-panel {
+    border-left-color: rgba(0,0,0,0.1);
+    border-top: none;
+  }
+}
+
+/* Ultra-wide screens (2560px+) - 2K/4K monitors */
+@media (min-width: 2560px) {
+  .side-panel {
+    width: 800px;
+    max-width: 800px;
+  }
+  
+  #india-map {
+    max-width: 700px;
+    max-height: 800px;
+  }
+  
+  .navbar {
+    height: 64px;
+    padding: 0 24px;
+  }
+  
+  .navbar-title {
+    font-size: 24px;
+  }
+  
+  .navbar-tagline {
+    font-size: 13px;
+  }
+  
+  .sp-header h2 {
+    font-size: 22px;
+  }
+  
+  #spDesc {
+    font-size: 16px;
+  }
+  
+  .stat-value {
+    font-size: 15px;
+  }
+  
+  .facts-list li, .events-list li {
+    font-size: 15px;
+  }
+}
+
+/* Print styles - Optimize for printing */
+@media print {
+  .navbar, .tags-row, .navbar-controls, .panel-resize-handle, .sp-close {
+    display: none !important;
+  }
+  
+  body {
+    overflow: visible;
+    height: auto;
+  }
+  
+  .app-body {
+    flex-direction: row;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .map-area {
+    width: 50%;
+    height: auto;
+    page-break-inside: avoid;
+  }
+  
+  .side-panel {
+    width: 50% !important;
+    border-left: 1px solid #ccc;
+    height: auto;
+    page-break-inside: avoid;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .side-panel {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .sp-header h2, .stat-value {
+    color: black !important;
+  }
+  
+  /* Ensure SVG map prints properly */
+  #india-map {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .state {
+    stroke-width: 2 !important;
+    stroke-opacity: 1 !important;
+  }
+  
+  .navbar, .side-panel {
+    border-width: 2px !important;
+  }
+  
+  .tag-btn, .nav-btn {
+    border-width: 2px !important;
+  }
+}
+
+/* Reduced motion support for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .state, .overlay-marker, .overlay-label {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  @keyframes capital-pulse { 
+    0%, 100% { opacity: 1; }
+  }
+  
+  @keyframes wave-expand {
+    0%, 100% { opacity: 0.4; }
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger tap targets for touch devices */
+  .tag-btn {
+    min-height: 36px;
+    padding: 6px 14px;
+  }
+  
+  .nav-btn {
+    min-width: 36px;
+    min-height: 36px;
+  }
+  
+  .state {
+    stroke-width: 2 !important;
+  }
+  
+  .overlay-marker {
+    r: 5 !important;
+  }
+  
+  .ut-list-item, .river-list-item, .search-result-item {
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+  
+  .stat-item {
+    min-height: 44px;
+  }
+  
+  /* Remove hover effects since they don't work well on touch */
+  .tag-btn:hover, .nav-btn:hover, .state:hover {
+    transform: none;
+  }
+}

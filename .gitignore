@@ -1,0 +1,16 @@
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.amazonq/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+test-*.html

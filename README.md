@@ -267,6 +267,62 @@ map.in/
 
 ---
 
+## 📱 Responsive Design
+
+**Map.in is fully responsive and works seamlessly across all device sizes!**
+
+### Supported Screen Sizes
+
+| Device Type | Screen Width | Layout |
+|-------------|--------------|--------|
+| 📱 **Mobile Phones** | 320px - 599px | Vertical stack (map top, panel bottom) |
+| 📱 **Large Phones** | 600px - 767px | Vertical stack with larger elements |
+| 📱 **Tablets** | 768px - 1199px | Vertical stack in portrait, side-by-side in landscape |
+| 💻 **Laptops** | 1200px - 1919px | Side-by-side layout (default) |
+| 🖥️ **Large Displays** | 1920px - 2559px | Optimized side-by-side with larger content |
+| 🖥️ **Ultra-wide (4K)** | 2560px+ | Maximum content width with enhanced readability |
+
+### Layout Behavior
+
+#### Desktop (1200px+)
+- Side-by-side layout: map on left, panel on right
+- Resizable panel by dragging left edge
+- Full navigation and search features
+- Optimal viewing experience
+
+#### Tablet (768px - 1199px)
+- **Portrait**: Vertical stack (map 50%, panel 50%)
+- **Landscape**: Side-by-side layout (map 50%, panel 50%)
+- Touch-optimized buttons and controls
+- Scrollable content areas
+
+#### Mobile (320px - 767px)
+- **Portrait**: Vertical stack (map 45%, panel 55%)
+- **Landscape**: Side-by-side (map 50%, panel 50%)
+- Compact navigation and tags
+- Larger tap targets for touch
+- Simplified labels for clarity
+
+### Responsive Features
+
+✅ **Fluid Typography** - Text sizes scale based on screen size  
+✅ **Flexible Layouts** - Components rearrange for optimal viewing  
+✅ **Touch-Friendly** - Larger tap targets on mobile devices  
+✅ **Smart Labels** - Map labels adjust size or hide on small screens  
+✅ **Scrollable Content** - All content accessible through smooth scrolling  
+✅ **Orientation Support** - Works in both portrait and landscape modes  
+✅ **High DPI Ready** - Crisp rendering on Retina and high-DPI displays  
+
+### Accessibility Features
+
+- ♿ **Keyboard Navigation** - Full keyboard support
+- 👁️ **High Contrast Mode** - Adapts to system preferences
+- 🐌 **Reduced Motion** - Respects prefers-reduced-motion settings
+- 📱 **Touch Gestures** - Optimized for touchscreen devices
+- 🖨️ **Print Friendly** - Optimized print layout
+
+---
+
 ## 📊 Data Coverage
 
 | Category | Count |
